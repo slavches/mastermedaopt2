@@ -6,7 +6,7 @@ function Background({ selectedProduct }) {
   const containerRef = useRef(null);
 
   // Генерируем больше капель для более реалистичного эффекта
-  const drops = Array.from({ length: 25 }, (_, i) => {
+  const drops = Array.from({ length: 15 }, (_, i) => {
     const x = Math.random() * 100; // Процент от ширины
     const delay = Math.random() * 5;
     const duration = 25 + Math.random() * 15;

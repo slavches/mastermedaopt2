@@ -14,7 +14,6 @@ function App() {
   const [currentSection, setCurrentSection] = useState('home');
   const [selectedProduct, setSelectedProduct] = useState('default');
 
-  // Определяем цвета фона для каждого продукта
   const backgrounds = {
     default: 'linear-gradient(135deg, #FFF8DC 0%, #FFEBCD 50%, #FFF8DC 100%)',
     linden: 'linear-gradient(135deg, #FFFACD 0%, #FFF8DC 50%, #FFFACD 100%)',
@@ -23,14 +22,12 @@ function App() {
     flower: 'linear-gradient(135deg, #FFE4B5 0%, #FFF8DC 50%, #FFE4B5 100%)',
   };
 
-  // Плавная смена фона при выборе продукта
   const [currentBg, setCurrentBg] = useState(backgrounds.default);
 
   useEffect(() => {
     setCurrentBg(backgrounds[selectedProduct] || backgrounds.default);
-  }, [selectedProduct]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [selectedProduct]);
 
-  // Прокрутка к секции при изменении
   useEffect(() => {
     const element = document.getElementById(currentSection);
     if (element) {
@@ -45,41 +42,40 @@ function App() {
 
   return (
     <div className="app">
-      {/* Фон с анимацией стекающего меда */}
+      {/* Фон с каплями (уже оптимизирован тобой до 15 капель) */}
       <Background selectedProduct={selectedProduct} />
       
-      {/* Эффект отталкивания курсора */}
-      {/* <CursorRepulsion /> */}
+      {/* Ускорили смену фона с 1.5с до 0.8с */}
+      <motion.div
+        className="app-background"
+        animate={{ background: currentBg }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
+        style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: -1 }}
+      />
 
-      {/* Навигация */}
       <Navigation 
         currentSection={currentSection} 
         onSectionChange={setCurrentSection} 
       />
 
-      {/* Динамический фон с плавной сменой */}
-      <motion.div
-        className="app-background"
-        style={{ background: currentBg }}
-        initial={{ opacity: 1 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5, ease: 'easeInOut' }}
-      />
-
-      {/* Основной контент */}
       <div className="app-content">
-        <AnimatePresence mode="wait">
-          <Home key="home" />
+        {/* Анимация появления контента при загрузке */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
+          <Home id="home" />
           <Products 
-            key="products"
+            id="products"
             onProductSelect={handleProductSelect}
             selectedProduct={selectedProduct}
           />
-          <Clients key="clients" />
-          <Partners key="partners" />
-          <News key="news" />
-          <About key="about" />
-        </AnimatePresence>
+          <Clients id="clients" />
+          <Partners id="partners" />
+          <News id="news" />
+          <About id="about" />
+        </motion.div>
       </div>
     </div>
   );
