@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navigation from './components/Navigation';
-import Background from './components/Background';
 import Home from './components/Sections/Home';
 import Products from './components/Sections/Products';
 import Clients from './components/Sections/Clients';
@@ -25,7 +24,6 @@ function App() {
   const [currentBg, setCurrentBg] = useState(backgrounds.default);
 
   useEffect(() => {
-    setCurrentBg(backgrounds[selectedProduct] || backgrounds.default);
   }, [selectedProduct]);
 
   useEffect(() => {
@@ -46,10 +44,10 @@ function App() {
       <Background selectedProduct={selectedProduct} />
       
       {/* Ускорили смену фона с 1.5с до 0.8с */}
-      <motion.div
+        <motion.div
         className="app-background"
         animate={{ background: currentBg }}
-        transition={{ duration: 0.8, ease: 'easeOut' }}
+        transition={{ duration: 0.8, ease: 'easeOut' }} // Это оставит мягкую смену цвета без капель
         style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: -1 }}
       />
 
