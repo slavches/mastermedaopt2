@@ -45,8 +45,11 @@
 
 .nav-links {
   display: flex;
-  gap: 0.5rem; /* Уменьшили гэп, так как у ссылок есть свои паддинги */
+  gap: 0.5rem;
   align-items: center;
+  transform: none !important; /* Убираем любые смещения */
+  opacity: 1 !important;      /* Делаем видимыми */
+  pointer-events: all !important;
 }
 
 .nav-link {
@@ -74,25 +77,26 @@
 }
 
 .mobile-menu-toggle {
-  display: none;
+  display: none; /* Прячем на больших экранах */
   background: none;
   border: none;
   font-size: 1.5rem;
   color: #5D4037;
   cursor: pointer;
   padding: 0.5rem;
-  display: flex;
   align-items: center;
 }
 
-@media (max-width: 768px) {
+/* 3. Адаптивность: включаем бургер только на экранах меньше 768px */ 
+  @media (max-width: 768px) {
   .mobile-menu-toggle {
-    display: block;
+    display: flex; /* Показываем бургер на мобилках */
   }
 
   .nav-links {
+    display: flex; /* Flex остается, но теперь внутри колонки */
     position: fixed;
-    top: 60px; /* Совпадает с высотой шапки */
+    top: 60px;
     left: 0;
     right: 0;
     background: #ffffff;
@@ -100,11 +104,12 @@
     padding: 1.5rem;
     gap: 0.5rem;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    /* Упрощенная анимация для мобилок без блюра */
-    transform: translateY(-110%);
+    
+    /* Скрываем по умолчанию для мобильной версии */
+    transform: translateY(-110%); 
     opacity: 0;
     pointer-events: none;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s linear;
+    transition: transform 0.3s ease, opacity 0.2s ease;
   }
 
   .nav-links.open {
