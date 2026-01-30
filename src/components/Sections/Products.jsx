@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import './Products.css';
 
 // Убедись, что эти файлы ЕСТЬ в папке src/assets/images/
 import akacievyyImg from '../../assets/images/akacievyy.jpg';

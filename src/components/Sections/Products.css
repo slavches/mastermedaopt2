@@ -1,0 +1,43 @@
+/* Контейнер для карточек */
+.products-grid {
+  display: grid;
+  /* Создает колонки: минимум 250px, максимум — занять всё свободное место */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px; /* Расстояние между карточками */
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto; /* Центрирует всю сетку на странице */
+}
+
+/* Сама карточка товара */
+.product-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Эффект при наведении */
+.product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(255, 183, 0, 0.3); /* Золотистое свечение */
+}
+
+/* Стили для изображений внутри карточек */
+.product-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover; /* Чтобы фото не сплющивалось */
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+.product-card h3 {
+  color: #4a3000;
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
