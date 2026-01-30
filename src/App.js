@@ -40,9 +40,7 @@ function App() {
 
   return (
     <div className="app">
-      {/* Фон с каплями (уже оптимизирован тобой до 15 капель) */}
-      <Background selectedProduct={selectedProduct} />
-      
+
       {/* Ускорили смену фона с 1.5с до 0.8с */}
         <motion.div
         className="app-background"
