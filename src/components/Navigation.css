@@ -28,13 +28,15 @@
 }
 
 .logo {
-  font-size: 1.5rem;
-  font-weight: 800; /* Сделали лого жирнее */
-  color: #D2691E;
-  cursor: pointer;
-  user-select: none;
   display: flex;
   align-items: center;
+  cursor: pointer;
+}
+
+.logo-image {
+  height: 40px; /* Отрегулируй высоту под свою шапку */
+  width: auto;  /* Ширина подстроится пропорционально */
+  object-fit: contain;
 }
 
 .logo-text {
@@ -88,10 +90,17 @@
 }
 
 /* 3. Адаптивность: включаем бургер только на экранах меньше 768px */ 
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
+  
+  .logo-image {
+    height: 32px;
+  } /* <-- ОБЯЗАТЕЛЬНО закрываем здесь */
+
   .mobile-menu-toggle {
     display: flex; /* Показываем бургер на мобилках */
-  }
+  } /* <-- ОБЯЗАТЕЛЬНО закрываем здесь */
+
+} /* <-- Эта скобка закрывает сам @media */
 
   .nav-links {
     display: flex; /* Flex остается, но теперь внутри колонки */
