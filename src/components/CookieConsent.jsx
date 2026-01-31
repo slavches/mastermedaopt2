@@ -1,28 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import CookieSettingsModal from './CookieSettingsModal';
+import PrivacyPolicy from './PrivacyPolicy'; // Используем его как окно соглашения
 import './CookieConsent.css';
 
 const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [showSettings, setShowSettings] = useState(false);
+  const [isPolicyOpen, setIsPolicyOpen] = useState(false);
 
   useEffect(() => {
-    const consent = localStorage.getItem('cookie-consent-level');
+    const consent = localStorage.getItem('cookie-consent');
     if (!consent) {
-      const timer = setTimeout(() => setIsVisible(true), 1500);
+      const timer = setTimeout(() => setIsVisible(true), 2000);
       return () => clearTimeout(timer);
     }
   }, []);
 
-  const handleAcceptAll = () => {
-    localStorage.setItem('cookie-consent-level', 'all');
+  const handleAccept = () => {
+    localStorage.setItem('cookie-consent', 'true');
     setIsVisible(false);
   };
 
-  const handleDeclineAll = () => {
-    localStorage.setItem('cookie-consent-level', 'essential');
-    setIsVisible(false);
+  const handleDecline = () => {
+    setIsVisible(false); // Просто скрываем
   };
 
   return (
@@ -37,22 +36,21 @@ const CookieConsent = () => {
           >
             <div className="cookie-banner-content">
               <p>
-                Во время посещения сайта вы соглашаетесь с тем, что мы обрабатываем ваши персональные данные с использованием метрических программ.
+                Мы используем файлы cookie. Во время посещения сайта вы соглашаетесь с обработкой персональных данных с использованием метрических программ.
               </p>
               <div className="cookie-banner-buttons">
-                <button className="btn-cookie secondary" onClick={() => setShowSettings(true)}>Подробнее</button>
-                <button className="btn-cookie decline" onClick={handleDeclineAll}>Отклонить</button>
-                <button className="btn-cookie primary" onClick={handleAcceptAll}>Принять</button>
+                <button className="btn-cookie secondary" onClick={() => setIsPolicyOpen(true)}>Подробнее</button>
+                <button className="btn-cookie decline" onClick={handleDecline}>Отклонить</button>
+                <button className="btn-cookie primary" onClick={handleAccept}>Принять</button>
               </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <CookieSettingsModal 
-        isOpen={showSettings} 
-        onClose={() => setShowSettings(false)} 
-        onSave={() => setIsVisible(false)}
+      <PrivacyPolicy 
+        isOpen={isPolicyOpen} 
+        onClose={() => setIsPolicyOpen(false)} 
       />
     </>
   );
