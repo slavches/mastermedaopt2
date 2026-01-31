@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { HiOutlineMenuAlt4, HiX } from 'react-icons/hi'; // Современные иконки
 import './Navigation.css';
 import logoImg from '../assets/images/logo-header.png';
@@ -8,13 +8,13 @@ function Navigation({ currentSection, onSectionChange }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const leftSections = [
+  // Разделили массив на лево и право
+  const leftLinks = [
     { id: 'home', label: 'Главная' },
     { id: 'products', label: 'Продукция' },
     { id: 'clients', label: 'Клиенты' },
   ];
-
-  const rightSections = [
+  const rightLinks = [
     { id: 'partners', label: 'Партнеры' },
     { id: 'news', label: 'Новости' },
     { id: 'about', label: 'О нас' },
@@ -26,6 +26,7 @@ function Navigation({ currentSection, onSectionChange }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Функция для отрисовки кнопок (чтобы не дублировать код)
   const renderLink = (section) => (
     <motion.button
       key={section.id}
@@ -34,8 +35,9 @@ function Navigation({ currentSection, onSectionChange }) {
         onSectionChange(section.id);
         setIsOpen(false);
       }}
-      whileHover={{ y: -2 }}
+      whileHover={{ y: -2, color: "#d4a017" }}
       whileTap={{ scale: 0.95 }}
+      transition={{ duration: 0.2 }}
     >
       {section.label}
     </motion.button>
@@ -44,21 +46,22 @@ function Navigation({ currentSection, onSectionChange }) {
   return (
     <motion.nav 
       className={`navigation ${isScrolled ? 'scrolled' : ''}`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
       transition={{ type: "spring", stiffness: 120, damping: 20 }}
     >
       <div className="nav-container">
-        {/* Ссылки слева */}
-        <div className="nav-side left">
-          {leftSections.map(renderLink)}
+        
+        {/* ЛЕВЫЕ ВКЛАДКИ (скрыты на мобилках) */}
+        <div className="nav-side desktop-only">
+          {leftLinks.map(renderLink)}
         </div>
 
-        {/* Логотип строго по центру */}
         <motion.div 
           className="logo"
-          style={{ x: "-50%" }}
+          style={{ x: "-50%" }} 
           whileHover={{ scale: 1.05, x: "-50%" }}
+          whileTap={{ scale: 0.95, x: "-50%" }}
           onClick={() => {
             onSectionChange('home');
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -67,18 +70,21 @@ function Navigation({ currentSection, onSectionChange }) {
           <img src={logoImg} alt="Мастер Мёда" className="logo-image" />
         </motion.div>
 
-        {/* Ссылки справа */}
-        <div className="nav-side right">
-          {rightSections.map(renderLink)}
+        {/* ПРАВЫЕ ВКЛАДКИ (скрыты на мобилках) */}
+        <div className="nav-side desktop-only text-right">
+          {rightLinks.map(renderLink)}
         </div>
 
-        {/* Мобильное меню (выезжает только на мобилках) */}
-        <div className={`nav-links-mobile ${isOpen ? 'open' : ''}`}>
-          {[...leftSections, ...rightSections].map(renderLink)}
+        {/* МОБИЛЬНОЕ МЕНЮ (выезжает как раньше) */}
+        <div className={`nav-links ${isOpen ? 'open' : ''}`}>
+          {[...leftLinks, ...rightLinks].map(renderLink)}
         </div>
 
-        {/* Кнопка бургера */}
-        <button className="mobile-menu-toggle" onClick={() => setIsOpen(!isOpen)}>
+        <button 
+          className="mobile-menu-toggle"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle menu"
+        >
           {isOpen ? <HiX /> : <HiOutlineMenuAlt4 />}
         </button>
       </div>

@@ -1,3 +1,4 @@
+/* 1. Общие стили (Десктоп) */
 .navigation {
   position: fixed;
   top: 0;
@@ -12,7 +13,6 @@
 .navigation.scrolled {
   background: #ffffff;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  padding: 5px 0;
 }
 
 .nav-container {
@@ -20,19 +20,20 @@
   margin: 0 auto;
   padding: 0.5rem 2rem;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  min-height: 70px;
+  align-items: center;
   position: relative;
+  min-height: 70px;
 }
 
 .nav-side {
   display: flex;
-  gap: 1rem;
-  width: 40%; /* Выделяем место под боковые меню */
+  gap: 1.5rem;
+  width: 40%;
+  z-index: 5;
 }
 
-.nav-side.right {
+.nav-side.text-right {
   justify-content: flex-end;
 }
 
@@ -57,7 +58,6 @@
   padding: 0.6rem 1rem;
   border-radius: 12px;
   transition: all 0.2s ease;
-  white-space: nowrap;
 }
 
 .nav-link.active {
@@ -66,7 +66,7 @@
 }
 
 .mobile-menu-toggle {
-  display: none;
+  display: none; /* Скрыт на десктопе */
   background: none;
   border: none;
   font-size: 2rem;
@@ -75,16 +75,26 @@
   z-index: 101;
 }
 
-/* Мобильные стили */
+/* 2. Адаптивность (Планшеты и Мобилки) */
 @media (max-width: 1024px) {
-  .nav-side { display: none; }
-  .mobile-menu-toggle { display: block; }
+  .desktop-only {
+    display: none;
+  }
   
-  .nav-container {
-    justify-content: flex-end;
+  .nav-side {
+    display: none; /* Прячем раздельное меню */
   }
 
-  .nav-links-mobile {
+  .mobile-menu-toggle {
+    display: block; /* Показываем бургер */
+  }
+
+  .nav-container {
+    justify-content: flex-end; /* Бургер уходит вправо */
+  }
+
+  /* Стили мобильного меню (выезжающего) */
+  .nav-links {
     position: fixed;
     top: 0;
     left: 0;
@@ -95,13 +105,19 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 1.5rem;
+    gap: 2rem;
     transform: translateY(-100%);
     transition: transform 0.4s ease;
     z-index: 100;
   }
 
-  .nav-links-mobile.open {
+  .nav-links.open {
     transform: translateY(0);
+  }
+
+  .nav-link {
+    font-size: 1.2rem;
+    width: 80%;
+    text-align: center;
   }
 }
