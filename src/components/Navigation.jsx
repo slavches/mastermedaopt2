@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
-import { HiOutlineMenuAlt4, HiX } from 'react-icons/hi'; // Современные иконки
+import { motion } from 'framer-motion';
+import { HiOutlineMenuAlt4, HiX } from 'react-icons/hi';
 import './Navigation.css';
 import logoImg from '../assets/images/logo-header.png';
 
@@ -8,12 +8,12 @@ function Navigation({ currentSection, onSectionChange }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Разделили массив на лево и право
   const leftLinks = [
     { id: 'home', label: 'Главная' },
     { id: 'products', label: 'Продукция' },
     { id: 'clients', label: 'Клиенты' },
   ];
+
   const rightLinks = [
     { id: 'partners', label: 'Партнеры' },
     { id: 'news', label: 'Новости' },
@@ -26,7 +26,6 @@ function Navigation({ currentSection, onSectionChange }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Функция для отрисовки кнопок (чтобы не дублировать код)
   const renderLink = (section) => (
     <motion.button
       key={section.id}
@@ -51,15 +50,13 @@ function Navigation({ currentSection, onSectionChange }) {
       transition={{ type: "spring", stiffness: 120, damping: 20 }}
     >
       <div className="nav-container">
-        
-        {/* ЛЕВЫЕ ВКЛАДКИ (скрыты на мобилках) */}
         <div className="nav-side desktop-only">
           {leftLinks.map(renderLink)}
         </div>
 
         <motion.div 
           className="logo"
-          style={{ x: "-50%" }} 
+          style={{ x: "-50%" }}
           whileHover={{ scale: 1.05, x: "-50%" }}
           whileTap={{ scale: 0.95, x: "-50%" }}
           onClick={() => {
@@ -70,18 +67,16 @@ function Navigation({ currentSection, onSectionChange }) {
           <img src={logoImg} alt="Мастер Мёда" className="logo-image" />
         </motion.div>
 
-        {/* ПРАВЫЕ ВКЛАДКИ (скрыты на мобилках) */}
         <div className="nav-side desktop-only text-right">
           {rightLinks.map(renderLink)}
         </div>
 
-        {/* МОБИЛЬНОЕ МЕНЮ (выезжает как раньше) */}
         <div className={`nav-links ${isOpen ? 'open' : ''}`}>
           {[...leftLinks, ...rightLinks].map(renderLink)}
         </div>
 
         <button 
-          className="mobile-menu-toggle"
+          className="mobile-menu-toggle" 
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
         >

@@ -1,4 +1,3 @@
-/* 1. Общие стили (Десктоп) */
 .navigation {
   position: fixed;
   top: 0;
@@ -13,6 +12,7 @@
 .navigation.scrolled {
   background: #ffffff;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 5px 0;
 }
 
 .nav-container {
@@ -58,6 +58,7 @@
   padding: 0.6rem 1rem;
   border-radius: 12px;
   transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .nav-link.active {
@@ -66,7 +67,7 @@
 }
 
 .mobile-menu-toggle {
-  display: none; /* Скрыт на десктопе */
+  display: none;
   background: none;
   border: none;
   font-size: 2rem;
@@ -75,25 +76,19 @@
   z-index: 101;
 }
 
-/* 2. Адаптивность (Планшеты и Мобилки) */
 @media (max-width: 1024px) {
   .desktop-only {
     display: none;
   }
   
-  .nav-side {
-    display: none; /* Прячем раздельное меню */
-  }
-
   .mobile-menu-toggle {
-    display: block; /* Показываем бургер */
+    display: block;
   }
 
   .nav-container {
-    justify-content: flex-end; /* Бургер уходит вправо */
+    justify-content: flex-end;
   }
 
-  /* Стили мобильного меню (выезжающего) */
   .nav-links {
     position: fixed;
     top: 0;
