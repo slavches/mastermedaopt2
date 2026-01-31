@@ -8,6 +8,7 @@ import Partners from './components/Sections/Partners';
 import News from './components/Sections/News';
 import About from './components/Sections/About';
 import './styles/App.css';
+import CookieConsent from './components/CookieConsent';
 
 function App() {
   const [currentSection, setCurrentSection] = useState('home');
@@ -52,6 +53,7 @@ function App() {
       <Navigation 
         currentSection={currentSection} 
         onSectionChange={setCurrentSection} 
+        
       />
 
       <div className="app-content">
@@ -72,6 +74,7 @@ function App() {
           <News id="news" />
           <About id="about" />
         </motion.div>
+        <CookieConsent />
       </div>
     </div>
   );

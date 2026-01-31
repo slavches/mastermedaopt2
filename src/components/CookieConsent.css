@@ -1,0 +1,65 @@
+.cookie-consent {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+  padding: 1.5rem;
+  z-index: 9999;
+  border-left: 5px solid #D2691E; /* Твой медовый акцент */
+}
+
+.cookie-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.cookie-content p {
+  color: #5D4037;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.cookie-link {
+  color: #D2691E;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.cookie-btn {
+  background: #D2691E;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.3s ease;
+}
+
+.cookie-btn:hover {
+  background: #B85A1A;
+}
+
+/* Мобильная версия */
+@media (max-width: 768px) {
+  .cookie-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .cookie-consent {
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    padding: 1rem;
+  }
+}
