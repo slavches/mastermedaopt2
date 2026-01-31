@@ -1,12 +1,23 @@
 .navigation {
-  border-bottom: 1px solid rgba(210, 105, 30, 0.1); /* Тонкая медовая линия */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(210, 105, 30, 0.1);
   background: rgba(255, 255, 255, 0.95);
+  transition: all 0.3s ease; /* Вернем общую плавность для скролла */
 }
 
 .navigation.scrolled {
   background: #ffffff;
   box-shadow: 0 4px 25px rgba(0, 0, 0, 0.12);
   padding: 0.2rem 0;
+}
+
+.nav-container::after {
+  content: "";
+  grid-column: 3;
 }
 
 .nav-container {
