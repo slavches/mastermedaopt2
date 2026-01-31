@@ -50,10 +50,13 @@ function Navigation({ currentSection, onSectionChange }) {
       transition={{ type: "spring", stiffness: 120, damping: 20 }}
     >
       <div className="nav-container">
+        
+        {/* ЛЕВЫЙ БЛОК (только для больших экранов) */}
         <div className="nav-side desktop-only">
           {leftLinks.map(renderLink)}
         </div>
 
+        {/* ЦЕНТРАЛЬНЫЙ ЛОГОТИП */}
         <motion.div 
           className="logo"
           style={{ x: "-50%" }}
@@ -67,18 +70,20 @@ function Navigation({ currentSection, onSectionChange }) {
           <img src={logoImg} alt="Мастер Мёда" className="logo-image" />
         </motion.div>
 
+        {/* ПРАВЫЙ БЛОК (только для больших экранов) */}
         <div className="nav-side desktop-only text-right">
           {rightLinks.map(renderLink)}
         </div>
 
-        <div className={`nav-links ${isOpen ? 'open' : ''}`}>
+        {/* МОБИЛЬНОЕ МЕНЮ (скрыто на десктопе через CSS) */}
+        <div className={`nav-links-mobile ${isOpen ? 'open' : ''}`}>
           {[...leftLinks, ...rightLinks].map(renderLink)}
         </div>
 
+        {/* ИКОНКА БУРГЕРА */}
         <button 
           className="mobile-menu-toggle" 
           onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle menu"
         >
           {isOpen ? <HiX /> : <HiOutlineMenuAlt4 />}
         </button>
