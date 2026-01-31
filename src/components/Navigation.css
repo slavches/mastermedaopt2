@@ -4,18 +4,16 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  /* Сделали фон чуть менее прозрачным, чтобы не нужно было размытие */
   background: rgba(255, 255, 255, 0.98); 
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
-  /* Никогда не используй transition: all для навигации */
   transition: background 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
-  will-change: transform; /* Подсказка браузеру для плавной анимации */
+  will-change: transform;
 }
 
 .navigation.scrolled {
   background: #ffffff;
   box-shadow: 0 4px 25px rgba(0, 0, 0, 0.12);
-  padding: 0.2rem 0; /* Шапка немного сужается при скролле, это выглядит круто */
+  padding: 0.2rem 0;
 }
 
 .nav-container {
@@ -34,24 +32,16 @@
 }
 
 .logo-image {
-  height: 40px; /* Отрегулируй высоту под свою шапку */
-  width: auto;  /* Ширина подстроится пропорционально */
+  height: 40px;
+  width: auto;
   object-fit: contain;
 }
 
-.logo-text {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
+/* Стили для ссылок (Десктоп) */
 .nav-links {
   display: flex;
   gap: 0.5rem;
   align-items: center;
-  transform: none !important; /* Убираем любые смещения */
-  opacity: 1 !important;      /* Делаем видимыми */
-  pointer-events: all !important;
 }
 
 .nav-link {
@@ -67,7 +57,6 @@
   position: relative;
 }
 
-/* Эффект при наведении — мягкий фон вместо подчеркивания (выглядит современнее) */
 .nav-link:hover {
   color: #D2691E;
   background: rgba(210, 105, 30, 0.05);
@@ -79,7 +68,7 @@
 }
 
 .mobile-menu-toggle {
-  display: none; /* Прячем на больших экранах */
+  display: none; /* Скрыто на десктопе */
   background: none;
   border: none;
   font-size: 1.5rem;
@@ -89,21 +78,18 @@
   align-items: center;
 }
 
-/* 3. Адаптивность: включаем бургер только на экранах меньше 768px */ 
+/* --- Адаптивность (Мобильные устройства) --- */ 
 @media (max-width: 768px) {
   
   .logo-image {
     height: 32px;
-  } /* <-- ОБЯЗАТЕЛЬНО закрываем здесь */
+  }
 
   .mobile-menu-toggle {
-    display: flex; /* Показываем бургер на мобилках */
-  } /* <-- ОБЯЗАТЕЛЬНО закрываем здесь */
-
-} /* <-- Эта скобка закрывает сам @media */
+    display: flex; /* Показываем бургер */
+  }
 
   .nav-links {
-    display: flex; /* Flex остается, но теперь внутри колонки */
     position: fixed;
     top: 60px;
     left: 0;
@@ -114,13 +100,14 @@
     gap: 0.5rem;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     
-    /* Скрываем по умолчанию для мобильной версии */
+    /* Анимация выезда меню */
     transform: translateY(-110%); 
     opacity: 0;
     pointer-events: none;
     transition: transform 0.3s ease, opacity 0.2s ease;
   }
 
+  /* Когда меню открыто */
   .nav-links.open {
     transform: translateY(0);
     opacity: 1;
