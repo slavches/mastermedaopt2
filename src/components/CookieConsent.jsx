@@ -2,15 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './CookieConsent.css';
 
-
 const CookieConsent = ({ onOpenPolicy }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Проверяем, давал ли пользователь согласие ранее
     const consent = localStorage.getItem('cookie-consent');
     if (!consent) {
-      const timer = setTimeout(() => setIsVisible(true), 2000); // Показываем через 2 секунды
+      const timer = setTimeout(() => setIsVisible(true), 1500);
       return () => clearTimeout(timer);
     }
   }, []);
@@ -28,14 +26,14 @@ const CookieConsent = ({ onOpenPolicy }) => {
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
-          transition={{ duration: 0.5 }}
         >
           <div className="cookie-content">
             <p>
-              Мы используем файлы cookie, чтобы улучшить работу сайта и сделать его удобнее. 
-              Продолжая использовать сайт, вы соглашаетесь с нашей 
-              <span className="cookie-link" onClick={onOpenPolicy} style={{cursor: 'pointer'}}> политикой конфиденциальности
-            </span>.    
+              Мы используем файлы cookie для улучшения работы сайта. 
+              Продолжая работу, вы соглашаетесь с нашей{' '}
+              <span className="cookie-link-btn" onClick={onOpenPolicy}>
+                политикой конфиденциальности
+              </span>.
             </p>
             <button className="cookie-btn" onClick={handleAccept}>
               Принять
