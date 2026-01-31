@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { HiOutlineMenuAlt4, HiX } from 'react-icons/hi';
+import { motion } from 'framer-motion';
+import { IoMenu, IoClose } from 'react-icons/io5'; // Тот самый современный стиль
 import './Navigation.css';
 import logoImg from '../assets/images/logo-header.png';
 
@@ -36,7 +36,6 @@ function Navigation({ currentSection, onSectionChange }) {
       }}
       whileHover={{ y: -2, color: "#d4a017" }}
       whileTap={{ scale: 0.95 }}
-      transition={{ duration: 0.2 }}
     >
       {section.label}
     </motion.button>
@@ -49,12 +48,10 @@ function Navigation({ currentSection, onSectionChange }) {
       animate={{ y: 0, opacity: 1 }}
     >
       <div className="nav-container">
-        {/* ЛЕВЫЙ БЛОК — появится только на десктопе */}
-        <div className="nav-side side-left desktop-only">
+        <div className="nav-side desktop-only">
           {leftLinks.map(renderLink)}
         </div>
 
-        {/* ЛОГОТИП */}
         <motion.div 
           className="logo"
           style={{ x: "-50%" }}
@@ -64,34 +61,20 @@ function Navigation({ currentSection, onSectionChange }) {
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
         >
-          <img src={logoImg} alt="Мастер Мёда" className="logo-image" />
+          <img src={logoImg} alt="Лого" className="logo-image" />
         </motion.div>
 
-        {/* ПРАВЫЙ БЛОК — появится только на десктопе */}
-        <div className="nav-side side-right desktop-only">
+        <div className="nav-side desktop-only text-right">
           {rightLinks.map(renderLink)}
         </div>
 
-        {/* МОБИЛЬНОЕ МЕНЮ */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div 
-              className="nav-links-mobile"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-            >
-              {[...leftLinks, ...rightLinks].map(renderLink)}
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* Важно: класс nav-links должен совпадать с CSS */}
+        <div className={`nav-links ${isOpen ? 'open' : ''}`}>
+          {[...leftLinks, ...rightLinks].map(renderLink)}
+        </div>
 
-        {/* БУРГЕР — скроется на десктопе через CSS */}
-        <button 
-          className="mobile-menu-toggle" 
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? <HiX /> : <HiOutlineMenuAlt4 />}
+        <button className="mobile-menu-toggle" onClick={() => setIsOpen(!isOpen)}>
+          {isOpen ? <IoClose /> : <IoMenu />}
         </button>
       </div>
     </motion.nav>
