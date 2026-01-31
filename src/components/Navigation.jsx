@@ -34,20 +34,24 @@ function Navigation({ currentSection, onSectionChange }) {
       /* Делаем выезд шапки более упругим и быстрым */
       transition={{ type: "spring", stiffness: 120, damping: 20 }}
     >
-      <div className="nav-container">
+<div className="nav-container">
         <motion.div 
           className="logo"
-          whileHover={{ scale: 1.05 }}
+          /* 1. Указываем центрирование для Framer Motion */
+          style={{ x: "-50%" }} 
+          /* 2. Добавляем x: "-50%" в анимации, чтобы лого не улетало влево */
+          whileHover={{ scale: 1.05, x: "-50%" }}
+          whileTap={{ scale: 0.95, x: "-50%" }}
           onClick={() => {
             onSectionChange('home');
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
         >
-          {/* Заменяем текст на изображение */}
           <img src={logoImg} alt="Мастер Мёда" className="logo-image" />
         </motion.div>
 
         <div className={`nav-links ${isOpen ? 'open' : ''}`}>
+          {/* Твои кнопки (тут всё отлично) */}
           {sections.map((section) => (
             <motion.button
               key={section.id}
@@ -56,7 +60,6 @@ function Navigation({ currentSection, onSectionChange }) {
                 onSectionChange(section.id);
                 setIsOpen(false);
               }}
-              /* Ускоренная реакция на наведение */
               whileHover={{ y: -2, color: "#d4a017" }}
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.2 }}

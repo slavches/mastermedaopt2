@@ -28,7 +28,6 @@
 .logo {
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -93,6 +92,8 @@
 
 @media (max-width: 768px) {
   .nav-container {
+    position: relative; /* Чтобы логотип позиционировался относительно шапки */
+  /* остальное без изменений... */
     justify-content: space-between;
     padding: 0.5rem 1rem;
   }
