@@ -23,14 +23,17 @@
   justify-content: space-between;
   align-items: center;
   position: relative;
-  min-height: 70px;
+  min-height: 80px;
 }
 
 .nav-side {
   display: flex;
   gap: 1.5rem;
-  width: 40%;
-  z-index: 5;
+  width: 40%;;
+}
+
+.side-right {
+  justify-content: flex-end;
 }
 
 .nav-side.text-right {
@@ -40,7 +43,7 @@
 .logo {
   position: absolute;
   left: 50%;
-  z-index: 10;
+  z-index: 100; /* Чтобы был поверх всего, но под бургером если надо */
 }
 
 .logo-image {
@@ -67,21 +70,36 @@
 }
 
 .mobile-menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 2rem;
-  color: #5D4037;
-  cursor: pointer;
-  z-index: 101;
+  display: none !important; 
+}
+
+.nav-links-mobile {
+display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: white;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    z-index: 1000;
 }
 
 @media (max-width: 1024px) {
+  /* Прячем десктопные ссылки */
   .desktop-only {
-    display: none;
+    display: none !important;
   }
   
+  /* Показываем бургер */
   .mobile-menu-toggle {
+    display: flex !important;
+    position: relative;
+    z-index: 1001; /* Бургер выше логотипа */
+  }.mobile-menu-toggle {
     display: block;
   }
 
