@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-// Используем более современные иконки (HiOutlineMenuAlt4 и HiX)
-import { HiOutlineMenuAlt4, HiX } from 'react-icons/hi'; 
+import { motion } from 'framer-motion';
+import { HiOutlineMenuAlt4, HiX } from 'react-icons/hi'; // Современные иконки
 import './Navigation.css';
 import logoImg from '../assets/images/logo-header.png';
 
@@ -27,8 +26,7 @@ function Navigation({ currentSection, onSectionChange }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Функция для рендера ссылок (чтобы не дублировать код)
-  const renderLinks = (items) => items.map((section) => (
+  const renderLink = (section) => (
     <motion.button
       key={section.id}
       className={`nav-link ${currentSection === section.id ? 'active' : ''}`}
@@ -41,21 +39,22 @@ function Navigation({ currentSection, onSectionChange }) {
     >
       {section.label}
     </motion.button>
-  ));
+  );
 
   return (
     <motion.nav 
       className={`navigation ${isScrolled ? 'scrolled' : ''}`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
+      transition={{ type: "spring", stiffness: 120, damping: 20 }}
     >
       <div className="nav-container">
-        {/* ЛЕВЫЙ БЛОК (только десктоп) */}
-        <div className="nav-links-desktop side-left">
-          {renderLinks(leftSections)}
+        {/* Ссылки слева */}
+        <div className="nav-side left">
+          {leftSections.map(renderLink)}
         </div>
 
-        {/* ЦЕНТРАЛЬНЫЙ ЛОГОТИП */}
+        {/* Логотип строго по центру */}
         <motion.div 
           className="logo"
           style={{ x: "-50%" }}
@@ -65,29 +64,20 @@ function Navigation({ currentSection, onSectionChange }) {
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
         >
-          <img src={logoImg} alt="Logo" className="logo-image" />
+          <img src={logoImg} alt="Мастер Мёда" className="logo-image" />
         </motion.div>
 
-        {/* ПРАВЫЙ БЛОК (только десктоп) */}
-        <div className="nav-links-desktop side-right">
-          {renderLinks(rightSections)}
+        {/* Ссылки справа */}
+        <div className="nav-side right">
+          {rightSections.map(renderLink)}
         </div>
 
-        {/* МОБИЛЬНОЕ МЕНЮ (выезжает отдельно) */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div 
-              className="nav-links-mobile"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-            >
-              {renderLinks([...leftSections, ...rightSections])}
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* Мобильное меню (выезжает только на мобилках) */}
+        <div className={`nav-links-mobile ${isOpen ? 'open' : ''}`}>
+          {[...leftSections, ...rightSections].map(renderLink)}
+        </div>
 
-        {/* БУРГЕР */}
+        {/* Кнопка бургера */}
         <button className="mobile-menu-toggle" onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <HiX /> : <HiOutlineMenuAlt4 />}
         </button>
