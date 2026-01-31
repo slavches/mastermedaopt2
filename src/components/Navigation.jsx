@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import './Navigation.css';
-import logoImg from '../../assets/images/logo-header.png';
+import logoImg from '../assets/images/logo-header.png';
 
 function Navigation({ currentSection, onSectionChange }) {
   const [isOpen, setIsOpen] = useState(false);
