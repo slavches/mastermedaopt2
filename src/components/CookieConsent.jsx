@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import PrivacyPolicy from './PrivacyPolicy'; // Используем его как окно соглашения
+import PrivacyPolicy from './PrivacyPolicy'; 
 import './CookieConsent.css';
 
 const CookieConsent = () => {
@@ -8,9 +8,10 @@ const CookieConsent = () => {
   const [isPolicyOpen, setIsPolicyOpen] = useState(false);
 
   useEffect(() => {
+    // Если пользователь уже принимал куки, не показываем баннер
     const consent = localStorage.getItem('cookie-consent');
     if (!consent) {
-      const timer = setTimeout(() => setIsVisible(true), 2000);
+      const timer = setTimeout(() => setIsVisible(true), 1500);
       return () => clearTimeout(timer);
     }
   }, []);
@@ -21,7 +22,7 @@ const CookieConsent = () => {
   };
 
   const handleDecline = () => {
-    setIsVisible(false); // Просто скрываем
+    setIsVisible(false);
   };
 
   return (
@@ -33,21 +34,29 @@ const CookieConsent = () => {
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
+            style={{ zIndex: 9999 }}
           >
             <div className="cookie-banner-content">
               <p>
-                Мы используем файлы cookie. Во время посещения сайта вы соглашаетесь с обработкой персональных данных с использованием метрических программ.
+                Мы используем файлы cookie. Во время посещения сайта вы соглашаетесь с обработкой персональных данных.
               </p>
               <div className="cookie-banner-buttons">
-                <button className="btn-cookie secondary" onClick={() => setIsPolicyOpen(true)}>Подробнее</button>
-                <button className="btn-cookie decline" onClick={handleDecline}>Отклонить</button>
-                <button className="btn-cookie primary" onClick={handleAccept}>Принять</button>
+                <button className="btn-cookie secondary" onClick={() => setIsPolicyOpen(true)}>
+                  Подробнее
+                </button>
+                <button className="btn-cookie decline" onClick={handleDecline}>
+                  Отклонить
+                </button>
+                <button className="btn-cookie primary" onClick={handleAccept}>
+                  Принять
+                </button>
               </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
+      {/* Окно с текстом соглашения mastermedaopt.ru */}
       <PrivacyPolicy 
         isOpen={isPolicyOpen} 
         onClose={() => setIsPolicyOpen(false)} 

@@ -75,11 +75,7 @@ function App() {
           <News id="news" />
           <About id="about" />
         </motion.div>
-        <CookieConsent onOpenPolicy={() => setIsPolicyOpen(true)} />
-          <PrivacyPolicy 
-        isOpen={isPolicyOpen} 
-        onClose={() => setIsPolicyOpen(false)}
-          />
+        <CookieConsent />
       </div>
     </div>
   );
