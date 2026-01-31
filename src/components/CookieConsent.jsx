@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './CookieConsent.css';
 
-const CookieConsent = () => {
+
+const CookieConsent = ({ onOpenPolicy }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -33,7 +34,8 @@ const CookieConsent = () => {
             <p>
               Мы используем файлы cookie, чтобы улучшить работу сайта и сделать его удобнее. 
               Продолжая использовать сайт, вы соглашаетесь с нашей 
-              <a href="/privacy-policy" className="cookie-link"> политикой конфиденциальности</a>.
+              <span className="cookie-link" onClick={onOpenPolicy} style={{cursor: 'pointer'}}> политикой конфиденциальности
+            </span>.    
             </p>
             <button className="cookie-btn" onClick={handleAccept}>
               Принять

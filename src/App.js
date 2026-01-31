@@ -9,11 +9,12 @@ import News from './components/Sections/News';
 import About from './components/Sections/About';
 import './styles/App.css';
 import CookieConsent from './components/CookieConsent';
+import PrivacyPolicy from './components/PrivacyPolicy';
 
 function App() {
   const [currentSection, setCurrentSection] = useState('home');
   const [selectedProduct, setSelectedProduct] = useState('default');
-
+  const [isPolicyOpen, setIsPolicyOpen] = useState(false); // Состояние для окна
   const backgrounds = {
     default: 'linear-gradient(135deg, #FFF8DC 0%, #FFEBCD 50%, #FFF8DC 100%)',
     linden: 'linear-gradient(135deg, #FFFACD 0%, #FFF8DC 50%, #FFFACD 100%)',
@@ -74,7 +75,11 @@ function App() {
           <News id="news" />
           <About id="about" />
         </motion.div>
-        <CookieConsent />
+        <CookieConsent onOpenPolicy={() => setIsPolicyOpen(true)} />
+          <PrivacyPolicy 
+        isOpen={isPolicyOpen} 
+        onClose={() => setIsPolicyOpen(false)}
+          />
       </div>
     </div>
   );
