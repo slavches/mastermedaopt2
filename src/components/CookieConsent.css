@@ -1,24 +1,28 @@
+/* Основной контейнер баннера */
 .cookie-banner-fix {
   position: fixed;
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
-  max-width: 600px;
-  background: white;
+  max-width: 500px;
+  background: #ffffff;
   padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   z-index: 9999;
+  border: 1px solid #eee;
 }
 
 .cookie-banner-content p {
   font-size: 0.9rem;
-  color: #5D4037;
+  color: #444;
   margin-bottom: 15px;
-  line-height: 1.4;
+  line-height: 1.5;
+  text-align: left;
 }
 
+/* Контейнер для кнопок */
 .cookie-banner-buttons {
   display: flex;
   gap: 10px;
@@ -26,21 +30,62 @@
 }
 
 .btn-cookie {
-  padding: 8px 16px;
-  border-radius: 8px;
+  padding: 10px 18px;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
   font-weight: 600;
   font-size: 0.85rem;
-  transition: 0.3s;
+  transition: all 0.2s ease;
+  flex: 1; /* Кнопки будут равной ширины */
+  white-space: nowrap;
 }
 
-.btn-cookie.primary { background: #D2691E; color: white; }
-.btn-cookie.secondary { background: #f0f0f0; color: #5D4037; }
-.btn-cookie.decline { background: #ffeeee; color: #cc0000; }
+.btn-cookie.primary {
+  background: #D2691E;
+  color: white;
+}
 
-.btn-cookie:hover { opacity: 0.8; }
+.btn-cookie.secondary {
+  background: #f0f0f0;
+  color: #5D4037;
+}
 
+.btn-cookie.decline {
+  background: #fff0f0;
+  color: #c0392b;
+}
+
+.btn-cookie:active {
+  transform: scale(0.96);
+}
+
+/* --- МОБИЛЬНАЯ ВЕРСИЯ (Адаптив) --- */
 @media (max-width: 480px) {
-  .cookie-banner-buttons { flex-direction: column; }
+  .cookie-banner-fix {
+    bottom: 10px;
+    width: 95%;
+    padding: 16px;
+  }
+
+  .cookie-banner-content p {
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+  }
+
+  .cookie-banner-buttons {
+    flex-direction: column; /* Кнопки встают в колонку */
+    gap: 8px;
+  }
+
+  .btn-cookie {
+    width: 100%;
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+  
+  /* Делаем главную кнопку "Принять" первой визуально или самой заметной */
+  .btn-cookie.primary {
+    order: -1; 
+  }
 }

@@ -52,3 +52,25 @@
 
 .policy-content h2 { color: #D2691E; margin-bottom: 20px; }
 .policy-content h3 { color: #5D4037; margin-top: 25px; margin-bottom: 10px; }
+
+@media (max-width: 600px) {
+  .policy-modal {
+    width: 95%;
+    padding: 25px 20px;
+    max-height: 90vh; /* Больше места для текста */
+    border-radius: 15px;
+  }.policy-content h2 {
+    font-size: 1.3rem;
+  }
+
+  .policy-content p {
+    font-size: 0.85rem;
+  }
+
+  .policy-close {
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+  }
+}
