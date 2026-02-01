@@ -42,7 +42,7 @@ function App() {
     setIsPolicyOpen(true);
   };
 
-  rreturn (
+  return (
     <div className="app">
       <motion.div
         className="app-background"
