@@ -49,6 +49,7 @@
   height: 2px;
   background: #5D4037;
   position: absolute;
+  transition: background 0.2s;
 }
 
 .policy-close-modern:hover .close-line {

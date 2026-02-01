@@ -38,11 +38,11 @@ function App() {
     setCurrentSection('products');
   };
 
-// Удали старую функцию togglePolicy и замени на это:  const togglePolicy = () => {
-    <CookieConsent onOpenPolicy={() => setIsPolicyOpen(true)} />
+  const togglePolicy = () => {
+    setIsPolicyOpen(true);
   };
 
-  return (
+  rreturn (
     <div className="app">
       <motion.div
         className="app-background"
@@ -64,20 +64,17 @@ function App() {
           style={{ willChange: 'opacity' }}
         >
           <Home id="home" />
-          <Products 
-            id="products"
-            onProductSelect={handleProductSelect}
-            selectedProduct={selectedProduct}
-          />
+          <Products id="products" onProductSelect={handleProductSelect} selectedProduct={selectedProduct} />
           <Clients id="clients" />
           <Partners id="partners" />
           <News id="news" />
           <About id="about" />
         </motion.div>
 
-        {/* ПЕРЕДАЕМ ФУНКЦИЮ ЯВНО */}
+        {/* Баннер принимает функцию открытия */}
         <CookieConsent onOpenPolicy={togglePolicy} />
 
+        {/* Окно политики */}
         <AnimatePresence>
           {isPolicyOpen && (
             <PrivacyPolicy 
