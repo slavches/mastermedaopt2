@@ -1,26 +1,25 @@
 .cookie-banner-fix {
   position: fixed;
-  /* Вместо transform используем четкие границы */
-  bottom: 15px;
-  left: 10px;
-  right: 10px;
-  margin: 0 auto;
-  width: auto; 
-  max-width: 500px;
+  bottom: 20px;
+  left: 15px;
+  right: 15px;
+  z-index: 99998; 
   background: #ffffff;
   padding: 20px;
   border-radius: 16px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-  z-index: 10001; /* Выше всего */
-  border: 1px solid #eee;
-  box-sizing: border-box; /* Чтобы padding не раздувал ширину */
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  border: 1px solid #D2691E;
+  margin: 0 auto;
+  max-width: 450px;
+  box-sizing: border-box;
 }
 
 .cookie-banner-content p {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: #333;
   margin-bottom: 15px;
-  line-height: 1.4;
+  line-height: 1.5;
+  text-align: left;
 }
 
 .cookie-banner-buttons {
@@ -30,35 +29,33 @@
 
 .btn-cookie {
   flex: 1;
-  padding: 12px 10px;
+  padding: 12px;
   border-radius: 10px;
   border: none;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.85rem;
   cursor: pointer;
+  transition: transform 0.1s active;
 }
 
 .btn-cookie.primary { background: #D2691E; color: white; }
 .btn-cookie.secondary { background: #f0f0f0; color: #5D4037; }
 .btn-cookie.decline { background: #fff0f0; color: #cc0000; }
 
-/* Адаптив для маленьких экранов */
 @media (max-width: 480px) {
   .cookie-banner-fix {
-    bottom: 10px;
-    left: 10px;
-    right: 10px;
+    bottom: 15px;
     padding: 15px;
   }
 
   .cookie-banner-buttons {
-    flex-direction: column; /* Кнопки в столбик, чтобы не резались */
+    display: flex; /* Важно для работы order */
+    flex-direction: column;
     gap: 8px;
   }
   
-  .btn-cookie {
-    width: 100%;
-    order: 0;
+  .btn-cookie.primary { 
+    order: -1; /* Ставит кнопку "Принять" самой первой */
+    padding: 14px; /* Делаем её чуть крупнее для удобства */
   }
-  .btn-cookie.primary { order: -1; } /* Принять всегда сверху */
 }

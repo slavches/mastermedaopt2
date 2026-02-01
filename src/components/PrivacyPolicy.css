@@ -1,68 +1,48 @@
 .policy-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10005;
-  padding: 10px; /* Уменьшил отступ для мобилок */
+  z-index: 100000; /* Выше чем всё остальное на сайте */
+  padding: 15px;
 }
 
 .policy-modal {
   background: white;
   width: 100%;
-  max-width: 750px;
-  max-height: 85vh;
-  border-radius: 12px; /* Умеренное скругление */
+  max-width: 700px;
+  max-height: 80vh; 
+  border-radius: 15px;
   position: relative;
+  overflow: hidden; /* Чтобы скролл был только внутри текста */
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* Важно: само окно не скроллится */
 }
 
 .policy-content {
   padding: 30px;
-  padding-right: 20px; /* Запас места для скроллбара */
-  overflow-y: auto; /* Скроллится только внутренний блок */
-  color: #333;
-  line-height: 1.6;
+  padding-right: 20px;
+  overflow-y: auto;
+  text-align: left;
 }
 
-/* Стилизация скроллбара, чтобы он не выглядел чужеродно */
-.policy-content::-webkit-scrollbar {
-  width: 8px;
+/* Стилизация внутреннего скролла (как на главной) */
+.policy-content::-webkit-scrollbar { width: 8px; }
+.policy-content::-webkit-scrollbar-track { background: #FFF8DC; }
+.policy-content::-webkit-scrollbar-thumb { 
+  background: #D2691E; 
+  border-radius: 10px; 
 }
 
-.policy-content::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 0 12px 12px 0;
-}
-
-.policy-content::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 10px;
-  border: 2px solid #f1f1f1;
-}
-
-.policy-content::-webkit-scrollbar-thumb:hover {
-  background: #D2691E;
-}
-
-.policy-close {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  z-index: 10;
-  background: white;
-  border-radius: 50%;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  /* остальные стили кнопки ... */
-}
-
-@media (max-width: 600px) {
+@media (max-width: 480px) {
+  .policy-modal {
+    max-height: 75vh;
+  }
   .policy-content {
     padding: 20px;
-    padding-right: 15px;
+    padding-right: 10px;
   }
 }

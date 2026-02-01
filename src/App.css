@@ -36,3 +36,28 @@
     transform: rotate(360deg);
   }
 }
+
+/* --- ГЛОБАЛЬНЫЙ МЕДОВЫЙ СКРОЛЛБАР --- */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FFF8DC; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #D2691E, #8B4513); 
+  border-radius: 10px;
+  border: 2px solid #FFF8DC; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8B4513; 
+}
+
+/* Для Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #D2691E #FFF8DC;
+}
