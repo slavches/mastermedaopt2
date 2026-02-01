@@ -10,6 +10,7 @@ import About from './components/Sections/About';
 import './styles/App.css';
 import CookieConsent from './components/CookieConsent';
 import PrivacyPolicy from './components/PrivacyPolicy';
+import OrderForm from './components/Sections/OrderForm';
 
 function App() {
   const [currentSection, setCurrentSection] = useState('home');
@@ -69,6 +70,7 @@ function App() {
           <Partners id="partners" />
           <News id="news" />
           <About id="about" />
+          <OrderForm /> {/* Добавь форму сюда */}
         </motion.div>
 
         {/* Баннер принимает функцию открытия */}
