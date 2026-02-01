@@ -1,3 +1,13 @@
+.policy-overlay {
+  display: flex !important; /* Убеждаемся, что оно не hidden */
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 999999 !important; /* Ставим выше всех фонов и навигации */
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8) !important;
+}
+
 .policy-close-modern {
   position: absolute;
   top: 15px;

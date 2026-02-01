@@ -39,7 +39,7 @@ const CookieConsent = ({ onOpenPolicy }) => { // ПРИНИМАЕМ ПРОПС �
               >
                 Подробнее
               </button>
-              <button className="btn-cookie primary" onClick={handleAccept}>
+              <button className="btn-cookie secondary" onClick={onOpenPolicy}>
                 Принять
               </button>
             </div>
