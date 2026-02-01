@@ -36,23 +36,61 @@
   z-index: 100;
 }
 
-.logo-image { height: 55px; width: auto; }
+.logo-image { 
+  height: 55px;
+  width: auto;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover .logo-image {
+  transform: scale(1.05);
+}
 
 /* Мобильное меню (скрыто по умолчанию глубоко) */
 .nav-links {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  z-index: 999;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(-100%);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: none;
+  border: none;
+  color: #5D4037;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.6rem 1.2rem; /* Чуть больше отступов для солидности */
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  position: relative;
+}
+
+/* Эффект при наведении на десктопе */
+.nav-link:hover {
+  color: #D2691E;
+  background: rgba(210, 105, 30, 0.05);
+}
+
+.nav-link.active {
+  color: #D2691E;
+  background: rgba(210, 105, 30, 0.12); /* Мягкий медовый подсвет */
+}
+
+/* СТИЛЬ ССЫЛОК ВНУТРИ МОБИЛЬНОГО МЕНЮ */
+.nav-links .nav-link {
+  font-size: 1.8rem; /* Крупный текст для удобства нажатия */
+  padding: 1rem 2rem;
+  width: 80%;
+  text-align: center;
+}
+
+/* Добавим небольшую деталь: точка под активной ссылкой на мобилке */
+.nav-links .nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background: #D2691E;
+  border-radius: 50%;
 }
 
 .nav-links.open {
