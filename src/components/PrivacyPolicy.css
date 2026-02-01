@@ -1,63 +1,65 @@
 .policy-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(45, 24, 10, 0.4); /* Очень мягкое коричневое затемнение */
-  backdrop-filter: blur(10px); /* Тот самый эффект размытия */
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6); /* Темный фон без размытия */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10000; /* Теперь ТОЧНО выше шапки */
+  z-index: 100000;
   padding: 20px;
 }
 
 .policy-modal {
   background: #ffffff;
   width: 100%;
-  max-width: 800px; /* Чтобы не на весь экран */
-  max-height: 80vh; /* Оставляем воздух сверху и снизу */
-  border-radius: 30px; /* Красивые скругленные углы */
-  position: relative;
+  max-width: 700px;
+  max-height: 85vh;
+  border-radius: 16px;
+  position: relative; /* Для позиционирования крестика */
   display: flex;
   flex-direction: column;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
-  border: 1px solid #FFF8DC;
-  overflow: hidden;
-  animation: modalAppear 0.4s ease-out;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  border: 1px solid #DEB887;
 }
 
-@keyframes modalAppear {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+/* СОВРЕМЕННАЯ КНОПКА ЗАКРЫТИЯ */
+.policy-close-modern {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 34px;
+  height: 34px;
+  background: #FFF8DC;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 101;
+  transition: all 0.2s;
 }
+
+.policy-close-modern:hover {
+  background: #D2691E;
+}
+
+.policy-close-modern .close-line {
+  width: 18px;
+  height: 2px;
+  background: #5D4037;
+  position: absolute;
+}
+
+.policy-close-modern:hover .close-line {
+  background: #ffffff;
+}
+
+.rotate-45 { transform: rotate(45deg); }
+.rotate-minus-45 { transform: rotate(-45deg); }
 
 .policy-content {
-  padding: 40px;
+  padding: 35px;
   overflow-y: auto;
   text-align: left;
-}
-
-/* Настраиваем внутренний ползунок, чтобы он не наезжал на углы */
-.policy-content::-webkit-scrollbar {
-  width: 8px;
-}
-.policy-content::-webkit-scrollbar-track {
-  background: #FFF8DC;
-  border-radius: 0 30px 30px 0;
-}
-.policy-content::-webkit-scrollbar-thumb {
-  background: #D2691E;
-  border-radius: 10px;
-}
-
-@media (max-width: 480px) {
-  .policy-modal {
-    max-height: 90vh;
-    border-radius: 20px;
-  }
-  .policy-content {
-    padding: 25px;
-  }
 }

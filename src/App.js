@@ -38,10 +38,8 @@ function App() {
     setCurrentSection('products');
   };
 
-  // ФУНКЦИЯ ДЛЯ ПРОВЕРКИ
-  const togglePolicy = () => {
-    console.log("Пытаюсь открыть политику... Текущее состояние:", !isPolicyOpen);
-    setIsPolicyOpen(true);
+// Удали старую функцию togglePolicy и замени на это:  const togglePolicy = () => {
+    <CookieConsent onOpenPolicy={() => setIsPolicyOpen(true)} />
   };
 
   return (
