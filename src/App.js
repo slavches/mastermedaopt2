@@ -60,9 +60,10 @@ function App() {
       <div className="app-content">
         {/* Анимация появления контента при загрузке */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          style={{ willChange: 'opacity' }}
         >
           <Home id="home" />
           <Products 
@@ -75,7 +76,13 @@ function App() {
           <News id="news" />
           <About id="about" />
         </motion.div>
-        <CookieConsent />
+        <CookieConsent onOpenPolicy={() => setIsPolicyOpen(true)} />
+
+        {/* Само окно должно лежать здесь, в App.js */}
+        <PrivacyPolicy 
+          isOpen={isPolicyOpen} 
+          onClose={() => setIsPolicyOpen(false)} 
+        />
       </div>
     </div>
   );
