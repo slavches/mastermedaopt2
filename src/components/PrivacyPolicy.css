@@ -61,6 +61,20 @@
 
 .policy-content {
   padding: 35px;
+  padding-right: 25px; /* Даем небольшой запас справа для ползунка */
   overflow-y: auto;
   text-align: left;
+  /* Плавный скролл для мобилок */
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 480px) {
+  .policy-content {
+    padding: 20px;
+    padding-right: 15px;
+  }
+
+  .policy-content::-webkit-scrollbar {
+    width: 4px; /* Делаем его очень тонким на мобилках */
+  }
 }
