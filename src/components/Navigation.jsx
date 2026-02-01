@@ -53,13 +53,12 @@ function Navigation({ currentSection, onSectionChange }) {
         </div>
 
         <motion.div 
-          className="logo"
-          style={{ x: "-50%" }}
-          whileHover={{ scale: 1.05, x: "-50%" }}
-          onClick={() => {
-            onSectionChange('home');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
+        className="logo"
+        whileHover={{ scale: 1.05 }}
+        onClick={() => {
+          onSectionChange('home');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
         >
           <img src={logoImg} alt="Лого" className="logo-image" />
         </motion.div>

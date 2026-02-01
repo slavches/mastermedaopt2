@@ -1,18 +1,11 @@
 /* --- БАЗОВЫЕ СТИЛИ --- */
 .navigation {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   z-index: 1000;
   background: rgba(255, 255, 255, 0.95);
   border-bottom: 1px solid rgba(210, 105, 30, 0.1);
   transition: all 0.3s ease;
-}
-
-.navigation.scrolled {
-  background: #ffffff;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .nav-container {
@@ -22,123 +15,79 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
   min-height: 80px;
+  position: relative;
 }
 
-/* --- ДЕСКТОПНЫЕ ССЫЛКИ (БОКОВЫЕ) --- */
 .nav-side {
   display: flex;
   gap: 1.5rem;
   width: 40%;
-  z-index: 5;
 }
 
-.nav-side.text-right {
-  justify-content: flex-end;
+.nav-side.text-right { justify-content: flex-end; }
+
+/* Центровка лого для десктопа */
+.logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  z-index: 100;
 }
 
-/* --- МОБИЛЬНОЕ МЕНЮ (ПО УМОЛЧАНИЮ СКРЫТО) --- */
+.logo-image { height: 55px; width: auto; }
+
+/* Мобильное меню (скрыто по умолчанию глубоко) */
 .nav-links {
-  display: none; /* ВОТ ЭТО УБИРАЕТ ДУБЛИ НА ДЕСКТОПЕ */
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-100%);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-links.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
 .mobile-menu-toggle {
-  display: none; /* Скрыто на десктопе */
-  background: none;
-  border: none;
-  font-size: 2.5rem;
-  color: #5D4037;
+  display: none;
+  background: none; border: none;
+  font-size: 2.5rem; color: #5D4037;
   cursor: pointer;
   z-index: 1001;
 }
 
-/* --- ЛОГОТИП --- */
-.logo {
-  position: absolute;
-  left: 50%;
-  z-index: 100;
-}
-
-.logo-image {
-  height: 55px;
-  width: auto;
-}
-
-.nav-link {
-  background: none;
-  border: none;
-  color: #5D4037;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  padding: 0.6rem 1rem;
-  border-radius: 12px;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
-
-.nav-link.active {
-  color: #D2691E;
-  background: rgba(210, 105, 30, 0.1);
-}
-
-/* --- АДАПТИВНОСТЬ (МОБИЛКИ И ПЛАНШЕТЫ) --- */
+/* --- АДАПТИВНОСТЬ --- */
 @media (max-width: 1024px) {
-  .nav-side, 
-  .desktop-only {
-    display: none !important; /* !important здесь критически важен, чтобы перебить любые инлайновые стили React */
-    visibility: hidden;
-    opacity: 0;
-    pointer-events: none; /* Чтобы они не были кликабельны, даже если прозрачны */
-  }
-  
-  .mobile-menu-toggle {
-    display: flex !important; 
-    order: 2; /* Бургер всегда в конце */
-  }
-
-  .nav-container {
-    justify-content: space-between; /* Лого слева или по центру, бургер справа */
-    padding: 0 1.5rem;
-  }
-
-  .nav-links {
-    display: flex;
-    /* Убедись, что по умолчанию меню за пределами экрана */
-    transform: translateY(-100%); 
-    transition: transform 0.4s ease-in-out;
-  }
-
-  .nav-links.open {
-    transform: translateY(0);
-    visibility: visible;
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .nav-link {
-    font-size: 1.5rem;
+  .nav-side.desktop-only {
+    display: none !important; /* Мгновенное исчезновение */
   }
 
   .logo {
-    position: relative; /* Убираем абсолютное позиционирование, чтобы не прыгало */
-    left: 0;
+    position: static; /* Логотип уходит из центра влево */
     transform: none;
     order: 1;
   }
 
-}
-
-/* Скрываем десктопное меню СРАЗУ, если экран меньше 768px */
-@media (max-width: 768px) {
-  .desktop-menu { /* Замени на класс своего ПК-списка ссылок */
-    display: none !important;
+  .mobile-menu-toggle {
+    display: flex !important;
+    order: 2;
   }
-  
-  /* Если у тебя есть мобильное меню, которое должно быть видно, 
-     убедись, что оно прописано ниже */
-  .mobile-menu {
-     display: block;
+
+  .nav-container {
+    justify-content: space-between;
+    padding: 0 1.5rem;
   }
 }
