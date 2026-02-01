@@ -80,11 +80,14 @@ function App() {
         {/* ПЕРЕДАЕМ ФУНКЦИЮ ЯВНО */}
         <CookieConsent onOpenPolicy={togglePolicy} />
 
-        {/* ОКНО ПОЛИТИКИ */}
-        <PrivacyPolicy 
-          isOpen={isPolicyOpen} 
-          onClose={() => setIsPolicyOpen(false)} 
-        />
+        <AnimatePresence>
+          {isPolicyOpen && (
+            <PrivacyPolicy 
+              isOpen={isPolicyOpen} 
+              onClose={() => setIsPolicyOpen(false)} 
+            />
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

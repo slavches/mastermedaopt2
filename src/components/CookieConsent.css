@@ -1,61 +1,52 @@
 .cookie-banner-fix {
   position: fixed;
-  bottom: 20px;
-  left: 15px;
-  right: 15px;
-  z-index: 99998; 
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 500px;
   background: #ffffff;
-  padding: 20px;
-  border-radius: 16px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-  border: 1px solid #D2691E;
-  margin: 0 auto;
-  max-width: 450px;
-  box-sizing: border-box;
+  padding: 25px;
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+  border: 1px solid #FFF8DC;
 }
 
 .cookie-banner-content p {
   font-size: 0.95rem;
-  color: #333;
-  margin-bottom: 15px;
+  color: #5D4037;
+  margin-bottom: 20px;
   line-height: 1.5;
-  text-align: left;
+  text-align: center;
 }
 
 .cookie-banner-buttons {
   display: flex;
-  gap: 10px;
+  gap: 12px;
 }
 
 .btn-cookie {
   flex: 1;
-  padding: 12px;
-  border-radius: 10px;
+  padding: 14px;
+  border-radius: 14px;
   border: none;
   font-weight: 700;
-  font-size: 0.85rem;
   cursor: pointer;
-  transition: transform 0.1s active;
+  transition: all 0.2s;
 }
 
-.btn-cookie.primary { background: #D2691E; color: white; }
-.btn-cookie.secondary { background: #f0f0f0; color: #5D4037; }
-.btn-cookie.decline { background: #fff0f0; color: #cc0000; }
+.btn-cookie.primary {
+  background: #D2691E;
+  color: white;
+}
 
-@media (max-width: 480px) {
-  .cookie-banner-fix {
-    bottom: 15px;
-    padding: 15px;
-  }
+.btn-cookie.secondary {
+  background: #FFF8DC;
+  color: #D2691E;
+}
 
-  .cookie-banner-buttons {
-    display: flex; /* Важно для работы order */
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .btn-cookie.primary { 
-    order: -1; /* Ставит кнопку "Принять" самой первой */
-    padding: 14px; /* Делаем её чуть крупнее для удобства */
-  }
+.btn-cookie:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
 }

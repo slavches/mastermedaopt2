@@ -1,51 +1,63 @@
 .policy-overlay {
-  display: flex !important; /* Убеждаемся, что оно не hidden */
-  visibility: visible !important;
-  opacity: 1 !important;
-  z-index: 999999 !important; /* Ставим выше всех фонов и навигации */
   position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.8) !important;
-}
-
-.policy-close-modern {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 36px;
-  height: 36px;
-  background: #fdf5e6;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(45, 24, 10, 0.4); /* Очень мягкое коричневое затемнение */
+  backdrop-filter: blur(10px); /* Тот самый эффект размытия */
   display: flex;
-  align-items: center;
   justify-content: center;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 100;
+  align-items: center;
+  z-index: 10000; /* Теперь ТОЧНО выше шапки */
+  padding: 20px;
 }
 
-.policy-close-modern:hover {
+.policy-modal {
+  background: #ffffff;
+  width: 100%;
+  max-width: 800px; /* Чтобы не на весь экран */
+  max-height: 80vh; /* Оставляем воздух сверху и снизу */
+  border-radius: 30px; /* Красивые скругленные углы */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
+  border: 1px solid #FFF8DC;
+  overflow: hidden;
+  animation: modalAppear 0.4s ease-out;
+}
+
+@keyframes modalAppear {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.policy-content {
+  padding: 40px;
+  overflow-y: auto;
+  text-align: left;
+}
+
+/* Настраиваем внутренний ползунок, чтобы он не наезжал на углы */
+.policy-content::-webkit-scrollbar {
+  width: 8px;
+}
+.policy-content::-webkit-scrollbar-track {
+  background: #FFF8DC;
+  border-radius: 0 30px 30px 0;
+}
+.policy-content::-webkit-scrollbar-thumb {
   background: #D2691E;
+  border-radius: 10px;
 }
 
-.policy-close-modern:hover .close-line {
-  background: white;
-}
-
-.close-line {
-  width: 18px;
-  height: 2px;
-  background: #5D4037;
-  position: absolute;
-  border-radius: 2px;
-  transition: background 0.2s;
-}
-
-.rotate-45 { transform: rotate(45deg); }
-.rotate-minus-45 { transform: rotate(-45deg); }
-
-/* Убираем синюю рамку при нажатии на мобилках */
-.policy-close-modern:focus {
-  outline: none;
+@media (max-width: 480px) {
+  .policy-modal {
+    max-height: 90vh;
+    border-radius: 20px;
+  }
+  .policy-content {
+    padding: 25px;
+  }
 }
