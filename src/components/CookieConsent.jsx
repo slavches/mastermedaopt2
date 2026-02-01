@@ -14,6 +14,7 @@ const CookieConsent = ({ onOpenPolicy }) => { // ПРИНИМАЕМ ПРОПС �
   }, []);
 
   const handleAccept = () => {
+    console.log("Согласие принято"); // Для проверки в консоли
     localStorage.setItem('cookie-consent', 'true');
     setIsVisible(false);
   };
@@ -26,7 +27,6 @@ const CookieConsent = ({ onOpenPolicy }) => { // ПРИНИМАЕМ ПРОПС �
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
-          style={{ zIndex: 9999 }}
         >
           <div className="cookie-banner-content">
             <p>
@@ -35,11 +35,16 @@ const CookieConsent = ({ onOpenPolicy }) => { // ПРИНИМАЕМ ПРОПС �
             <div className="cookie-banner-buttons">
               <button 
                 className="btn-cookie secondary" 
-                onClick={onOpenPolicy} // ВЫЗЫВАЕМ ФУНКЦИЮ ИЗ APP.JS
+                onClick={onOpenPolicy}
+                type="button"
               >
                 Подробнее
               </button>
-              <button className="btn-cookie secondary" onClick={onOpenPolicy}>
+              <button 
+                className="btn-cookie primary" 
+                onClick={handleAccept} // ПРОВЕРЬ ЭТУ СТРОКУ
+                type="button"
+              >
                 Принять
               </button>
             </div>
