@@ -1,48 +1,41 @@
-.policy-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(4px);
+.policy-close-modern {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 36px;
+  height: 36px;
+  background: #fdf5e6;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
   display: flex;
-  justify-content: center;
   align-items: center;
-  z-index: 100000; /* Выше чем всё остальное на сайте */
-  padding: 15px;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 100;
 }
 
-.policy-modal {
+.policy-close-modern:hover {
+  background: #D2691E;
+}
+
+.policy-close-modern:hover .close-line {
   background: white;
-  width: 100%;
-  max-width: 700px;
-  max-height: 80vh; 
-  border-radius: 15px;
-  position: relative;
-  overflow: hidden; /* Чтобы скролл был только внутри текста */
-  display: flex;
-  flex-direction: column;
 }
 
-.policy-content {
-  padding: 30px;
-  padding-right: 20px;
-  overflow-y: auto;
-  text-align: left;
+.close-line {
+  width: 18px;
+  height: 2px;
+  background: #5D4037;
+  position: absolute;
+  border-radius: 2px;
+  transition: background 0.2s;
 }
 
-/* Стилизация внутреннего скролла (как на главной) */
-.policy-content::-webkit-scrollbar { width: 8px; }
-.policy-content::-webkit-scrollbar-track { background: #FFF8DC; }
-.policy-content::-webkit-scrollbar-thumb { 
-  background: #D2691E; 
-  border-radius: 10px; 
-}
+.rotate-45 { transform: rotate(45deg); }
+.rotate-minus-45 { transform: rotate(-45deg); }
 
-@media (max-width: 480px) {
-  .policy-modal {
-    max-height: 75vh;
-  }
-  .policy-content {
-    padding: 20px;
-    padding-right: 10px;
-  }
+/* Убираем синюю рамку при нажатии на мобилках */
+.policy-close-modern:focus {
+  outline: none;
 }

@@ -85,18 +85,21 @@
 
 /* --- АДАПТИВНОСТЬ (МОБИЛКИ И ПЛАНШЕТЫ) --- */
 @media (max-width: 1024px) {
-  .desktop-only {
-    display: none !important; /* Прячем боковые ссылки */
+  /* Прячем десктопные части МГНОВЕННО */
+  .nav-side, 
+  .desktop-only,
+  .nav-side.text-right {
+    display: none !important
   }
   
   .mobile-menu-toggle {
-    display: flex !important; /* Показываем бургер */
-    align-items: center;
-    justify-content: center;
+    display: flex !important; 
+    order: 2; /* Бургер всегда в конце */
   }
 
   .nav-container {
-    justify-content: flex-end; /* Бургер вправо */
+    justify-content: space-between; /* Лого слева или по центру, бургер справа */
+    padding: 0 1.5rem;
   }
 
   /* Показываем мобильное меню только здесь */
@@ -123,5 +126,26 @@
 
   .nav-link {
     font-size: 1.5rem;
+  }
+
+  .logo {
+    position: relative; /* Убираем абсолютное позиционирование, чтобы не прыгало */
+    left: 0;
+    transform: none;
+    order: 1;
+  }
+  
+}
+
+/* Скрываем десктопное меню СРАЗУ, если экран меньше 768px */
+@media (max-width: 768px) {
+  .desktop-menu { /* Замени на класс своего ПК-списка ссылок */
+    display: none !important;
+  }
+  
+  /* Если у тебя есть мобильное меню, которое должно быть видно, 
+     убедись, что оно прописано ниже */
+  .mobile-menu {
+     display: block;
   }
 }

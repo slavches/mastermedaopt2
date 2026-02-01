@@ -2,6 +2,16 @@
   text-align: center;
 }
 
+/* Ускоряем все трансформации и прозрачность через GPU */
+.app-content, 
+.nav-links, 
+.cookie-banner-fix, 
+.policy-modal {
+  backface-visibility: hidden;
+  perspective: 1000px;
+  transform: translateZ(0); /* Включает аппаратное ускорение */
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

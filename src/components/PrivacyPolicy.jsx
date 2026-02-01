@@ -14,7 +14,10 @@ const PrivacyPolicy = ({ isOpen, onClose }) => {
         animate={{ y: 0, opacity: 1 }}
         onClick={(e) => e.stopPropagation()}
       >
-        <button className="policy-close" onClick={onClose}><IoClose /></button>
+        <button className="policy-close-modern" onClick={onClose} aria-label="Закрыть">
+        <div className="close-line rotate-45"></div>
+        <div className="close-line rotate-minus-45"></div>
+        </button>
         
         <div className="policy-content">
           <h2>Пользовательское соглашение</h2>
