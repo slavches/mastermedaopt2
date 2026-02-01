@@ -40,20 +40,40 @@
   border-color: #D2691E;
 }
 
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 30px;
+.products-grid-container {
+  position: relative;
+  width: 100%;
+  margin-top: 40px;
+  /* Убираем жесткий min-height, если он мешает, 
+     но оставляем запас, чтобы футер не дергался */
+  min-height: 500px;
 }
 
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px;
+  width: 100%;
+  /* Это предотвратит смещение при анимации */
+  backface-visibility: hidden;
+}
+
+/* Ограничиваем карточку, чтобы она не растягивалась сверх меры */
 .product-card {
+  position: relative;
   background: white;
   border-radius: 20px;
   border: 1px solid #FFF8DC;
-  overflow: hidden;
-  position: relative;
-  transition: transform 0.3s ease;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Чтобы анимация исчезновения не ломала сетку */
+.products-grid-container .motion-div-exit-active {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .product-card:hover {
@@ -87,7 +107,10 @@
 }
 
 .product-info {
-  padding: 20px;
+  flex-grow: 1; /* Чтобы контент занимал всё место, а кнопка была внизу */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .product-meta {
@@ -148,3 +171,4 @@
   font-weight: bold;
   cursor: pointer;
 }
+

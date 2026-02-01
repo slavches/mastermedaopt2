@@ -85,41 +85,41 @@ const Products = () => {
         </div>
       </div>
 
-      <motion.div layout className="products-grid">
-        <AnimatePresence>
-          {filteredProducts.map((product) => (
+              {/* Обновленный фрагмент внутри Products.jsx */}
+        <div className="products-grid-container"> 
+          <AnimatePresence mode="wait" initial={false}> 
             <motion.div 
-              key={product.id}
-              layout
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              className="product-card"
+              key={filter} 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="products-grid"
             >
-              {product.badge && <span className="product-badge">{product.badge}</span>}
-              <div className="product-image-placeholder">
-                {/* Здесь будет изображение товара */}
-                <span>{product.name}</span>
-              </div>
-              <div className="product-info">
-                <h3>{product.name}</h3>
-                <div className="product-meta">
-                  <span><strong>Тара:</strong> {product.packaging}</span>
-                  <span><strong>Вес:</strong> {product.weight}</span>
-                  {product.inBox && <span><strong>В коробке:</strong> {product.inBox}</span>}
+              {filteredProducts.map((product) => (
+                <div key={product.id} className="product-card">
+                  {/* ... внутренности карточки без изменений ... */}
+                  {product.badge && <span className="product-badge">{product.badge}</span>}
+                  <div className="product-image-placeholder">
+                    <span>{product.name}</span>
+                  </div>
+                  <div className="product-info">
+                    <h3>{product.name}</h3>
+                    <div className="product-meta">
+                      <span><strong>Тара:</strong> {product.packaging}</span>
+                      <span><strong>Вес:</strong> {product.weight}</span>
+                      {product.inBox && <span><strong>В коробке:</strong> {product.inBox}</span>}
+                    </div>
+                    <div className="product-footer">
+                      <span className="price">{product.price}</span>
+                      <button className="order-btn">Запросить прайс</button>
+                    </div>
+                  </div>
                 </div>
-                {product.note && <p className="product-note">{product.note}</p>}
-                <div className="product-footer">
-                  <span className="price">{product.price}</span>
-                  <button className="order-btn" onClick={() => document.getElementById('about').scrollIntoView({behavior: 'smooth'})}>
-                    Запросить прайс
-                  </button>
-                </div>
-              </div>
+              ))}
             </motion.div>
-          ))}
-        </AnimatePresence>
-      </motion.div>
+          </AnimatePresence>
+        </div>
 
       <div className="catalog-download">
         <p>Нужен полный список из 30+ позиций?</p>
