@@ -85,11 +85,12 @@
 
 /* --- АДАПТИВНОСТЬ (МОБИЛКИ И ПЛАНШЕТЫ) --- */
 @media (max-width: 1024px) {
-  /* Прячем десктопные части МГНОВЕННО */
   .nav-side, 
-  .desktop-only,
-  .nav-side.text-right {
-    display: none !important
+  .desktop-only {
+    display: none !important; /* !important здесь критически важен, чтобы перебить любые инлайновые стили React */
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none; /* Чтобы они не были кликабельны, даже если прозрачны */
   }
   
   .mobile-menu-toggle {
@@ -102,26 +103,18 @@
     padding: 0 1.5rem;
   }
 
-  /* Показываем мобильное меню только здесь */
   .nav-links {
-    display: flex; 
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: white;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    z-index: 1000;
-    transform: translateY(-100%);
+    display: flex;
+    /* Убедись, что по умолчанию меню за пределами экрана */
+    transform: translateY(-100%); 
     transition: transform 0.4s ease-in-out;
   }
 
   .nav-links.open {
     transform: translateY(0);
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
   }
 
   .nav-link {
@@ -134,7 +127,7 @@
     transform: none;
     order: 1;
   }
-  
+
 }
 
 /* Скрываем десктопное меню СРАЗУ, если экран меньше 768px */
