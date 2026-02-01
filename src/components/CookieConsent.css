@@ -1,91 +1,64 @@
-/* Основной контейнер баннера */
 .cookie-banner-fix {
   position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
+  /* Вместо transform используем четкие границы */
+  bottom: 15px;
+  left: 10px;
+  right: 10px;
+  margin: 0 auto;
+  width: auto; 
   max-width: 500px;
   background: #ffffff;
   padding: 20px;
   border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  z-index: 9999;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  z-index: 10001; /* Выше всего */
   border: 1px solid #eee;
+  box-sizing: border-box; /* Чтобы padding не раздувал ширину */
 }
 
 .cookie-banner-content p {
   font-size: 0.9rem;
-  color: #444;
+  color: #333;
   margin-bottom: 15px;
-  line-height: 1.5;
-  text-align: left;
+  line-height: 1.4;
 }
 
-/* Контейнер для кнопок */
 .cookie-banner-buttons {
   display: flex;
   gap: 10px;
-  justify-content: flex-end;
 }
 
 .btn-cookie {
-  padding: 10px 18px;
+  flex: 1;
+  padding: 12px 10px;
   border-radius: 10px;
   border: none;
-  cursor: pointer;
   font-weight: 600;
   font-size: 0.85rem;
-  transition: all 0.2s ease;
-  flex: 1; /* Кнопки будут равной ширины */
-  white-space: nowrap;
+  cursor: pointer;
 }
 
-.btn-cookie.primary {
-  background: #D2691E;
-  color: white;
-}
+.btn-cookie.primary { background: #D2691E; color: white; }
+.btn-cookie.secondary { background: #f0f0f0; color: #5D4037; }
+.btn-cookie.decline { background: #fff0f0; color: #cc0000; }
 
-.btn-cookie.secondary {
-  background: #f0f0f0;
-  color: #5D4037;
-}
-
-.btn-cookie.decline {
-  background: #fff0f0;
-  color: #c0392b;
-}
-
-.btn-cookie:active {
-  transform: scale(0.96);
-}
-
-/* --- МОБИЛЬНАЯ ВЕРСИЯ (Адаптив) --- */
+/* Адаптив для маленьких экранов */
 @media (max-width: 480px) {
   .cookie-banner-fix {
     bottom: 10px;
-    width: 95%;
-    padding: 16px;
-  }
-
-  .cookie-banner-content p {
-    font-size: 0.85rem;
-    margin-bottom: 12px;
+    left: 10px;
+    right: 10px;
+    padding: 15px;
   }
 
   .cookie-banner-buttons {
-    flex-direction: column; /* Кнопки встают в колонку */
+    flex-direction: column; /* Кнопки в столбик, чтобы не резались */
     gap: 8px;
   }
-
+  
   .btn-cookie {
     width: 100%;
-    padding: 12px;
-    font-size: 0.9rem;
+    order: 0;
   }
-  
-  /* Делаем главную кнопку "Принять" первой визуально или самой заметной */
-  .btn-cookie.primary {
-    order: -1; 
-  }
+  .btn-cookie.primary { order: -1; } /* Принять всегда сверху */
 }
