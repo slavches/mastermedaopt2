@@ -52,11 +52,11 @@ function Navigation({ currentSection, onSectionChange }) {
     {leftLinks.map(renderLink)}
   </div>
 
-  {/* Обертка-якорь для логотипа */}
+  {/* НОВЫЙ БЛОК ЛОГОТИПА */}
   <div className="logo-wrapper">
     <motion.div 
       className="logo"
-      whileHover={{ scale: 1.05 }}
+      whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
       onClick={() => {
         onSectionChange('home');

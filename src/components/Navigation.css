@@ -47,16 +47,20 @@
 .nav-side {
   display: flex;
   gap: 1rem;
-  /* Заменяем width: 40% на flex: 1, чтобы обе стороны были строго равны */
-  flex: 1;
+  /* Важно: обе стороны занимают равное место */
+  flex: 1; 
 }
-.nav-side.text-right { justify-content: flex-end; }
+
+.nav-side.text-right { 
+  justify-content: flex-end; 
+}
 
 .logo-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 180px; /* Фиксируем место под логотип */
+  /* Укажите ширину чуть больше логотипа, чтобы был запас для масштабирования */
+  min-width: 160px; 
   z-index: 100;
 }
 
@@ -65,15 +69,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* Убираем position: absolute и transform: translateX, 
-     так как теперь центрируем через родительский flex */
-
+  /* УБИРАЕМ position: absolute и transform: translateX! */
 }
 
-.logo-image { height: 55px; 
+.logo-image { 
+  height: 55px; 
   width: auto; 
   display: block;
-  /* Убираем переход здесь, так как за анимацию отвечает Framer Motion */
 }
 
 /* --- МОБИЛЬНОЕ МЕНЮ (ВЫПАДАЮЩЕЕ) --- */
@@ -115,14 +117,15 @@
   }
 
   .logo-wrapper {
-      order: 1;
-      min-width: auto;
-      justify-content: flex-start;
-    }
+    order: 1;
+    min-width: auto;
+    justify-content: flex-start;
+    flex: 1;
+  }
 
   .logo {
-    position: static;
-    transform: none;
+    position: static !important;
+    transform: none !important;
   }
 
   .mobile-menu-toggle {
