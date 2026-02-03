@@ -148,13 +148,19 @@
 
 /* Home Section */
 .home-section {
+  /* Увеличиваем верхний padding, чтобы компенсировать высоту шапки */
+  padding-top: 140px !important; 
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
   background: linear-gradient(135deg, rgba(255, 248, 220, 0.3), rgba(255, 235, 205, 0.3));
 }
 
 .main-title {
   font-size: 4.5rem;
-  text-align: center; /* Возвращаем центр */
-  line-height: 1.1;
+  line-height: 1.2; /* Было 1.1, лучше 1.2 для чистоты */
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
 
 .subtitle {
@@ -412,6 +418,10 @@
     padding: 100px 1rem 2rem;
   }
 
+  .home-section {
+    padding-top: 100px !important; /* На мобилках шапка обычно чуть меньше */
+  }
+
   .section-title {
     font-size: 2rem;
   }
@@ -464,7 +474,8 @@
   }
 
   .main-title {
-    font-size: 2.2rem; /* Уменьшаем гигантский заголовок для телефонов */
+    font-size: 2.2rem;
+    line-height: 1.3; /* На мобильных заголовкам нужно еще больше воздуха */
   }
 
   .hero-form-card {
@@ -543,6 +554,7 @@
 }
 
 .hero-badge {
+  display: inline-block; /* Позволяет корректно считать отступы */
   background: rgba(210, 105, 30, 0.1);
   color: #D2691E;
   padding: 8px 16px;
@@ -551,6 +563,11 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
+  
+  /* ИСПРАВЛЕНИЕ: */
+  line-height: 1.4; /* Добавляем расстояние между строками */
+  margin-bottom: 15px;
+  max-width: 90% ; /* Чтобы не растягивался на весь экран */
 }
 
 .main-title span {

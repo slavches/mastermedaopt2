@@ -55,7 +55,7 @@ function Home() {
       className="hero-form-centered-wrapper"
     >
       <div className="hero-form-card">
-        <h3>Получить оптовый прайс</h3>
+        <h3>Заявка</h3>
         <OrderForm />
         
         <div className="form-divider">ИЛИ</div>
