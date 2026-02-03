@@ -47,25 +47,29 @@ function Navigation({ currentSection, onSectionChange }) {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
     >
-      <div className="nav-container">
-        <div className="nav-side desktop-only">
-          {leftLinks.map(renderLink)}
-        </div>
+     <div className="nav-container">
+  <div className="nav-side desktop-only">
+    {leftLinks.map(renderLink)}
+  </div>
 
-        <motion.div 
-        className="logo"
-        whileHover={{ scale: 1.05 }}
-        onClick={() => {
-          onSectionChange('home');
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }}
-        >
-          <img src={logoImg} alt="Лого" className="logo-image" />
-        </motion.div>
+  {/* Обертка-якорь для логотипа */}
+  <div className="logo-wrapper">
+    <motion.div 
+      className="logo"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      onClick={() => {
+        onSectionChange('home');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }}
+    >
+      <img src={logoImg} alt="Лого" className="logo-image" />
+    </motion.div>
+  </div>
 
-        <div className="nav-side desktop-only text-right">
-          {rightLinks.map(renderLink)}
-        </div>
+  <div className="nav-side desktop-only text-right">
+    {rightLinks.map(renderLink)}
+  </div>
 
         {/* Важно: класс nav-links должен совпадать с CSS */}
         <div className={`nav-links ${isOpen ? 'open' : ''}`}>
