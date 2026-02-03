@@ -6,7 +6,7 @@ const productsData = [
   // ВЕСОВОЙ МЕД
   {
     id: 1,
-    image: '/images/products/med33.5.jpg', // Путь от папки public
+    image: '/images/products/med33.5.png', // Путь от папки public
     category: 'weight',
     name: 'Мёд цветочный весовой',
     packaging: 'Пластиковое ведро',
@@ -18,7 +18,7 @@ const productsData = [
   // НАТУРАЛЬНЫЙ МЕД
   {
     id: 2,
-    image: '/images/products/lipovii300.jpg', // Путь от папки public
+    image: '/images/products/lipovii300.png', // Путь от папки public
     category: 'classic',
     name: 'Мёд "Липовый цвет"',
     packaging: 'Стеклянная банка',
@@ -29,7 +29,7 @@ const productsData = [
   },
   {
     id: 3,
-    image: '/images/products/grechishniy300.jpg', // Путь от папки public
+    image: '/images/products/grechishniy300.png', // Путь от папки public
     category: 'classic',
     name: 'Мёд "Гречишный цвет"',
     packaging: 'Стеклянная банка',
@@ -40,7 +40,7 @@ const productsData = [
   // С ДОБАВКАМИ (Разделено на 3 вида)
   {
     id: 4,
-    image: '/images/products/malina240.jpg', // Путь от папки public
+    image: '/images/products/malina240.png', // Путь от папки public
     category: 'with-additives',
     name: 'Мёд с малиной',
     packaging: 'Стекло / Пластик',
@@ -51,7 +51,7 @@ const productsData = [
   },
   {
     id: 5,
-    image: '/images/products/limon240.jpg', // Путь от папки public
+    image: '/images/products/limon240.png', // Путь от папки public
     category: 'with-additives',
     name: 'Мёд с лимоном',
     packaging: 'Стекло / Пластик',
@@ -61,7 +61,7 @@ const productsData = [
   },
   {
     id: 6,
-    image: '/images/products/imbir240.jpg', // Путь от папки public
+    image: '/images/products/imbir240.png', // Путь от папки public
     category: 'with-additives',
     name: 'Мёд с имбирем',
     packaging: 'Стекло / Пластик',
@@ -72,7 +72,7 @@ const productsData = [
   // ПОДАРОЧНЫЕ НАБОРЫ (Добавлен новый вид)
   {
     id: 7,
-    image: '/images/products/podnab2x330.jpg', // Путь от папки public
+    image: '/images/products/podnab2x330.png', // Путь от папки public
     category: 'gifts',
     name: 'Подарочный набор (2 банки)',
     packaging: 'Картонная упаковка',
@@ -83,7 +83,7 @@ const productsData = [
   },
   {
     id: 8,
-    image: '/images/products/podnab3x240.jpg', // Путь от папки public
+    image: '/images/products/podnab3x240.png', // Путь от папки public
     category: 'gifts',
     name: 'Подарочный набор (3 банки)',
     packaging: 'Картонная упаковка',
