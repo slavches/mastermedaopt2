@@ -575,8 +575,25 @@
 }
 
 .hero-features {
-  justify-content: center; /* Иконки тоже в центр */
+  display: flex;
+  justify-content: center;
   gap: 30px;
+  margin-bottom: 40px; /* Увеличиваем отступ до формы */
+  color: #5D4037;
+  font-weight: 500;
+}
+
+/* Если вы хотите, чтобы кнопка "Отправить" была чуть солиднее в рядной форме */
+.submit-btn-inline {
+  background: #D2691E;
+  color: white;
+  border: none;
+  padding: 12px 30px; /* Немного расширим */
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  min-width: 140px; /* Зададим минимальную ширину, чтобы слово "Отправить" смотрелось уверенно */
 }
 
 .hero-buttons {

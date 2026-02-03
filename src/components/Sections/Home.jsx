@@ -36,15 +36,6 @@ function Home() {
               <span>✓ Полный пакет документов</span>
               <span>✓ Быстрая отгрузка</span>
             </div>
-
-            <div className="hero-buttons">
-              <button 
-                className="btn-primary" 
-                onClick={() => document.getElementById('products').scrollIntoView({ behavior: 'smooth' })}
-              >
-                Смотреть каталог
-              </button>
-            </div>
           </motion.div>
 
           {/* ПРАВАЯ КОЛОНКА: ФОРМА */}
