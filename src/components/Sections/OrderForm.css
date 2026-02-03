@@ -1,85 +1,74 @@
-.order-form-container {
-  padding: 60px 20px;
-  display: flex;
-  justify-content: center;
-}
-
-.order-form-card {
-  background: #ffffff;
-  padding: 40px;
-  border-radius: 24px;
-  box-shadow: 0 15px 40px rgba(93, 64, 55, 0.1);
+.order-form-inline {
   width: 100%;
-  max-width: 600px;
-  border: 1px solid #FFF8DC;
-  text-align: center;
-}
-
-.order-form-card h3 {
-  color: #5D4037;
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-.order-form-card p {
-  color: #8D6E63;
-  margin-bottom: 30px;
-  line-height: 1.5;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-row {
   display: flex;
+  flex-direction: column;
   gap: 15px;
 }
 
-.form-row .form-group {
+.form-main-row {
+  display: flex;
+  flex-wrap: nowrap; /* Все в одну линию на десктопе */
+  gap: 10px;
+  width: 100%;
+}
+
+.form-main-row input, 
+.form-main-row select {
   flex: 1;
-}
-
-input, select, textarea {
-  width: 100%;
-  padding: 14px 18px;
-  border: 2px solid #FFF8DC;
-  border-radius: 12px;
-  font-size: 1rem;
-  color: #5D4037;
+  min-width: 0; /* Важно для flex-контейнеров */
+  padding: 12px 15px;
+  border: 1px solid #DEB887;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  background: white;
   outline: none;
-  transition: border-color 0.3s ease;
-  background: #FFFEF9;
 }
 
-input:focus, select:focus, textarea:focus {
+.form-main-row input:focus, 
+.form-main-row select:focus {
   border-color: #D2691E;
+  box-shadow: 0 0 0 2px rgba(210, 105, 30, 0.1);
 }
 
-.submit-btn {
+.comment-input {
   width: 100%;
-  padding: 16px;
+  padding: 10px 15px;
+  border: 1px solid #EEEEEE;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  outline: none;
+}
+
+.submit-btn-inline {
   background: #D2691E;
   color: white;
   border: none;
-  border-radius: 12px;
-  font-size: 1.1rem;
+  padding: 12px 25px;
+  border-radius: 10px;
   font-weight: 700;
   cursor: pointer;
-  margin-top: 10px;
-  transition: background 0.3s ease;
+  white-space: nowrap;
 }
 
-.submit-btn:hover {
-  background: #A0522D;
+/* Адаптивность */
+@media (max-width: 1024px) {
+  .form-main-row {
+    flex-wrap: wrap; /* Разрешаем перенос на планшетах */
+  }
+  .form-main-row input, 
+  .form-main-row select {
+    flex: 1 1 45%; /* По 2 элемента в ряд */
+  }
 }
 
 @media (max-width: 600px) {
-  .form-row {
-    flex-direction: column;
-    gap: 0;
+  .form-main-row {
+    flex-direction: column; /* Все в колонку на телефонах */
   }
-  .order-form-card {
-    padding: 25px;
+  .form-main-row input, 
+  .form-main-row select,
+  .submit-btn-inline {
+    width: 100%;
+    flex: none;
   }
 }
