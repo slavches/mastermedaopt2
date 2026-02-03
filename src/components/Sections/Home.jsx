@@ -53,7 +53,7 @@ function Home() {
         
         <button 
           className="btn-telegram-wide"
-          onClick={() => window.open('https://t.me/your_link', '_blank')}
+          onClick={() => window.open('https://t.me/master_meda_optshop', '_blank')}
         >
           Написать в Telegram
         </button>
