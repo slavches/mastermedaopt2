@@ -10,7 +10,7 @@ const productsData = [
     category: 'weight',
     name: 'Мёд цветочный весовой',
     packaging: 'Пластиковое ведро',
-    weight: '7.5 кг',
+    weight: '7.5кг / 33.5кг',
     price: '240.00 р/кг',
     note: 'Цена с НДС. Идеально для производств и пекарен.',
     badge: 'Для производств'
@@ -92,6 +92,18 @@ const productsData = [
     note: 'Микс вкусов: лимон, малина, имбирь.',
     badge: 'Популярное'
   }
+    // ГАУБНИИЦ
+  {
+    id: 9,
+    image: '/images/products/med33.5.png', // Путь от папки public
+    category: 'weight',
+    name: 'Мёд цветочный башкирский',
+    packaging: 'Стеклянная банка',
+    weight: '0.4г',
+    price: '240.00 р/кг',
+    note: 'Цена с НДС. Самый популярный вид мёда в мире',
+    badge: 'Для производств'
+  },
 ];
 
 const Products = () => {
