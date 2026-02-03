@@ -91,12 +91,12 @@ const productsData = [
     price: '418.46 р',
     note: 'Микс вкусов: лимон, малина, имбирь.',
     badge: 'Популярное'
-  }
+  },
     // ГАУБНИИЦ
   {
     id: 9,
     image: '/images/products/med33.5.png', // Путь от папки public
-    category: 'weight',
+    category: 'GAYBNIIC',
     name: 'Мёд цветочный башкирский',
     packaging: 'Стеклянная банка',
     weight: '0.4г',
@@ -130,6 +130,7 @@ const Products = () => {
           <button className={filter === 'weight' ? 'active' : ''} onClick={() => setFilter('weight')}>Весовой (Опт)</button>
           <button className={filter === 'with-additives' ? 'active' : ''} onClick={() => setFilter('with-additives')}>С добавками</button>
           <button className={filter === 'gifts' ? 'active' : ''} onClick={() => setFilter('gifts')}>Подарки</button>
+          <button className={filter === 'GAYBNIIC' ? 'active' : ''} onClick={() => setFilter('GAYBNIIC')}>ГАУБНИИЦ</button>
         </div>
       </div>
 
