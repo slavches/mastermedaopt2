@@ -151,7 +151,14 @@ const Products = () => {
 
       <div className="catalog-download">
         <p>Нужен полный список из 30+ позиций?</p>
-        <button className="download-btn">Скачать полный каталог (PDF)</button>
+        <a 
+          href="/price.pdf" 
+          target="_blank" rel="noopener noreferrer" // Имя файла при сохранении у клиента
+          className="download-btn"
+          style={{ textDecoration: 'none', display: 'inline-block' }}
+        >
+          Скачать полный каталог (PDF)
+        </a>
       </div>
     </section>
   );
