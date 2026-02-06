@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
+import { Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 // Импорт стилей Swiper
 import 'swiper/css';
@@ -52,20 +56,20 @@ const Products = () => {
         {productsData.map((product) => (
           <div key={product.id} className="product-card" onClick={() => openModal(product)}>
             {/* ВАЖНО: modules={[Pagination]} должен быть здесь */}
-            <Swiper
-              modules={[Pagination]}
-              pagination={{ clickable: true }}
-              className="card-slider"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {product.images.map((img, index) => (
-                <SwiperSlide key={index}>
-                  <img 
-                    src={img} 
-                    alt={product.title} 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-                  />
-                </SwiperSlide>
+                      <Swiper 
+            modules={[Navigation, Pagination]} 
+            navigation={true} // Включаем стрелки
+            pagination={{ type: 'fraction' }}
+            style={{ width: '100%' }}
+          >
+            {selectedProduct.images.map((img, i) => (
+              <SwiperSlide key={i}>
+                <img 
+                  src={img} 
+                  alt="full" 
+                  style={{ width: '100%', maxHeight: '70vh', objectFit: 'contain', display: 'block' }} 
+                />
+              </SwiperSlide>
               ))}
             </Swiper>
 

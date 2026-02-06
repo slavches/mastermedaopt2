@@ -312,3 +312,24 @@
   color: #D2691E;
   font-weight: 600;
 }
+
+/* Цвет стрелок в слайдере */
+.modal-gallery {
+  --swiper-navigation-color: #D2691E; /* Рыжий/Медовый цвет */
+  --swiper-pagination-color: #D2691E;
+}
+
+/* Сделаем стрелки чуть меньше, чтобы не мешали */
+.swiper-button-next, .swiper-button-prev {
+  transform: scale(0.7);
+  background: rgba(255, 255, 255, 0.5);
+  padding: 30px;
+  border-radius: 50%;
+}
+
+/* Скрываем стрелки на мобилках, там удобнее свайпать */
+@media (max-width: 768px) {
+  .swiper-button-next, .swiper-button-prev {
+    display: none !important;
+  }
+}
