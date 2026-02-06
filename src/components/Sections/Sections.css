@@ -79,18 +79,38 @@
   box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
-.card-slider img {
+/* --- СЛАЙДЕР В КАРТОЧКЕ (Сетка) --- */
+.card-image-wrapper {
   width: 100%;
   aspect-ratio: 1/1;
+  overflow: hidden;
+  position: relative;
+}
+
+.card-slider {
+  width: 100%;
+  height: 100%;
+}
+
+.card-slider img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
-/* Стили для точек в маленькой карточке */
-.card-slider .swiper-pagination-bullet-active {
-  background: #FFA500 !important;
+.card-slider .swiper-pagination-bullet {
+  background: #fff !important;
+  opacity: 0.7;
 }
 
-/* --- ОБНОВЛЕННОЕ МОДАЛЬНОЕ ОКНО (ФИНАЛ) --- */
+.card-slider .swiper-pagination-bullet-active {
+  background: #FFA500 !important;
+  opacity: 1;
+  width: 12px;
+  border-radius: 4px;
+}
+
+/* --- МОДАЛЬНОЕ ОКНО (ФИНАЛ) --- */
 .modal-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -117,17 +137,23 @@
   display: flex;
 }
 
+/* Левая часть - Галерея */
 .modal-gallery-container {
   width: 55%;
-  background: #f9f9f9;
+  background: #fdfdfd;
+  min-height: 500px;
   position: relative;
   border-right: 1px solid #eee;
-  min-height: 500px; /* Чтобы слайдер не схлопывался */
+}
+
+.modal-swiper-main {
+  width: 100%;
+  height: 500px;
 }
 
 .modal-slide-img-wrapper {
   width: 100%;
-  height: 500px;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -139,6 +165,7 @@
   object-fit: contain;
 }
 
+/* Правая часть - Текст */
 .modal-text-content {
   width: 45%;
   padding: 40px;
@@ -159,16 +186,16 @@
   margin-bottom: 20px;
 }
 
-/* СТРЕЛКИ В МОДАЛКЕ (Принудительно видимые) */
+/* СТРЕЛКИ В МОДАЛКЕ */
 .modal-swiper-main .swiper-button-next,
 .modal-swiper-main .swiper-button-prev {
   color: #D2691E !important;
-  background: white !important;
-  width: 45px !important;
-  height: 45px !important;
-  border-radius: 50% !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
-  z-index: 100 !important;
+  background: rgba(255, 255, 255, 0.9);
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
 }
 
 .modal-swiper-main .swiper-button-next::after,
@@ -177,33 +204,37 @@
   font-weight: bold;
 }
 
-/* Кнопка закрытия */
+.modal-swiper-main .swiper-pagination-fraction {
+  font-size: 14px;
+  color: #5D4037;
+  font-weight: 600;
+  bottom: 15px;
+}
+
+/* Кнопка закрытия (крестик) */
 .close-modal {
   position: absolute;
   top: 15px;
   right: 15px;
-  z-index: 101;
   background: white;
   border: none;
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
+  font-size: 20px;
   cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 10;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* --- АДАПТИВНОСТЬ --- */
+/* Адаптивность */
 @media (max-width: 850px) {
   .modal-body { flex-direction: column; }
   .modal-gallery-container, .modal-text-content { width: 100%; }
-  .modal-gallery-container, .modal-slide-img-wrapper { height: 350px; min-height: 350px; }
+  .modal-gallery-container, .modal-swiper-main { height: 350px; min-height: 350px; }
   .modal-card { max-height: 95vh; overflow-y: auto; }
-  
-  /* Скрываем стрелки на мобилках, там только свайп пальцем */
-  .modal-swiper-main .swiper-button-next,
-  .modal-swiper-main .swiper-button-prev {
-    display: none !important;
-  }
+  .modal-swiper-main .swiper-button-next, 
+  .modal-swiper-main .swiper-button-prev { display: none !important; }
 }
 
 /* --- ТЕЛЕГРАМ И НОВОСТИ --- */

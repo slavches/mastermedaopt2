@@ -48,21 +48,23 @@ const Products = () => {
       
       <div className="products-grid">
         {productsData.map((product) => (
-          <div key={product.id} className="product-card" onClick={() => openModal(product)}>
-            <Swiper
-              modules={[Pagination]}
-              pagination={{ clickable: true }}
-              className="card-slider"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {product.images.map((img, index) => (
-                <SwiperSlide key={index}>
-                  <img src={img} alt={product.title} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
+          <div key={product.id} className="product-card">
+            {/* СЛАЙДЕР В КАРТОЧКЕ (Работает свайп и точки) */}
+            <div className="card-image-wrapper">
+              <Swiper
+                modules={[Pagination]}
+                pagination={{ clickable: true }}
+                className="card-slider"
+              >
+                {product.images.map((img, index) => (
+                  <SwiperSlide key={index} onClick={() => openModal(product)}>
+                    <img src={img} alt={product.title} />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
 
-            <div className="product-card-body">
+            <div className="product-card-body" onClick={() => openModal(product)}>
               <div className="product-card-price">{product.price}</div>
               <h3 className="product-card-title">{product.title}</h3>
               <button className="submit-btn-inline" style={{width: '100%'}}>Подробнее</button>
@@ -77,8 +79,8 @@ const Products = () => {
             <button className="close-modal" onClick={closeModal}>✕</button>
             
             <div className="modal-body">
-              {/* ЛЕВАЯ ЧАСТЬ С ФОТО */}
               <div className="modal-gallery-container">
+                {/* СЛАЙДЕР В МОДАЛКЕ (Свайп + Стрелки + Дроби) */}
                 <Swiper 
                   modules={[Navigation, Pagination]} 
                   navigation={true} 
@@ -95,7 +97,6 @@ const Products = () => {
                 </Swiper>
               </div>
 
-              {/* ПРАВАЯ ЧАСТЬ С ТЕКСТОМ */}
               <div className="modal-text-content">
                 <h2>{selectedProduct.title}</h2>
                 <div className="modal-price-tag">{selectedProduct.price}</div>
