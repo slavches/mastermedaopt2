@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 
-// Импорт стилей Swiper (Обязательно все три)
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -25,9 +24,7 @@ const productsData = [
     id: 2,
     title: "Мёд Гречишный Алтайский",
     price: "320 ₽/кг",
-    images: [
-      "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500"
-    ],
+    images: ["https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500"],
     description: "Насыщенный темный мёд с полей Алтая."
   }
 ];
@@ -52,18 +49,15 @@ const Products = () => {
       <div className="products-grid">
         {productsData.map((product) => (
           <div key={product.id} className="product-card" onClick={() => openModal(product)}>
-            {/* СЛАЙДЕР В КАРТОЧКЕ (Свайп работает везде) */}
             <Swiper
               modules={[Pagination]}
               pagination={{ clickable: true }}
-              spaceBetween={0}
-              slidesPerView={1}
               className="card-slider"
               onClick={(e) => e.stopPropagation()}
             >
               {product.images.map((img, index) => (
                 <SwiperSlide key={index}>
-                  <img src={img} alt={product.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src={img} alt={product.title} />
                 </SwiperSlide>
               ))}
             </Swiper>
@@ -77,32 +71,39 @@ const Products = () => {
         ))}
       </div>
 
-      {/* МОДАЛЬНОЕ ОКНО */}
       {selectedProduct && (
         <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+          <div className="modal-card" onClick={(e) => e.stopPropagation()}>
             <button className="close-modal" onClick={closeModal}>✕</button>
-            <div className="modal-grid">
-              <div className="modal-gallery">
-                {/* СЛАЙДЕР В МОДАЛКЕ (Свайп + Стрелки) */}
+            
+            <div className="modal-body">
+              {/* ЛЕВАЯ ЧАСТЬ С ФОТО */}
+              <div className="modal-gallery-container">
                 <Swiper 
                   modules={[Navigation, Pagination]} 
                   navigation={true} 
                   pagination={{ type: 'fraction' }}
-                  className="modal-swiper"
+                  className="modal-swiper-main"
                 >
                   {selectedProduct.images.map((img, i) => (
                     <SwiperSlide key={i}>
-                      <img src={img} alt="full" style={{ width: '100%', maxHeight: '70vh', objectFit: 'contain' }} />
+                      <div className="modal-slide-img-wrapper">
+                        <img src={img} alt="продукт" />
+                      </div>
                     </SwiperSlide>
                   ))}
                 </Swiper>
               </div>
-              <div className="modal-info">
+
+              {/* ПРАВАЯ ЧАСТЬ С ТЕКСТОМ */}
+              <div className="modal-text-content">
                 <h2>{selectedProduct.title}</h2>
-                <p className="product-card-price">{selectedProduct.price}</p>
-                <p>{selectedProduct.description}</p>
-                <button className="submit-btn-inline" onClick={closeModal}>Закрыть</button>
+                <div className="modal-price-tag">{selectedProduct.price}</div>
+                <div className="modal-divider-line"></div>
+                <p className="modal-desc">{selectedProduct.description}</p>
+                <button className="submit-btn-inline" style={{marginTop: 'auto'}} onClick={closeModal}>
+                  Закрыть
+                </button>
               </div>
             </div>
           </div>

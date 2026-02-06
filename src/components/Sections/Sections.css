@@ -1,13 +1,13 @@
-/* --- БАЗОВЫЕ СТРУКТУРНЫЕ СТИЛИ (Чтобы ничего не прыгало) --- */
+/* --- БАЗОВЫЕ СТРУКТУРНЫЕ СТИЛИ --- */
 .section {
   padding: 100px 20px;
   max-width: 1200px;
   margin: 0 auto;
   min-height: 80vh;
-  display: block; /* Убрали flex, чтобы блоки не наезжали друг на друга */
+  display: block;
 }
 
-/* --- БЛОК HOME (Приветственная карточка) --- */
+/* --- БЛОК HOME --- */
 .home-section {
   padding-top: 150px;
   background: linear-gradient(135deg, #FFF8DC 0%, #FFEBCD 100%);
@@ -30,7 +30,6 @@
   color: #5D4037;
   margin-bottom: 20px;
 }
-
 .main-title span { color: #FFA500; }
 
 /* --- ГОРИЗОНТАЛЬНАЯ ФОРМА (Home) --- */
@@ -57,7 +56,7 @@
   flex: 1;
 }
 
-/* --- КАРТОЧКИ ТОВАРОВ (Маркетплейс-стайл) --- */
+/* --- КАРТОЧКИ ТОВАРОВ --- */
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -76,7 +75,7 @@
 }
 
 .product-card:hover {
-  transform: translateY(-5px); /* Легкий подъем вместо прыжка */
+  transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
@@ -86,11 +85,16 @@
   object-fit: cover;
 }
 
-/* НОВОЕ МОДАЛЬНОЕ ОКНО */
+/* Стили для точек в маленькой карточке */
+.card-slider .swiper-pagination-bullet-active {
+  background: #FFA500 !important;
+}
+
+/* --- ОБНОВЛЕННОЕ МОДАЛЬНОЕ ОКНО (ФИНАЛ) --- */
 .modal-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(8px);
   z-index: 9999;
   display: flex;
@@ -102,29 +106,28 @@
 .modal-card {
   background: white;
   width: 100%;
-  max-width: 900px;
+  max-width: 950px;
   border-radius: 24px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.5);
 }
 
 .modal-body {
   display: flex;
-  flex-direction: row;
 }
 
 .modal-gallery-container {
   width: 55%;
-  background: #fdfdfd;
-  min-height: 450px;
+  background: #f9f9f9;
   position: relative;
-  border-right: 1px solid #f0f0f0;
+  border-right: 1px solid #eee;
+  min-height: 500px; /* Чтобы слайдер не схлопывался */
 }
 
 .modal-slide-img-wrapper {
   width: 100%;
-  height: 450px;
+  height: 500px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -143,23 +146,6 @@
   flex-direction: column;
 }
 
-/* СТРЕЛКИ (Прямо по верху) */
-.modal-swiper-main .swiper-button-next,
-.modal-swiper-main .swiper-button-prev {
-  color: #D2691E !important;
-  background: rgba(255, 255, 255, 0.9);
-  width: 40px !important;
-  height: 40px !important;
-  border-radius: 50%;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.modal-swiper-main .swiper-button-next::after,
-.modal-swiper-main .swiper-button-prev::after {
-  font-size: 16px !important;
-}
-
-/* СТИЛИ ТЕКСТА */
 .modal-price-tag {
   font-size: 24px;
   font-weight: 800;
@@ -173,69 +159,71 @@
   margin-bottom: 20px;
 }
 
-/* МОБИЛЬНАЯ ВЕРСИЯ */
-@media (max-width: 768px) {
+/* СТРЕЛКИ В МОДАЛКЕ (Принудительно видимые) */
+.modal-swiper-main .swiper-button-next,
+.modal-swiper-main .swiper-button-prev {
+  color: #D2691E !important;
+  background: white !important;
+  width: 45px !important;
+  height: 45px !important;
+  border-radius: 50% !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
+  z-index: 100 !important;
+}
+
+.modal-swiper-main .swiper-button-next::after,
+.modal-swiper-main .swiper-button-prev::after {
+  font-size: 18px !important;
+  font-weight: bold;
+}
+
+/* Кнопка закрытия */
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 101;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* --- АДАПТИВНОСТЬ --- */
+@media (max-width: 850px) {
   .modal-body { flex-direction: column; }
   .modal-gallery-container, .modal-text-content { width: 100%; }
-  .modal-gallery-container { min-height: 300px; }
-  .modal-slide-img-wrapper { height: 300px; }
-  .modal-card { max-height: 90vh; overflow-y: auto; }
+  .modal-gallery-container, .modal-slide-img-wrapper { height: 350px; min-height: 350px; }
+  .modal-card { max-height: 95vh; overflow-y: auto; }
+  
+  /* Скрываем стрелки на мобилках, там только свайп пальцем */
+  .modal-swiper-main .swiper-button-next,
+  .modal-swiper-main .swiper-button-prev {
+    display: none !important;
+  }
 }
 
-/* --- УДАЛЕНИЕ ЭФФЕКТОВ В ДРУГИХ БЛОКАХ --- */
-.news-section, .partners-section {
-  background: white;
-  transform: none !important; /* Убираем прыжки */
-}
-
-/* КНОПКА ТЕЛЕГРАМ НАПРЯМУЮ */
+/* --- ТЕЛЕГРАМ И НОВОСТИ --- */
 .btn-telegram-wide {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   width: 100%;
-  max-width: 400px; /* Чтобы не была слишком растянутой на ПК */
-  margin: 15px auto 0; /* Центрируем под разделителем */
+  max-width: 400px;
+  margin: 15px auto 0;
   padding: 12px 25px;
-  background-color: #0088cc; /* Фирменный цвет Telegram */
+  background-color: #0088cc;
   color: white !important;
   text-decoration: none;
   border-radius: 12px;
   font-weight: 600;
-  font-size: 1rem;
   transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
 }
 
-.btn-telegram-wide:hover {
-  background-color: #0077b5;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 136, 204, 0.3);
-}
-
-/* Линия-разделитель "ИЛИ" */
-.form-divider {
-  display: flex;
-  align-items: center;
-  text-align: center;
-  color: #BDBDBD;
-  font-size: 0.85rem;
-  margin: 20px 0;
-  width: 100%;
-}
-
-.form-divider::before, .form-divider::after {
-  content: '';
-  flex: 1;
-  border-bottom: 1px solid #EEEEEE;
-}
-
-.form-divider:not(:empty)::before { margin-right: 15px; }
-.form-divider:not(:empty)::after { margin-left: 15px; }
-
-/* --- СТИЛИ ДЛЯ БЛОКА НОВОСТЕЙ --- */
 .news-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -249,105 +237,4 @@
   padding: 30px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.05);
   border: 1px solid #f0f0f0;
-  display: flex;
-  flex-direction: column;
-  transition: all 0.3s ease;
-}
-
-.news-image {
-  font-size: 3rem; /* Для эмодзи */
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.news-content h3 {
-  font-size: 1.25rem;
-  color: #5D4037;
-  margin-bottom: 12px;
-  line-height: 1.4;
-}
-
-.news-date {
-  font-size: 0.85rem;
-  color: #D2691E;
-  font-weight: 700;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.news-content p {
-  font-size: 0.95rem;
-  color: #777;
-  line-height: 1.6;
-}
-
-.section-description {
-  text-align: center;
-  color: #8D6E63;
-  margin-bottom: 40px;
-  font-size: 1.1rem;
-}
-
-.loading {
-  text-align: center;
-  padding: 50px;
-  color: #D2691E;
-  font-weight: 600;
-}
-
-/* Цвет стрелок в слайдере */
-.modal-gallery {
-  --swiper-navigation-color: #D2691E; /* Рыжий/Медовый цвет */
-  --swiper-pagination-color: #D2691E;
-}
-
-/* Сделаем стрелки чуть меньше, чтобы не мешали */
-.swiper-button-next, .swiper-button-prev {
-  transform: scale(0.7);
-  background: rgba(255, 255, 255, 0.5);
-  padding: 30px;
-  border-radius: 50%;
-}
-
-/* Скрываем стрелки на мобилках, там удобнее свайпать */
-@media (max-width: 768px) {
-  .swiper-button-next, .swiper-button-prev {
-    display: none !important;
-  }
-}
-
-/* Делаем стрелки в модалке видимыми и красивыми */
-.modal-swiper .swiper-button-next,
-.modal-swiper .swiper-button-prev {
-  color: #D2691E !important; /* Цвет мёда */
-  background: rgba(255, 255, 255, 0.9) !important; /* Белый кружок */
-  width: 44px !important;
-  height: 44px !important;
-  border-radius: 50% !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
-  z-index: 10;
-}
-
-/* Уменьшаем размер иконок внутри стрелок */
-.modal-swiper .swiper-button-next::after,
-.modal-swiper .swiper-button-prev::after {
-  font-size: 18px !important;
-}
-
-/* Позиция стрелок */
-.modal-swiper .swiper-button-prev { left: 10px !important; }
-.modal-swiper .swiper-button-next { right: 10px !important; }
-
-/* На мобилках скрываем стрелки (там только свайп пальцем) */
-@media (max-width: 768px) {
-  .modal-swiper .swiper-button-next,
-  .modal-swiper .swiper-button-prev {
-    display: none !important;
-  }
-}
-
-/* Стили для точек в маленькой карточке */
-.card-slider .swiper-pagination-bullet-active {
-  background: #FFA500 !important;
 }
