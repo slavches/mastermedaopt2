@@ -12,11 +12,11 @@ const productsData = [
     title: "Мёд с имбирём",
     price: "380 ₽/кг",
     images: [
-      "/img/imbir2401.webp",
-      "/img/imbir2402.webp",
-      "/img/imbir2403.webp",
-      "/img/imbir2404.webp",
-      "/img/imbir2405.webp"
+      "/images/imbir2401.webp",
+      "/images/imbir2402.webp",
+      "/images/imbir2403.webp",
+      "/images/imbir2404.webp",
+      "/images/imbir2405.webp"
     ],
     description: "Натуральный мёд высшего качества с натуральным имбирём, сбор 2025 года."
   },
