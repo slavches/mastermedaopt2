@@ -20,16 +20,8 @@ const productsData = [
       "/images/imbir2405.webp"
     ],
     description: "Натуральный мёд высшего качества с натуральным имбирём, сбор 2025 года."
-  },
-  {
-    id: 2,
-    title: "Мёд Гречишный Алтайский",
-    price: "320 ₽/кг",
-    images: [
-      "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500"
-    ],
-    description: "Насыщенный темный мёд с полей Алтая."
   }
+  // ... ваши остальные товары
 ];
 
 const Products = () => {
@@ -52,24 +44,19 @@ const Products = () => {
       <div className="products-grid">
         {productsData.map((product) => (
           <div key={product.id} className="product-card" onClick={() => openModal(product)}>
-            {/* Слайдер внутри карточки (только точки) */}
             <Swiper
               modules={[Pagination]}
               pagination={{ clickable: true }}
+              autoplay={false} // Автопереключение выключено
               className="card-slider"
               onClick={(e) => e.stopPropagation()}
             >
               {product.images.map((img, index) => (
                 <SwiperSlide key={index}>
-                  <img 
-                    src={img} 
-                    alt={product.title} 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-                  />
+                  <img src={img} alt={product.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </SwiperSlide>
               ))}
             </Swiper>
-
             <div className="product-card-body">
               <div className="product-card-price">{product.price}</div>
               <h3 className="product-card-title">{product.title}</h3>
@@ -79,27 +66,22 @@ const Products = () => {
         ))}
       </div>
 
-      {/* Модальное окно (появляется только при клике) */}
       {selectedProduct && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <button className="close-modal" onClick={closeModal}>✕</button>
             <div className="modal-grid">
               <div className="modal-gallery">
-                {/* Слайдер в модальном окне (Стрелки + Цифры) */}
                 <Swiper 
                   modules={[Navigation, Pagination]} 
-                  navigation={true}
+                  navigation={true} // Swiper попытается отрисовать стандартные стрелки
                   pagination={{ type: 'fraction' }}
+                  autoplay={false} // Автопереключение выключено
                   className="modal-swiper"
                 >
                   {selectedProduct.images.map((img, i) => (
                     <SwiperSlide key={i}>
-                      <img 
-                        src={img} 
-                        alt="full" 
-                        style={{ width: '100%', maxHeight: '70vh', objectFit: 'contain', display: 'block' }} 
-                      />
+                      <img src={img} alt="full" style={{ width: '100%', maxHeight: '70vh', objectFit: 'contain' }} />
                     </SwiperSlide>
                   ))}
                 </Swiper>
