@@ -60,13 +60,16 @@ function Home() {
               <OrderForm />
               
               <div className="form-divider">ИЛИ</div>
-              
-              <button 
+
+              <a 
+                href="https://t.me/master_meda_bot"
+                target="_blank" 
+                rel="noopener noreferrer" 
                 className="btn-telegram-wide"
-                onClick={() => window.open('https://t.me/master_meda_bot', '_blank')}
               >
+                <i className="fab fa-telegram-plane"></i> {/* Если есть иконки */}
                 Написать в Telegram напрямую
-              </button>
+              </a>
             </div>
           </motion.div>
 

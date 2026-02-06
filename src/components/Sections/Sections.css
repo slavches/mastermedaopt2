@@ -86,12 +86,13 @@
   object-fit: cover;
 }
 
-/* --- МОДАЛЬНОЕ ОКНО --- */
+/* --- МОДАЛЬНОЕ ОКНО (ИСПРАВЛЕННОЕ) --- */
 .modal-overlay {
   position: fixed;
-  top:0; left:0; right:0; bottom:0;
-  background: rgba(0,0,0,0.8);
-  z-index: 2000;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.85); /* Затемнение */
+  backdrop-filter: blur(5px);
+  z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -100,12 +101,97 @@
 
 .modal-content {
   background: white;
-  border-radius: 25px;
-  max-width: 900px;
+  border-radius: 24px;
+  max-width: 1000px;
   width: 100%;
-  display: flex;
+  max-height: 90vh;
+  display: flex; /* Флекс для разделения на две колонки */
   overflow: hidden;
   position: relative;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+
+.modal-grid {
+  display: flex; /* Используем flex вместо grid для надежности */
+  width: 100%;
+}
+
+.modal-gallery {
+  flex: 1.2; /* Фото занимает чуть больше места */
+  background: #f9f9f9;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-gallery img {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+.modal-info {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+}
+
+.modal-info h2 {
+  font-size: 1.8rem;
+  color: #5D4037;
+  margin: 0;
+}
+
+.modal-info .product-card-price {
+  font-size: 2rem;
+  color: #D2691E;
+  font-weight: 800;
+}
+
+.modal-info p {
+  line-height: 1.6;
+  color: #666;
+  font-size: 1.05rem;
+}
+
+/* Кнопка закрытия */
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 100;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Адаптивность для мобилок */
+@media (max-width: 800px) {
+  .modal-content {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .modal-grid {
+    flex-direction: column;
+  }
+  .modal-gallery {
+    min-height: 300px;
+  }
+  .modal-info {
+    padding: 20px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -117,4 +203,112 @@
 .news-section, .partners-section {
   background: white;
   transform: none !important; /* Убираем прыжки */
+}
+
+/* КНОПКА ТЕЛЕГРАМ НАПРЯМУЮ */
+.btn-telegram-wide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 400px; /* Чтобы не была слишком растянутой на ПК */
+  margin: 15px auto 0; /* Центрируем под разделителем */
+  padding: 12px 25px;
+  background-color: #0088cc; /* Фирменный цвет Telegram */
+  color: white !important;
+  text-decoration: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-telegram-wide:hover {
+  background-color: #0077b5;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 136, 204, 0.3);
+}
+
+/* Линия-разделитель "ИЛИ" */
+.form-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #BDBDBD;
+  font-size: 0.85rem;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.form-divider::before, .form-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #EEEEEE;
+}
+
+.form-divider:not(:empty)::before { margin-right: 15px; }
+.form-divider:not(:empty)::after { margin-left: 15px; }
+
+/* --- СТИЛИ ДЛЯ БЛОКА НОВОСТЕЙ --- */
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 25px;
+  margin-top: 40px;
+}
+
+.news-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  border: 1px solid #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.news-image {
+  font-size: 3rem; /* Для эмодзи */
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.news-content h3 {
+  font-size: 1.25rem;
+  color: #5D4037;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.news-date {
+  font-size: 0.85rem;
+  color: #D2691E;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.news-content p {
+  font-size: 0.95rem;
+  color: #777;
+  line-height: 1.6;
+}
+
+.section-description {
+  text-align: center;
+  color: #8D6E63;
+  margin-bottom: 40px;
+  font-size: 1.1rem;
+}
+
+.loading {
+  text-align: center;
+  padding: 50px;
+  color: #D2691E;
+  font-weight: 600;
 }
