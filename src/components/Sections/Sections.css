@@ -86,12 +86,12 @@
   object-fit: cover;
 }
 
-/* --- МОДАЛЬНОЕ ОКНО (ИСПРАВЛЕННОЕ) --- */
+/* НОВОЕ МОДАЛЬНОЕ ОКНО */
 .modal-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.85); /* Затемнение */
-  backdrop-filter: blur(5px);
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
   z-index: 9999;
   display: flex;
   align-items: center;
@@ -99,104 +99,87 @@
   padding: 20px;
 }
 
-.modal-content {
+.modal-card {
   background: white;
+  width: 100%;
+  max-width: 900px;
   border-radius: 24px;
-  max-width: 1000px;
-  width: 100%;
-  max-height: 90vh;
-  display: flex; /* Флекс для разделения на две колонки */
-  overflow: hidden;
   position: relative;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+  overflow: hidden;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.4);
 }
 
-.modal-grid {
-  display: flex; /* Используем flex вместо grid для надежности */
+.modal-body {
+  display: flex;
+  flex-direction: row;
+}
+
+.modal-gallery-container {
+  width: 55%;
+  background: #fdfdfd;
+  min-height: 450px;
+  position: relative;
+  border-right: 1px solid #f0f0f0;
+}
+
+.modal-slide-img-wrapper {
   width: 100%;
-}
-
-.modal-gallery {
-  flex: 1.2; /* Фото занимает чуть больше места */
-  background: #f9f9f9;
-  min-height: 400px;
+  height: 450px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.modal-gallery img {
+.modal-slide-img-wrapper img {
   max-width: 100%;
-  max-height: 80vh;
+  max-height: 100%;
   object-fit: contain;
 }
 
-.modal-info {
-  flex: 1;
+.modal-text-content {
+  width: 45%;
   padding: 40px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  overflow-y: auto;
 }
 
-.modal-info h2 {
-  font-size: 1.8rem;
-  color: #5D4037;
-  margin: 0;
-}
-
-.modal-info .product-card-price {
-  font-size: 2rem;
-  color: #D2691E;
-  font-weight: 800;
-}
-
-.modal-info p {
-  line-height: 1.6;
-  color: #666;
-  font-size: 1.05rem;
-}
-
-/* Кнопка закрытия */
-.close-modal {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 40px;
-  height: 40px;
-  background: white;
+/* СТРЕЛКИ (Прямо по верху) */
+.modal-swiper-main .swiper-button-next,
+.modal-swiper-main .swiper-button-prev {
+  color: #D2691E !important;
+  background: rgba(255, 255, 255, 0.9);
+  width: 40px !important;
+  height: 40px !important;
   border-radius: 50%;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  z-index: 100;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-/* Адаптивность для мобилок */
-@media (max-width: 800px) {
-  .modal-content {
-    flex-direction: column;
-    overflow-y: auto;
-  }
-  .modal-grid {
-    flex-direction: column;
-  }
-  .modal-gallery {
-    min-height: 300px;
-  }
-  .modal-info {
-    padding: 20px;
-  }
+.modal-swiper-main .swiper-button-next::after,
+.modal-swiper-main .swiper-button-prev::after {
+  font-size: 16px !important;
 }
 
+/* СТИЛИ ТЕКСТА */
+.modal-price-tag {
+  font-size: 24px;
+  font-weight: 800;
+  color: #D2691E;
+  margin: 15px 0;
+}
+
+.modal-divider-line {
+  height: 1px;
+  background: #eee;
+  margin-bottom: 20px;
+}
+
+/* МОБИЛЬНАЯ ВЕРСИЯ */
 @media (max-width: 768px) {
-  .modal-content { flex-direction: column; }
-  .hero-form-inline { flex-direction: column; }
+  .modal-body { flex-direction: column; }
+  .modal-gallery-container, .modal-text-content { width: 100%; }
+  .modal-gallery-container { min-height: 300px; }
+  .modal-slide-img-wrapper { height: 300px; }
+  .modal-card { max-height: 90vh; overflow-y: auto; }
 }
 
 /* --- УДАЛЕНИЕ ЭФФЕКТОВ В ДРУГИХ БЛОКАХ --- */
