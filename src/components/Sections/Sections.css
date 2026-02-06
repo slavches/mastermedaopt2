@@ -422,7 +422,25 @@
   }
 }
 
-/* Исправление опечатки position: rel из вашего кода */
+/* КАРТОЧКА ТОВАРА В СТИЛЕ МАРКЕТПЛЕЙСА */
 .product-card {
-  position: relative !important;
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #eee;
+  padding: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  position: relative; /* ИСПРАВЛЕНО: было rel */
+  cursor: pointer;
+}
+
+/* СЕТКА ТОВАРОВ (Если её не было) */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+  padding: 20px 0;
+  width: 100%;
 }
