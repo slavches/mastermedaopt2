@@ -2,23 +2,23 @@ import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 
-// Импорт стилей Swiper (ОБЯЗАТЕЛЬНО)
+// Импорт стилей Swiper
 import 'swiper/css';
 import 'swiper/css/pagination';
 
 const productsData = [
   {
     id: 1,
-    title: "Мёд Липовый Дальневосточный",
+    title: "Мёд с имбирём",
     price: "380 ₽/кг",
     images: [
-      "/img/imbir2401.webp", // Ссылка на ваше первое фото
-      "/img/imbir2402.webp", // Ссылка на второе фото (инфографика)
-      "/img/imbir2403.webp", // Ссылка на третье фото (сертификат)
-      "/img/imbir2404.webp", // Ссылка на третье фото (сертификат)
-      "/img/imbir2405.webp" // Ссылка на третье фото (сертификат)
+      "/img/imbir2401.webp",
+      "/img/imbir2402.webp",
+      "/img/imbir2403.webp",
+      "/img/imbir2404.webp",
+      "/img/imbir2405.webp"
     ],
-    description: "Натуральный липовый мёд высшего качества..."
+    description: "Натуральный мёд высшего качества с натуральным имбирём, сбор 2025 года."
   },
   {
     id: 2,
@@ -36,12 +36,12 @@ const Products = () => {
 
   const openModal = (product) => {
     setSelectedProduct(product);
-    document.body.style.overflow = 'hidden'; // Запрещаем скролл сайта
+    document.body.style.overflow = 'hidden';
   };
 
   const closeModal = () => {
     setSelectedProduct(null);
-    document.body.style.overflow = 'auto'; // Возвращаем скролл
+    document.body.style.overflow = 'auto';
   };
 
   return (
@@ -51,15 +51,20 @@ const Products = () => {
       <div className="products-grid">
         {productsData.map((product) => (
           <div key={product.id} className="product-card" onClick={() => openModal(product)}>
+            {/* ВАЖНО: modules={[Pagination]} должен быть здесь */}
             <Swiper
               modules={[Pagination]}
               pagination={{ clickable: true }}
               className="card-slider"
-              onClick={(e) => e.stopPropagation()} // Чтобы клик по точкам не открывал модалку
+              onClick={(e) => e.stopPropagation()}
             >
               {product.images.map((img, index) => (
                 <SwiperSlide key={index}>
-                  <img src={img} alt={product.title} />
+                  <img 
+                    src={img} 
+                    alt={product.title} 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                  />
                 </SwiperSlide>
               ))}
             </Swiper>
@@ -79,9 +84,20 @@ const Products = () => {
             <button className="close-modal" onClick={closeModal}>✕</button>
             <div className="modal-grid">
               <div className="modal-gallery">
-                <Swiper modules={[Pagination]} pagination={{ type: 'fraction' }}>
+                {/* ВАЖНО: modules={[Pagination]} и здесь тоже */}
+                <Swiper 
+                  modules={[Pagination]} 
+                  pagination={{ type: 'fraction' }}
+                  style={{ width: '100%' }}
+                >
                   {selectedProduct.images.map((img, i) => (
-                    <SwiperSlide key={i}><img src={img} alt="full" style={{width:'100%'}} /></SwiperSlide>
+                    <SwiperSlide key={i}>
+                      <img 
+                        src={img} 
+                        alt="full" 
+                        style={{ width: '100%', maxHeight: '70vh', objectFit: 'contain', display: 'block' }} 
+                      />
+                    </SwiperSlide>
                   ))}
                 </Swiper>
               </div>
