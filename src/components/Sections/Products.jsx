@@ -9,8 +9,10 @@ import 'swiper/css/navigation';
 const productsData = [
   {
     id: 1,
+    category: "Новинка",
     title: "Мёд с имбирём",
-    price: "380 ₽/240гр",
+    price: "380 ₽",
+    weight: "240 гр", // Разделили цену и вес для красоты
     images: [
       "/images/imbir240/imbir2401.webp",
       "/images/imbir240/imbir2402.webp",
@@ -18,12 +20,13 @@ const productsData = [
       "/images/imbir240/imbir2404.webp",
       "/images/imbir240/imbir2405.webp"
     ],
-    description: "Натуральный мёд с имбирём, сбор 2025 года."
-  },
+    description: "Натуральный цветочный мёд с добавлением тертого корня имбиря. Идеальное сочетание пользы и пряного вкуса для вашего иммунитета."  },
   {
     id: 2,
+    category: "Новинка",
     title: "Подарочный набор мёда 3 баночки по 240 грамм",
-    price: "720 ₽/шт",
+    price: "720 ₽",
+    weight: "1 коробка", // Разделили цену и вес для красоты
     images: [
       "/images/3x240happy/3х240happy1.webp",
       "/images/3x240happy/3х240happy2.webp",
@@ -50,13 +53,14 @@ const Products = () => {
 
   return (
     <section id="products" className="section">
-      <h2 className="section-title">Каталог продукции</h2>
+      <h2 className="section-title">Наша пасека</h2>
+      <p className="section-subtitle">Попробуйте натуральный мёд, собранный с любовью</p>
       
       <div className="products-grid">
         {productsData.map((product) => (
           <div key={product.id} className="product-card">
-            {/* СЛАЙДЕР В КАРТОЧКЕ (Работает свайп и точки) */}
             <div className="card-image-wrapper">
+              <div className="card-badge">{product.category}</div>
               <Swiper
                 modules={[Pagination]}
                 pagination={{ clickable: true }}
@@ -71,14 +75,17 @@ const Products = () => {
             </div>
 
             <div className="product-card-body" onClick={() => openModal(product)}>
-              <div className="product-card-price">{product.price}</div>
+              <div className="product-card-meta">
+                <span className="product-card-price">{product.price}</span>
+                <span className="product-card-weight">{product.weight}</span>
+              </div>
               <h3 className="product-card-title">{product.title}</h3>
-              <button className="submit-btn-inline" style={{width: '100%'}}>Подробнее</button>
+              <button className="details-btn">Узнать больше</button>
             </div>
           </div>
         ))}
       </div>
-
+      
       {selectedProduct && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-card" onClick={(e) => e.stopPropagation()}>
