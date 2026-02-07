@@ -10,22 +10,27 @@ const productsData = [
   {
     id: 1,
     title: "Мёд с имбирём",
-    price: "380 ₽/кг",
+    price: "380 ₽/240гр",
     images: [
-      "/images/imbir2401.webp",
-      "/images/imbir2402.webp",
-      "/images/imbir2403.webp",
-      "/images/imbir2404.webp",
-      "/images/imbir2405.webp"
+      "/images/imbir240/imbir2401.webp",
+      "/images/imbir240/imbir2402.webp",
+      "/images/imbir240/imbir2403.webp",
+      "/images/imbir240/imbir2404.webp",
+      "/images/imbir240/imbir2405.webp"
     ],
     description: "Натуральный мёд высшего качества с натуральным имбирём, сбор 2025 года."
   },
   {
     id: 2,
-    title: "Мёд Гречишный Алтайский",
-    price: "320 ₽/кг",
-    images: ["https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500"],
-    description: "Насыщенный темный мёд с полей Алтая."
+    title: "Подарочный набор мёда 3 баночки по 240 грамм",
+    price: "720 ₽/шт",
+    images: [
+      "/images/3x240happy/3х240happy1.webp",
+      "/images/3x240happy/3х240happy2.webp",
+      "/images/3x240happy/3х240happy3.webp",
+      "/images/3x240happy/3х240happy4.webp",
+      "/images/3x240happy/3х240happy5.webp"],
+    description: "Вкусный набор с тремя вкусами."
   }
 ];
 
