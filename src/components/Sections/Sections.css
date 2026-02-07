@@ -29,15 +29,16 @@
   margin-top: 40px;
 }
 
+/* 2. Сама карточка (убираем у неё ограничения по высоте) */
 .product-card {
   background: #ffffff;
   border-radius: 20px;
   border: 1px solid rgba(0,0,0,0.04);
-  overflow: hidden;
+  display: flex;
+  flex-direction: column; /* Текст будет строго под фото */
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   box-shadow: 0 4px 15px rgba(0,0,0,0.02);
   cursor: pointer;
-  position: relative;
 }
 
 .product-card:hover {
@@ -45,14 +46,14 @@
   box-shadow: 0 20px 40px rgba(93, 64, 55, 0.12);
 }
 
+/* 1. Контейнер изображения (только для фото!) */
 .card-image-wrapper {
   width: 100%;
-  /* Устанавливаем четкую пропорцию 4:3 */
-  aspect-ratio: 4 / 3; 
+  aspect-ratio: 4 / 3 !important; /* Жестко фиксируем пропорцию только для фото */
   overflow: hidden;
   position: relative;
-  /* Добавим закругление верхних углов, чтобы соответствовало карточке */
-  border-radius: 20px 20px 0 0; 
+  border-radius: 20px 20px 0 0; /* Скругляем только верх */
+  background: #f9f9f9;
 }
 
 .card-slider, .card-slider img {
@@ -88,7 +89,13 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.product-card-body { padding: 25px 20px; text-align: left; }
+/* 3. Текстовая часть (даем ей дышать) */
+.product-card-body {
+  padding: 20px;
+  flex-grow: 1; /* Заполняет оставшееся место */
+  display: flex;
+  flex-direction: column;
+}
 
 .product-card-meta { display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px; }
 
@@ -96,19 +103,20 @@
 
 .product-card-weight { font-size: 14px; color: #9E9E9E; }
 
+/* 4. Заголовок (убираем жесткую высоту, если она мешает) */
 .product-card-title {
-  font-size: 18px;
+  font-size: 17px;
   color: #3E2723;
   line-height: 1.3;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   font-weight: 600;
-  height: 48px; 
-  
+  /* Оставляем ограничение в 2 строки, но без лишних отступов */
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* Для Chrome, Safari, Edge */
-  line-clamp: 2;         /* Стандартное свойство (уберет предупреждение) */
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  min-height: 44px; /* Чтобы карточки были одной высоты, даже если заголовок в 1 строку */
 }
 
 .details-btn {
