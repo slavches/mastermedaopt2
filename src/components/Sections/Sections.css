@@ -21,12 +21,12 @@
   font-style: italic;
 }
 
-/* --- 1. СЕТКА НА 4 КОЛОНКИ --- */
+/* 1. Сетка строго по 4 в ряд на больших экранах */
 .products-grid {
   display: grid;
-  /* Ставим 250px, чтобы на стандартных экранах влезало 4 карточки в ряд */
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
-  gap: 20px; /* Немного уменьшили зазоры, чтобы сэкономить место */
+  /* 230px позволит вместить 4 карточки даже на небольших ноутбуках */
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); 
+  gap: 20px;
   margin-top: 30px;
 }
 
@@ -48,15 +48,14 @@
   box-shadow: 0 20px 40px rgba(93, 64, 55, 0.12);
 }
 
-/* --- 2. ГИБКОЕ ФОТО --- */
+/* 2. Контейнер фото (возвращаем эстетичную пропорцию) */
 .card-image-wrapper {
   width: 100%;
-  /* Вместо жесткого aspect-ratio задаем диапазон высоты */
-  height: 220px; 
+  aspect-ratio: 4 / 3; /* Это стандарт для товарных фото, выглядит аккуратно */
   position: relative;
   overflow: hidden;
   border-radius: 20px 20px 0 0;
-  background: #fdfdfd;
+  background: #ffffff; /* Чисто белый фон */
 }
 
 .card-slider {
@@ -68,13 +67,16 @@
   height: 100% !important;
 }
 
+/* 3. Магия отображения фото */
 .card-slider img {
   width: 100%;
   height: 100%;
-  /* object-fit: contain; — теперь фото НЕ обрезается, 
-     а вписывается целиком, даже если оно другого размера */
+  /* ВНИМАНИЕ: Если хотите, чтобы фото ВООБЩЕ не обрезалось, используйте 'contain'.
+     Чтобы оно при этом не выглядело плохо, мы убираем лишние отступы.
+  */
   object-fit: contain; 
-  padding: 10px; /* Небольшой отступ, чтобы фото не прилипало к краям */
+  padding: 10px; /* Чтобы края продукта не касались границ карточки */
+  background-color: #ffffff;
   display: block;
 }
 
@@ -93,12 +95,12 @@
   z-index: 10;
 }
 
-/* --- 3. ТЕКСТОВАЯ ЧАСТЬ --- */
+/* 4. Тело карточки */
 .product-card-body {
-  padding: 15px; /* Уменьшили отступы, так как карточка стала меньше */
+  padding: 15px;
+  background: #fff;
+  border-radius: 0 0 20px 20px;
   flex-grow: 1;
-  display: flex;
-  flex-direction: column;
 }
 
 .product-card-meta { display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px; }
@@ -110,19 +112,10 @@
 
 .product-card-weight { font-size: 14px; color: #9E9E9E; }
 
-/* Добавим немного веса заголовку, раз карточка стала больше */
 .product-card-title {
-  font-size: 16px; /* Чуть меньше шрифт для компактности */
-  color: #3E2723;
-  line-height: 1.3;
-  margin-bottom: 12px;
-  font-weight: 600;
-  height: 42px; /* Подстроили под 2 строки текста */
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  font-size: 16px;
+  min-height: 42px; /* Чтобы кнопки всегда были на одной линии */
+  margin-bottom: 10px;
 }
 
 /* Мобильная адаптация: чтобы на телефонах карточки не были слишком огромными */

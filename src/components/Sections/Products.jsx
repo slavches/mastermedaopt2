@@ -94,10 +94,10 @@ const Products = () => {
                 {product.images.map((img, index) => (
                   <SwiperSlide key={index} onClick={() => openModal(product)}>
                     <img 
-                      src={img} 
-                      alt={product.title} 
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-                    />
+                    src={img} 
+                    alt={product.title} 
+                    style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+                  />
                   </SwiperSlide>
                 ))}
               </Swiper>
