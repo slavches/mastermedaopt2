@@ -77,7 +77,58 @@ const productsData = [
       "/images/lipovii330/lipovii3301.webp",
       "/images/lipovii330/lipovii3302.webp"
     ],
-    description: "Вкусный набор с двумя вкусами."
+    description: "Вкусный липовый мёд."
+  },
+  {
+    id: 6,
+    category: "Новинка",
+    title: "Разноцветье 330 грамм",
+    price: "700 ₽",
+    weight: "1 баночка",
+    images: [
+      "/images/raznocvetie330/raznocvetie3301.webp",
+      "/images/raznocvetie330/raznocvetie3302.webp",
+      "/images/raznocvetie330/raznocvetie3303.webp",
+      "/images/raznocvetie330/raznocvetie3304.webp"      
+    ],
+    description: "Вкусный мёд в маленькой баночке."
+  },
+  {
+    id: 7,
+    category: "Новинка",
+    title: "7.5 кг",
+    price: "5000 ₽",
+    weight: "1 баночка",
+    images: [
+      "/images/75kg/cvetochnii75.webp"    
+    ],
+    description: "Удобная баночка для кондитерских."
+  },
+  {
+    id: 8,
+    category: "Новинка",
+    title: "33.5 кг",
+    price: "9000 ₽",
+    weight: "1 кубик",
+    images: [
+      "/images/335kg/cvetochnii335.webp"    
+    ],
+    description: "Большой куботейнер для кондитерских."
+  },
+  {
+    id: 9,
+    category: "Новинка",
+    title: "400 г",
+    price: "700 ₽",
+    weight: "1 баночка",
+    images: [
+      "/images/bashmed400/bashmed4001.webp",   
+      "/images/bashmed400/bashmed4002.webp",  
+      "/images/bashmed400/bashmed4003.webp",  
+      "/images/bashmed400/bashmed4004.webp",  
+      "/images/bashmed400/bashmed4005.webp" 
+    ],
+    description: "Популярный башкирский мёд в компактной баночке."
   }
   
 ];
