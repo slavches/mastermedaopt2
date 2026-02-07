@@ -90,12 +90,11 @@ const Products = () => {
                 autoHeight={false} // Добавьте это: запрещает слайдеру менять высоту под картинку
                 onSwiper={(swiper) => swiper.autoplay.stop()}
                 className="card-slider"
-                style={{ height: '100%', width: '100%' }} // Явно задаем заполнение контейнера
               >
                 {product.images.map((img, index) => (
-                  <SwiperSlide key={index} onClick={() => openModal(product)} style={{ height: '100%' }}>
-                    <img src={img} alt={product.title} />
-                  </SwiperSlide>
+                <SwiperSlide key={index} onClick={() => openModal(product)}>
+                  <img src={img} alt={product.title} />
+                </SwiperSlide>
                 ))}
               </Swiper>
             </div>
