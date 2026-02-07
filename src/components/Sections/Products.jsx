@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react'; // Добавили useRef
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules'; // Добавили Autoplay
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -39,7 +39,7 @@ const productsData = [
 ];
 
 const Products = () => {
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedProduct, setSelectedProduct] = React.useState(null);
 
   const openModal = (product) => {
     setSelectedProduct(product);
@@ -58,12 +58,32 @@ const Products = () => {
       
       <div className="products-grid">
         {productsData.map((product) => (
-          <div key={product.id} className="product-card">
+          <div 
+            key={product.id} 
+            className="product-card"
+            // Включаем автоплей при наведении
+            onMouseEnter={(e) => {
+              const swiper = e.currentTarget.querySelector('.swiper').swiper;
+              swiper.autoplay.start();
+            }}
+            // Выключаем и сбрасываем на первое фото, когда уводим мышку
+            onMouseLeave={(e) => {
+              const swiper = e.currentTarget.querySelector('.swiper').swiper;
+              swiper.autoplay.stop();
+              swiper.slideTo(0); 
+            }}
+          >
             <div className="card-image-wrapper">
               <div className="card-badge">{product.category}</div>
               <Swiper
-                modules={[Pagination]}
+                modules={[Pagination, Autoplay]}
                 pagination={{ clickable: true }}
+                // Настройки автоплея
+                autoplay={{
+                  delay: 1000, // Скорость перелистывания (1 секунда)
+                  disableOnInteraction: false,
+                }}
+                onSwiper={(swiper) => swiper.autoplay.stop()} // Сразу останавливаем
                 className="card-slider"
               >
                 {product.images.map((img, index) => (
@@ -85,15 +105,14 @@ const Products = () => {
           </div>
         ))}
       </div>
-      
+
+      {/* Модальное окно (оставляем БЕЗ автоплея, со стрелками) */}
       {selectedProduct && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-card" onClick={(e) => e.stopPropagation()}>
             <button className="close-modal" onClick={closeModal}>✕</button>
-            
             <div className="modal-body">
               <div className="modal-gallery-container">
-                {/* СЛАЙДЕР В МОДАЛКЕ (Свайп + Стрелки + Дроби) */}
                 <Swiper 
                   modules={[Navigation, Pagination]} 
                   navigation={true} 
@@ -109,13 +128,12 @@ const Products = () => {
                   ))}
                 </Swiper>
               </div>
-
               <div className="modal-text-content">
                 <h2>{selectedProduct.title}</h2>
                 <div className="modal-price-tag">{selectedProduct.price}</div>
                 <div className="modal-divider-line"></div>
                 <p className="modal-desc">{selectedProduct.description}</p>
-                <button className="submit-btn-inline" style={{marginTop: 'auto'}} onClick={closeModal}>
+                <button className="details-btn" style={{marginTop: 'auto'}} onClick={closeModal}>
                   Закрыть
                 </button>
               </div>

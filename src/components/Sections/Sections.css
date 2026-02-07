@@ -291,3 +291,12 @@
   font-weight: 600;
   transition: all 0.3s ease;
 }
+
+.card-slider .swiper-pagination {
+  transition: opacity 0.3s ease;
+  opacity: 0; /* Скрыты по умолчанию */
+}
+
+.product-card:hover .card-slider .swiper-pagination {
+  opacity: 1; /* Появляются только при наведении */
+}
