@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay, Thumbs, FreeMode } from 'swiper/modules'; // Добавили Thumbs и FreeMode
+import { Navigation, Pagination, Autoplay, Thumbs, FreeMode } from 'swiper/modules';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import 'swiper/css/thumbs'; // Важно импортировать стили для миниатюр
+import 'swiper/css/thumbs';
 import 'swiper/css/free-mode';
-
 
 const productsData = [
   {
@@ -15,7 +14,7 @@ const productsData = [
     category: "Новинка",
     title: "Мёд с имбирём",
     price: "380 ₽",
-    weight: "240 гр", // Разделили цену и вес для красоты
+    weight: "240 гр",
     images: [
       "/images/imbir240/imbir2401.webp",
       "/images/imbir240/imbir2402.webp",
@@ -23,13 +22,14 @@ const productsData = [
       "/images/imbir240/imbir2404.webp",
       "/images/imbir240/imbir2405.webp"
     ],
-    description: "Натуральный цветочный мёд с добавлением тертого корня имбиря. Идеальное сочетание пользы и пряного вкуса для вашего иммунитета."  },
+    description: "Натуральный цветочный мёд с добавлением тертого корня имбиря. Идеальное сочетание пользы и пряного вкуса для вашего иммунитета."
+  },
   {
     id: 2,
     category: "Новинка",
     title: "Подарочный набор мёда 3 баночки по 240 грамм",
     price: "720 ₽",
-    weight: "1 коробка", // Разделили цену и вес для красоты
+    weight: "1 коробка",
     images: [
       "/images/3x240happy/3х240happy1.webp",
       "/images/3x240happy/3х240happy2.webp",
@@ -43,11 +43,11 @@ const productsData = [
 
 const Products = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [thumbsSwiper, setThumbsSwiper] = useState(null); // Состояние для связи слайдеров
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   const openModal = (product) => {
     setSelectedProduct(product);
-    setThumbsSwiper(null); // Сбрасываем при открытии нового товара
+    setThumbsSwiper(null);
     document.body.style.overflow = 'hidden';
   };
 
@@ -66,16 +66,16 @@ const Products = () => {
           <div 
             key={product.id} 
             className="product-card"
-            // Включаем автоплей при наведении
             onMouseEnter={(e) => {
-              const swiper = e.currentTarget.querySelector('.swiper').swiper;
-              swiper.autoplay.start();
+              const swiper = e.currentTarget.querySelector('.swiper')?.swiper;
+              if (swiper) swiper.autoplay.start();
             }}
-            // Выключаем и сбрасываем на первое фото, когда уводим мышку
             onMouseLeave={(e) => {
-              const swiper = e.currentTarget.querySelector('.swiper').swiper;
-              swiper.autoplay.stop();
-              swiper.slideTo(0); 
+              const swiper = e.currentTarget.querySelector('.swiper')?.swiper;
+              if (swiper) {
+                swiper.autoplay.stop();
+                swiper.slideTo(0);
+              }
             }}
           >
             <div className="card-image-wrapper">
@@ -87,14 +87,18 @@ const Products = () => {
                   delay: 1000,
                   disableOnInteraction: false,
                 }}
-                autoHeight={false} // Добавьте это: запрещает слайдеру менять высоту под картинку
+                autoHeight={false}
                 onSwiper={(swiper) => swiper.autoplay.stop()}
                 className="card-slider"
               >
                 {product.images.map((img, index) => (
-                <SwiperSlide key={index} onClick={() => openModal(product)}>
-                  <img src={img} alt={product.title} />
-                </SwiperSlide>
+                  <SwiperSlide key={index} onClick={() => openModal(product)}>
+                    <img 
+                      src={img} 
+                      alt={product.title} 
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                    />
+                  </SwiperSlide>
                 ))}
               </Swiper>
             </div>
@@ -111,7 +115,6 @@ const Products = () => {
         ))}
       </div>
 
-      {/* МОДАЛЬНОЕ ОКНО */}
       {selectedProduct && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-card" onClick={(e) => e.stopPropagation()}>
@@ -119,8 +122,6 @@ const Products = () => {
             
             <div className="modal-body">
               <div className="modal-gallery-container">
-                
-                {/* ГЛАВНЫЙ СЛАЙДЕР В МОДАЛКЕ */}
                 <Swiper 
                   style={{
                     '--swiper-navigation-color': '#D2691E',
@@ -135,13 +136,12 @@ const Products = () => {
                   {selectedProduct.images.map((img, i) => (
                     <SwiperSlide key={i}>
                       <div className="modal-slide-img-wrapper">
-                        <img src={img} alt="продукт" />
+                        <img src={img} alt="продукт" style={{ objectFit: 'contain' }} />
                       </div>
                     </SwiperSlide>
                   ))}
                 </Swiper>
 
-                {/* НИЖНИЙ СЛАЙДЕР С МИНИАТЮРАМИ */}
                 <Swiper
                   onSwiper={setThumbsSwiper}
                   spaceBetween={10}
@@ -154,7 +154,7 @@ const Products = () => {
                   {selectedProduct.images.map((img, i) => (
                     <SwiperSlide key={i}>
                       <div className="thumb-wrapper">
-                        <img src={img} alt="миниатюра" />
+                        <img src={img} alt="миниатюра" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
                       </div>
                     </SwiperSlide>
                   ))}
