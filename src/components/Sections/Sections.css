@@ -164,11 +164,12 @@
   background: #fdfdfd;
 }
 
+/* ГЛАВНЫЙ СЛАЙДЕР В МОДАЛКЕ (добавил ограничение) */
 .modal-swiper-main {
   width: 100%;
-  /* Убираем фиксированную высоту height: 400px и ставим пропорцию */
-  aspect-ratio: 4 / 3; 
-  height: auto !important;  
+  aspect-ratio: 4 / 3;
+  height: auto !important;
+  max-height: 70vh; /* Чтобы фото не вылезало за пределы экрана по высоте */
 }
 
 .modal-slide-img-wrapper {
@@ -194,12 +195,13 @@
 
 .thumb-wrapper {
   width: 100%;
-  aspect-ratio: 4 / 3; /* Чтобы миниатюры тоже были 4х3 */
+  aspect-ratio: 4 / 3;
   border-radius: 6px;
   overflow: hidden;
   cursor: pointer;
   border: 2px solid transparent;
   transition: all 0.3s ease;
+  opacity: 0.5; /* Добавил, чтобы неактивные были приглушены */
 }
 
 .thumb-wrapper img { width: 100%; height: 100%; object-fit: cover; }
