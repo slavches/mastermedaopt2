@@ -83,16 +83,17 @@ const Products = () => {
               <Swiper
                 modules={[Pagination, Autoplay]}
                 pagination={{ clickable: true }}
-                // Настройки автоплея
                 autoplay={{
-                  delay: 1000, // Скорость перелистывания (1 секунда)
+                  delay: 1000,
                   disableOnInteraction: false,
                 }}
-                onSwiper={(swiper) => swiper.autoplay.stop()} // Сразу останавливаем
+                autoHeight={false} // Добавьте это: запрещает слайдеру менять высоту под картинку
+                onSwiper={(swiper) => swiper.autoplay.stop()}
                 className="card-slider"
+                style={{ height: '100%', width: '100%' }} // Явно задаем заполнение контейнера
               >
                 {product.images.map((img, index) => (
-                  <SwiperSlide key={index} onClick={() => openModal(product)}>
+                  <SwiperSlide key={index} onClick={() => openModal(product)} style={{ height: '100%' }}>
                     <img src={img} alt={product.title} />
                   </SwiperSlide>
                 ))}
