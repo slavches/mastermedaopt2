@@ -1,10 +1,13 @@
-import React, { useRef } from 'react'; // Добавили useRef
+import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules'; // Добавили Autoplay
+import { Navigation, Pagination, Autoplay, Thumbs, FreeMode } from 'swiper/modules'; // Добавили Thumbs и FreeMode
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import 'swiper/css/thumbs'; // Важно импортировать стили для миниатюр
+import 'swiper/css/free-mode';
+
 
 const productsData = [
   {
@@ -39,10 +42,12 @@ const productsData = [
 ];
 
 const Products = () => {
-  const [selectedProduct, setSelectedProduct] = React.useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [thumbsSwiper, setThumbsSwiper] = useState(null); // Состояние для связи слайдеров
 
   const openModal = (product) => {
     setSelectedProduct(product);
+    setThumbsSwiper(null); // Сбрасываем при открытии нового товара
     document.body.style.overflow = 'hidden';
   };
 
@@ -106,17 +111,25 @@ const Products = () => {
         ))}
       </div>
 
-      {/* Модальное окно (оставляем БЕЗ автоплея, со стрелками) */}
+      {/* МОДАЛЬНОЕ ОКНО */}
       {selectedProduct && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-card" onClick={(e) => e.stopPropagation()}>
             <button className="close-modal" onClick={closeModal}>✕</button>
+            
             <div className="modal-body">
               <div className="modal-gallery-container">
+                
+                {/* ГЛАВНЫЙ СЛАЙДЕР В МОДАЛКЕ */}
                 <Swiper 
-                  modules={[Navigation, Pagination]} 
-                  navigation={true} 
-                  pagination={{ type: 'fraction' }}
+                  style={{
+                    '--swiper-navigation-color': '#D2691E',
+                    '--swiper-pagination-color': '#D2691E',
+                  }}
+                  spaceBetween={10}
+                  navigation={true}
+                  thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
+                  modules={[FreeMode, Navigation, Thumbs]}
                   className="modal-swiper-main"
                 >
                   {selectedProduct.images.map((img, i) => (
@@ -127,7 +140,27 @@ const Products = () => {
                     </SwiperSlide>
                   ))}
                 </Swiper>
+
+                {/* НИЖНИЙ СЛАЙДЕР С МИНИАТЮРАМИ */}
+                <Swiper
+                  onSwiper={setThumbsSwiper}
+                  spaceBetween={10}
+                  slidesPerView={4}
+                  freeMode={true}
+                  watchSlidesProgress={true}
+                  modules={[FreeMode, Navigation, Thumbs]}
+                  className="thumbs-slider"
+                >
+                  {selectedProduct.images.map((img, i) => (
+                    <SwiperSlide key={i}>
+                      <div className="thumb-wrapper">
+                        <img src={img} alt="миниатюра" />
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
               </div>
+
               <div className="modal-text-content">
                 <h2>{selectedProduct.title}</h2>
                 <div className="modal-price-tag">{selectedProduct.price}</div>
