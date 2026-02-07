@@ -24,9 +24,10 @@
 /* --- 2. КАРТОЧКИ ТОВАРОВ (Сетка) --- */
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
-  gap: 30px;
-  margin-top: 40px;
+  /* Увеличиваем минимальную ширину карточки до 380px */
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); 
+  gap: 40px; /* Увеличили расстояние между ними для "воздуха" */
+  margin-top: 50px;
 }
 
 /* 2. Сама карточка (убираем у неё ограничения по высоте) */
@@ -50,7 +51,9 @@
 /* 1. Жестко фиксируем контейнер для фото */
 .card-image-wrapper {
   width: 100%;
-  aspect-ratio: 4 / 3; /* Это создаст правильную форму */
+  /* Теперь, когда карточка широкая (380px+), 
+     пропорция 4:3 сделает фото высоким и заметным */
+  aspect-ratio: 4 / 3 !important; 
   position: relative;
   overflow: hidden;
   border-radius: 20px 20px 0 0;
@@ -106,20 +109,27 @@
 
 .product-card-weight { font-size: 14px; color: #9E9E9E; }
 
-/* 4. Заголовок (убираем жесткую высоту, если она мешает) */
+/* Добавим немного веса заголовку, раз карточка стала больше */
 .product-card-title {
-  font-size: 17px;
+  font-size: 20px; /* Увеличили шрифт */
   color: #3E2723;
-  line-height: 1.3;
-  margin-bottom: 15px;
-  font-weight: 600;
-  /* Оставляем ограничение в 2 строки, но без лишних отступов */
+  line-height: 1.4;
+  margin-bottom: 20px;
+  font-weight: 700;
+  height: 56px; 
   display: -webkit-box;
   -webkit-line-clamp: 2;
   line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  min-height: 44px; /* Чтобы карточки были одной высоты, даже если заголовок в 1 строку */
+}
+
+/* Мобильная адаптация: чтобы на телефонах карточки не были слишком огромными */
+@media (max-width: 480px) {
+  .products-grid {
+    grid-template-columns: 1fr; /* На очень узких экранах одна карточка во всю ширину */
+    gap: 20px;
+  }
 }
 
 .details-btn {
