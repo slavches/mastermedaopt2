@@ -38,7 +38,48 @@ const productsData = [
       "/images/3x240happy/3х240happy5.webp"
     ],
     description: "Вкусный набор с тремя вкусами."
+  },
+  {
+    id: 3,
+    category: "Новинка",
+    title: "Подарочный набор мёда 2 баночки по 330 грамм",
+    price: "720 ₽",
+    weight: "1 коробка",
+    images: [
+      "/images/2х330nabor/2х330nabor1.webp",
+      "/images/3x240happy/2х330nabor2.webp",
+      "/images/3x240happy/2х330nabor3.webp"
+    ],
+    description: "Вкусный набор с двумя вкусами."
+  },
+  {
+    id: 4,
+    category: "Новинка",
+    title: "Разнотравие 500 грамм",
+    price: "600 ₽",
+    weight: "1 баночка",
+    images: [
+      "/images/raznotravie500/raznotravie5001.webp",
+      "/images/raznotravie500/raznotravie5002.webp",
+      "/images/raznotravie500/raznotravie5003.webp",
+      "/images/raznotravie500/raznotravie5004.webp",
+      "/images/raznotravie500/raznotravie5005.webp"
+    ],
+    description: "Вкусный набор с двумя вкусами."
+  },
+  {
+    id: 5,
+    category: "Новинка",
+    title: "Липовый 330 грамм",
+    price: "700 ₽",
+    weight: "1 баночка",
+    images: [
+      "/images/lipovii330/lipovii3301.webp",
+      "/images/lipovii330/lipovii3302.webp"
+    ],
+    description: "Вкусный набор с двумя вкусами."
   }
+  
 ];
 
 const Products = () => {
