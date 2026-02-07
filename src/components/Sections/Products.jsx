@@ -47,8 +47,8 @@ const productsData = [
     weight: "1 коробка",
     images: [
       "/images/2х330nabor/2х330nabor1.webp",
-      "/images/3x240happy/2х330nabor2.webp",
-      "/images/3x240happy/2х330nabor3.webp"
+      "/images/2х330nabor/2х330nabor2.webp",
+      "/images/2х330nabor/2х330nabor3.webp"
     ],
     description: "Вкусный набор с двумя вкусами."
   },
