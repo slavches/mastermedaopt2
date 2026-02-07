@@ -18,7 +18,7 @@ const productsData = [
       "/images/imbir240/imbir2404.webp",
       "/images/imbir240/imbir2405.webp"
     ],
-    description: "Натуральный мёд высшего качества с натуральным имбирём, сбор 2025 года."
+    description: "Натуральный мёд с имбирём, сбор 2025 года."
   },
   {
     id: 2,
@@ -29,7 +29,8 @@ const productsData = [
       "/images/3x240happy/3х240happy2.webp",
       "/images/3x240happy/3х240happy3.webp",
       "/images/3x240happy/3х240happy4.webp",
-      "/images/3x240happy/3х240happy5.webp"],
+      "/images/3x240happy/3х240happy5.webp"
+    ],
     description: "Вкусный набор с тремя вкусами."
   }
 ];
