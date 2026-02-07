@@ -101,12 +101,11 @@
 
 /* 4. ТЕКСТОВЫЙ БЛОК (Выровнен строго под фото) */
 .product-card-body {
-  padding: 15px; /* Внутренний отступ для текста, чтобы он не прилипал к краям */
+  padding: 15px 20px; /* 15px сверху/снизу, 20px по бокам для аккуратности */
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  background: #ffffff;
   flex-grow: 1;
+  background: #ffffff;
 }
 
 /* Выравниваем элементы внутри текста */
