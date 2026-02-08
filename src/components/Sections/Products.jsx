@@ -251,8 +251,11 @@ const Products = () => {
                   {selectedProduct.images.map((img, i) => (
                     <SwiperSlide key={i}>
                       <div className="thumb-wrapper">
-                        <img src={img} alt="миниатюра" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
-                      </div>
+                      <img 
+                        src={img} 
+                        alt="миниатюра" 
+                      />
+                    </div>
                     </SwiperSlide>
                   ))}
                 </Swiper>
