@@ -188,7 +188,13 @@ const Products = () => {
                     <img 
                     src={img} 
                     alt={product.title} 
-                    style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+                    style={{ 
+                    maxWidth: '100%', 
+                    maxHeight: '100%', 
+                    width: 'auto', 
+                    height: 'auto', 
+                    objectFit: 'contain' 
+                    }} 
                   />
                   </SwiperSlide>
                 ))}

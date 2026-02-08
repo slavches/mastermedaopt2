@@ -21,43 +21,47 @@
   font-style: italic;
 }
 
-/* 1. СЕТКА (4 в ряд) */
+/* --- СЕТКА (4 в ряд) --- */
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
-  gap: 25px;
+  gap: 30px; /* Увеличили зазор для "воздушности" */
   margin-top: 40px;
 }
 
-/* 2. КАРТОЧКА (Монолитный вид) */
+/* --- САМА КАРТОЧКА (Теперь она без общей рамки и фона) --- */
 .product-card {
-  background: #ffffff;
-  border-radius: 20px;
-  overflow: hidden; 
+  background: transparent; /* Убираем фон */
+  border: none; /* Убираем границы */
+  box-shadow: none; /* Убираем тень */
   display: flex;
   flex-direction: column;
-  height: 100%;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(0,0,0,0.06);
+  transition: transform 0.3s ease;
+  cursor: pointer;
 }
 
 .product-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(93, 64, 55, 0.12);
+  transform: translateY(-5px);
 }
 
-/* 3. ФОТО (Занимает всю ширину без отступов) */
+/* --- КОНТЕЙНЕР ФОТО (Белая рамка отдельно) --- */
 .card-image-wrapper {
   width: 100%;
-  aspect-ratio: 1 / 1; /* Квадрат для максимальной площади */
+  aspect-ratio: 1 / 1; /* Квадратная область для фото */
   position: relative;
-  background: #fff;
-  /* Важно: здесь НЕТ padding, чтобы фото было в край */
+  background: #ffffff; /* Белый фон только под фото */
+  border-radius: 20px; /* Скругляем все углы рамки */
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center; /* Центрируем фото по вертикали */
+  justify-content: center; /* Центрируем фото по горизонтали */
+  margin-bottom: 15px; /* Отделяем фото от текста снизу */
 }
 
 .card-slider {
   width: 100%;
-  height: 100% !important;
+  height: 100%;
 }
 
 .card-slider .swiper-slide {
@@ -65,11 +69,11 @@
 }
 
 .card-slider img {
-  width: 100%;
-  height: 100%;
-  /* contain — чтобы фото влезло полностью, 
-     но если вы хотите, чтобы оно касалось краев карточки идеально, 
-     убедитесь, что у фото нет белых полей в самом файле */
+  /* Параметры, чтобы фото любого размера вписывалось полностью */
+  max-width: 90%; 
+  max-height: 90%;
+  width: auto;
+  height: auto;
   object-fit: contain; 
   display: block;
 }
@@ -84,42 +88,38 @@
   opacity: 1;
 }
 
-/* Красивая Новинка (без изменений) */
+/* Красивая Новинка поверх фото */
 .card-badge {
   position: absolute;
   top: 12px;
   left: 12px;
   background: linear-gradient(135deg, #FF8C00, #D2691E);
   color: white;
-  padding: 5px 14px;
+  padding: 4px 12px;
   border-radius: 50px;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   z-index: 10;
-  box-shadow: 0 4px 10px rgba(210, 105, 30, 0.3);
 }
 
-/* 4. ТЕКСТОВЫЙ БЛОК (Выровнен строго под фото) */
+/* --- ТЕКСТОВЫЙ БЛОК (Под фотографией) --- */
 .product-card-body {
-  padding: 15px 20px; /* 15px сверху/снизу, 20px по бокам для аккуратности */
+  padding: 5px 0; /* Убираем боковые отступы, так как нет фона */
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  background: #ffffff;
 }
 
-/* Выравниваем элементы внутри текста */
 .product-card-meta {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 5px;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 10px;
 }
 
 .product-card-price {
-  font-size: 19px;
-  font-weight: 850;
-  color: #3E2723;
+  font-size: 20px;
+  font-weight: 800;
+  color: #D2691E; /* Выделили цену цветом */
 }
 
 .product-card-weight {
@@ -132,8 +132,8 @@
   line-height: 1.3;
   color: #3E2723;
   font-weight: 600;
-  margin: 5px 0 15px 0;
-  height: 42px; /* Фикс высота для ровности ряда */
+  margin: 5px 0 10px 0;
+  min-height: 42px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   line-clamp: 2;
