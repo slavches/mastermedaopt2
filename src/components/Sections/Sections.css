@@ -21,11 +21,12 @@
   font-style: italic;
 }
 
-/* --- СЕТКА (4 в ряд) --- */
+/* --- 1. УВЕЛИЧИВАЕМ СЕТКУ --- */
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
-  gap: 30px; /* Увеличили зазор для "воздушности" */
+  /* Увеличили минимальный порог с 240px до 280px */
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+  gap: 35px; /* Немного увеличили расстояние между крупными карточками */
   margin-top: 40px;
 }
 
@@ -46,33 +47,27 @@
 }
 
 .product-card-title {
-  font-size: 16px;
-  line-height: 1.2; /* Чуть плотнее межстрочный интервал */
+  font-size: 18px; /* Увеличили шрифт названия, так как карточка стала больше */
+  line-height: 1.3;
+  font-weight: 700;
   color: #3E2723;
-  font-weight: 600;
-  margin: 0; /* Убрали все внешние отступы */
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  margin-top: 5px;
 }
 
-/* --- КОНТЕЙНЕР ФОТО (Делаем чуть ниже) --- */
+/* --- 2. УВЕЛИЧИВАЕМ КОНТЕЙНЕР ФОТО --- */
 .card-image-wrapper {
   width: 100%;
-  /* Меняем 1/1 на 5/4. Это сделает контейнер чуть менее высоким, 
-     и фото визуально станет ближе к тексту */
-  aspect-ratio: 5 / 4; 
+  /* Возвращаем 1/1 или ставим 4/3, чтобы при большей ширине росла и высота */
+  aspect-ratio: 1 / 1; 
   position: relative;
   background: #ffffff;
-  border-radius: 20px;
+  border-radius: 24px; /* Чуть больше скругление для крупных карточек */
   overflow: hidden;
   border: 1px solid rgba(0,0,0,0.05);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 8px; /* Уменьшили отступ с 15px до 8px */
+  margin-bottom: 12px;
 }
 
 .card-slider {
@@ -128,11 +123,9 @@
   z-index: 10;
 }
 
-/* --- ТЕКСТОВЫЙ БЛОК (Убираем лишние отступы) --- */
+/* --- 3. КОРРЕКТИРУЕМ ТЕКСТ ПОД НОВЫЙ РАЗМЕР --- */
 .product-card-body {
-  padding: 0 0 10px 0; /* Убрали верхний паддинг, оставили только нижний */
-  display: flex;
-  flex-direction: column;
+  padding: 5px 5px 15px 5px; /* Добавили крошечный отступ по бокам */
 }
 
 .product-card-meta {
@@ -143,9 +136,9 @@
 }
 
 .product-card-price {
-  font-size: 20px;
-  font-weight: 800;
-  color: #D2691E; /* Выделили цену цветом */
+  font-size: 22px; /* Цену тоже делаем заметнее */
+  font-weight: 850;
+  color: #D2691E;
 }
 
 .product-card-weight {
