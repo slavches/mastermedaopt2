@@ -70,18 +70,24 @@
   margin-bottom: 12px;
 }
 
+/* Основной контейнер слайдера */
 .card-slider {
   width: 100%;
   height: 100%;
+  /* Гарантируем, что ничего лишнего не вылезает за пределы рамки */
+  overflow: hidden !important; 
+  position: relative;
 }
 
-/* Центрируем содержимое каждого слайда */
+/* Слайд должен занимать строго 100% ширины */
 .card-slider .swiper-slide {
+  width: 100% !important;
   display: flex !important;
-  align-items: center;     /* Центр по вертикали */
-  justify-content: center;  /* Центр по горизонтали */
-  height: 100% !important;
-  background: #ffffff;      /* Убедимся, что фон под фото белый */
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  /* Убираем любые возможные тени или контуры, которые могут "торчать" */
+  outline: none;
 }
 
 .card-slider .swiper-slide {
@@ -89,14 +95,14 @@
 }
 
 .card-slider img {
-  /* Оставляем ваши настройки размера */
-  max-width: 95%; 
+  /* Чтобы картинка не растягивала контейнер */
+  max-width: 95%;
   max-height: 95%;
   width: auto;
   height: auto;
   object-fit: contain;
-  display: block;
-  margin: 0 auto; /* Дополнительная страховка центровки */
+  /* Центрирование */
+  margin: 0 auto;
 }
 
 /* Скрытие пагинации в сетке до наведения */
