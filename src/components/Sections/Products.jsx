@@ -200,15 +200,6 @@ const Products = () => {
                 ))}
               </Swiper>
             </div>
-
-            <div className="product-card-body" onClick={() => openModal(product)}>
-              <div className="product-card-meta">
-                <span className="product-card-price">{product.price}</span>
-                <span className="product-card-weight">{product.weight}</span>
-              </div>
-              <h3 className="product-card-title">{product.title}</h3>
-              <button className="details-btn">Узнать больше</button>
-            </div>
           </div>
         ))}
       </div>
