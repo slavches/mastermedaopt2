@@ -76,18 +76,89 @@
   flex-shrink: 0;
 }
 
+/* Общий контейнер формы (правая карточка) */
 .hero-form-card {
   background: white;
-  padding: 30px;
+  padding: 30px 25px; /* Немного уменьшили боковые отступы внутри */
   border-radius: 24px;
   box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-  border: 1px solid rgba(0,0,0,0.05);
+  width: 100%; /* Занимает всё пространство родителя (400px) */
+  box-sizing: border-box;
 }
 
 .hero-form-card h3 {
-  text-align: center;
+  font-size: 20px;
   margin-bottom: 20px;
+  text-align: center;
   color: #3E2723;
+  line-height: 1.2;
+}
+
+/* Стили самой формы (OrderForm) */
+.order-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Расстояние между полями */
+  width: 100%;
+}
+
+.order-form input, 
+.order-form textarea, 
+.order-form select {
+  width: 100% !important; /* Гарантируем полную ширину */
+  box-sizing: border-box; /* Чтобы padding не раздувал ширину */
+  padding: 14px 16px;
+  border: 1px solid #E0E0E0;
+  border-radius: 12px;
+  font-size: 16px; /* Чтобы текст не мельчил */
+  background: #F9F9F9;
+  transition: all 0.3s ease;
+}
+
+.order-form input:focus {
+  border-color: #D2691E;
+  background: #fff;
+  outline: none;
+}
+
+/* Кнопка внутри формы */
+.order-form button {
+  width: 100%;
+  padding: 16px;
+  background: #D2691E;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 10px;
+}
+
+/* Исправляем разделитель ИЛИ */
+.form-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+  color: #A1887F;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.form-divider::before,
+.form-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #eee;
+}
+
+.form-divider:not(:empty)::before { margin-right: 10px; }
+.form-divider:not(:empty)::after { margin-left: 10px; }
+
+.order-form button:hover {
+  background: #A0522D;
 }
 
 /* Адаптив для мобилок (всё в одну колонку по центру) */
