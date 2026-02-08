@@ -70,20 +70,97 @@
   gap: 8px;
 }
 
-/* Правая карточка с формой */
+/* Убираем лишнюю точку с запятой в вашем коде, которая могла ломать ширину */
 .hero-form-centered-wrapper {
-  width: 400px;
-  flex-shrink: 0;
+  width: 400px !important;
+  flex-shrink: 0; 
+}
+
+/* Новые стили для вертикальной формы */
+.order-form-vertical {
+  width: 100%;
+}
+
+.form-fields-container {
+  display: flex;
+  flex-direction: column; /* СТРОГО В СТОЛБИК */
+  gap: 12px;
+  width: 100%;
+}
+
+.form-fields-container input, 
+.form-fields-container select {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 14px 16px !important;
+  border: 1px solid #E0E0E0 !important;
+  border-radius: 12px !important;
+  font-size: 16px !important;
+  background: #F9F9F9 !important;
+  color: #3E2723 !important;
+}
+
+.form-fields-container input:focus, 
+.form-fields-container select:focus {
+  border-color: #D2691E !important;
+  background: #fff !important;
+  outline: none;
+}
+
+/* Стили кнопки */
+.submit-btn-vertical {
+  width: 100% !important;
+  padding: 16px !important;
+  background: #D2691E !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 12px !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  cursor: pointer !important;
+  margin-top: 5px;
+  box-shadow: 0 4px 10px rgba(210, 105, 30, 0.2);
+}
+
+/* Адаптив для мелких экранов */
+@media (max-width: 400px) {
+  .hero-form-card {
+    padding: 20px 15px !important;
+  }
 }
 
 /* Общий контейнер формы (правая карточка) */
 .hero-form-card {
-  background: white;
-  padding: 30px 25px; /* Немного уменьшили боковые отступы внутри */
-  border-radius: 24px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-  width: 100%; /* Занимает всё пространство родителя (400px) */
-  box-sizing: border-box;
+  background: white !important;
+  padding: 35px 30px !important; 
+  border-radius: 24px !important;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
+  width: 100% !important; 
+  max-width: 400px;
+  box-sizing: border-box !important;
+}
+
+
+
+/* Исправляем инпуты и текстовые поля */
+.hero-form-card input, 
+.hero-form-card textarea, 
+.hero-form-card select {
+  width: 100% !important; 
+  min-width: 100% !important; /* Не даем им сужаться */
+  box-sizing: border-box !important; 
+  padding: 14px 16px !important;
+  border: 1px solid #E0E0E0 !important;
+  border-radius: 12px !important;
+  font-size: 16px !important; 
+  background: #F9F9F9 !important;
+  display: block !important;
+}
+
+/* Убираем фиксированную высоту у textarea, если она есть */
+.hero-form-card textarea {
+  min-height: 80px;
+  resize: vertical;
 }
 
 .hero-form-card h3 {
@@ -92,48 +169,6 @@
   text-align: center;
   color: #3E2723;
   line-height: 1.2;
-}
-
-/* Стили самой формы (OrderForm) */
-.order-form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px; /* Расстояние между полями */
-  width: 100%;
-}
-
-.order-form input, 
-.order-form textarea, 
-.order-form select {
-  width: 100% !important; /* Гарантируем полную ширину */
-  box-sizing: border-box; /* Чтобы padding не раздувал ширину */
-  padding: 14px 16px;
-  border: 1px solid #E0E0E0;
-  border-radius: 12px;
-  font-size: 16px; /* Чтобы текст не мельчил */
-  background: #F9F9F9;
-  transition: all 0.3s ease;
-}
-
-.order-form input:focus {
-  border-color: #D2691E;
-  background: #fff;
-  outline: none;
-}
-
-/* Кнопка внутри формы */
-.order-form button {
-  width: 100%;
-  padding: 16px;
-  background: #D2691E;
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s;
-  margin-top: 10px;
 }
 
 /* Исправляем разделитель ИЛИ */
@@ -157,9 +192,7 @@
 .form-divider:not(:empty)::before { margin-right: 10px; }
 .form-divider:not(:empty)::after { margin-left: 10px; }
 
-.order-form button:hover {
-  background: #A0522D;
-}
+
 
 /* Адаптив для мобилок (всё в одну колонку по центру) */
 @media (max-width: 1024px) {
