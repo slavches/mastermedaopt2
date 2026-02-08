@@ -153,52 +153,61 @@ const Products = () => {
       <h2 className="section-title">Наша пасека</h2>
       <p className="section-subtitle">Попробуйте натуральный мёд, собранный с любовью</p>
       
-      <div className="products-grid">
-        {productsData.map((product) => (
-          <div 
-            key={product.id} 
-            className="product-card"
-            onMouseEnter={(e) => {
-              const swiper = e.currentTarget.querySelector('.swiper')?.swiper;
-              if (swiper) swiper.autoplay.start();
-            }}
-            onMouseLeave={(e) => {
-              const swiper = e.currentTarget.querySelector('.swiper')?.swiper;
-              if (swiper) {
-                swiper.autoplay.stop();
-                swiper.slideTo(0);
-              }
-            }}
-          >
-            <div className="card-image-wrapper">
-              <div className="card-badge">{product.category}</div>
-              <Swiper
-                modules={[Pagination, Autoplay]}
-                pagination={{ clickable: true }}
-                autoplay={{
-                  delay: 1000,
-                  disableOnInteraction: false,
-                }}
-                autoHeight={false}
-                onSwiper={(swiper) => swiper.autoplay.stop()}
-                className="card-slider"
-              >
-                {product.images.map((img, index) => (
-                  <SwiperSlide key={index} onClick={() => openModal(product)}>
-                    <img 
-                    src={img} 
-                    alt={product.title} 
-                    style={{ 
-                    maxWidth: '100%', 
-                    maxHeight: '100%', 
-                    width: 'auto', 
-                    height: 'auto', 
-                    objectFit: 'contain' 
-                    }} 
-                  />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
+<div className="products-grid">
+  {productsData.map((product) => (
+    <div 
+      key={product.id} 
+      className="product-card"
+      onMouseEnter={(e) => {
+        const swiper = e.currentTarget.querySelector('.swiper')?.swiper;
+        if (swiper) swiper.autoplay.start();
+      }}
+      onMouseLeave={(e) => {
+        const swiper = e.currentTarget.querySelector('.swiper')?.swiper;
+        if (swiper) {
+          swiper.autoplay.stop();
+          swiper.slideTo(0);
+        }
+      }}
+      onClick={() => openModal(product)} // Теперь клик по всей карточке открывает модалку
+    >
+      <div className="card-image-wrapper">
+        <div className="card-badge">{product.category}</div>
+        <Swiper
+          modules={[Pagination, Autoplay]}
+          pagination={{ clickable: true }}
+          autoplay={{
+            delay: 1000,
+            disableOnInteraction: false,
+          }}
+          autoHeight={false}
+          onSwiper={(swiper) => swiper.autoplay.stop()}
+          className="card-slider"
+        >
+          {product.images.map((img, index) => (
+            <SwiperSlide key={index}>
+              <img 
+                src={img} 
+                alt={product.title} 
+                style={{ 
+                  maxWidth: '100%', 
+                  maxHeight: '100%', 
+                  width: 'auto', 
+                  height: 'auto', 
+                  objectFit: 'contain' 
+                }} 
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+
+            <div className="product-card-body">
+              <div className="product-card-meta">
+                <span className="product-card-price">{product.price}</span>
+                <span className="product-card-weight">{product.weight}</span>
+              </div>
+              <h3 className="product-card-title">{product.title}</h3>
             </div>
           </div>
         ))}
