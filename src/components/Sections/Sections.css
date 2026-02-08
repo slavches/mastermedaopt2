@@ -182,6 +182,7 @@
   padding: 20px;
 }
 
+/* 1. Увеличиваем лимит высоты для всей карточки модалки */
 .modal-card {
   background: white;
   width: 100%;
@@ -196,6 +197,7 @@
   box-shadow: 0 25px 50px rgba(0,0,0,0.5);
 }
 
+/* 5. Исправляем обрезание в modal-body */
 .modal-body {
   display: flex;
   width: 100%;
@@ -204,7 +206,7 @@
   overflow-y: auto; /* Позволяет скроллить модалку, если экран маленький */
 }
 
-/* ГАЛЕРЕЯ (Лево) */
+/* 2. Даем отступ снизу в контейнере галереи */
 .modal-gallery-container {
   width: 55%;
   display: flex;
@@ -215,6 +217,7 @@
   flex-shrink: 0; /* Чтобы левая часть не сжималась */
 }
 
+/* 3. Ограничиваем ГЛАВНОЕ ФОТО, чтобы осталось место для миниатюр */
 .modal-swiper-main {
   width: 100%;
   aspect-ratio: 1 / 1; /* Квадрат в модалке смотрится лучше для баночек */
@@ -222,7 +225,21 @@
   margin-bottom: 20px;
 }
 
-/* МИНИАТЮРЫ (Тут была проблема) */
+.modal-slide-img-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-slide-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* В модалке лучше оставить contain, чтобы видеть всё фото целиком */
+}
+
+/* 4. Настраиваем слайдер миниатюр */
 .thumbs-slider {
   width: 100%;
   height: 90px !important; /* Жестко задаем высоту */
@@ -230,6 +247,7 @@
   flex-shrink: 0;
 }
 
+/* МИНИАТЮРЫ В МОДАЛКЕ */
 .thumb-wrapper {
   width: 100%;
   height: 80px; /* Фиксированная высота обертки */
@@ -249,6 +267,13 @@
   object-fit: contain;
 }
 
+/* Подсветка активной миниатюры */
+.thumbs-slider .swiper-slide-thumb-active .thumb-wrapper {
+  border-color: #D2691E;
+  opacity: 1;
+  box-shadow: 0 2px 8px rgba(210, 105, 30, 0.2);
+}
+
 /* КОНТЕНТ (Право) */
 .modal-text-content {
   width: 45%;
@@ -258,26 +283,79 @@
   overflow-y: auto;
 }
 
-/* Остальные стили (кнопки, новинка и т.д.) оставляем как были */
+.modal-text-content h2 { font-size: 28px; color: #3E2723; margin-bottom: 10px; }
 
-/* --- 4. АДАПТИВНОСТЬ (Исправляем обрезание на мобильных) --- */
+.modal-price-tag { font-size: 24px; font-weight: 800; color: #D2691E; margin: 15px 0; }
+
+.modal-divider-line { height: 1px; background: #eee; margin-bottom: 20px; }
+
+.modal-desc { font-size: 16px; line-height: 1.6; color: #5D4037; margin-bottom: 30px; }
+
+/* Кнопка закрытия */
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: white;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 1000;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.close-modal:hover { transform: rotate(90deg); color: #D2691E; }
+
+/* --- 4. АДАПТИВНОСТЬ --- */
 @media (max-width: 850px) {
   .modal-body { 
     flex-direction: column; 
     overflow-y: auto; 
   }
+
   .modal-gallery-container, .modal-text-content { 
     width: 100%; 
     border: none; 
     padding: 20px;
   }
+
   .modal-swiper-main { 
     max-height: 40vh; 
   }
+
   .thumbs-slider { 
     height: 70px !important; 
   }
+  
   .thumb-wrapper {
     height: 60px;
   }
+
+  .modal-card { max-height: 90vh; overflow-y: auto; }
+  .modal-swiper-main .swiper-button-next, 
+  .modal-swiper-main .swiper-button-prev { display: none !important; }
+}
+
+/* СТИЛИ TELEGRAM */
+.btn-telegram-wide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 400px;
+  margin: 15px auto 0;
+  padding: 12px 25px;
+  background-color: #0088cc;
+  color: white !important;
+  text-decoration: none;
+  border-radius: 12px;
+  font-weight: 600;
 }
