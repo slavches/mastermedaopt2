@@ -192,9 +192,8 @@ const Products = () => {
                 style={{ 
                   maxWidth: '100%', 
                   maxHeight: '100%', 
-                  width: 'auto', 
-                  height: 'auto', 
-                  objectFit: 'contain' 
+                  objectFit: 'contain',
+                  display: 'block' 
                 }} 
               />
             </SwiperSlide>

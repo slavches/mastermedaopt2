@@ -79,18 +79,28 @@
   height: 100%;
 }
 
+/* Центрируем содержимое каждого слайда */
+.card-slider .swiper-slide {
+  display: flex !important;
+  align-items: center;     /* Центр по вертикали */
+  justify-content: center;  /* Центр по горизонтали */
+  height: 100% !important;
+  background: #ffffff;      /* Убедимся, что фон под фото белый */
+}
+
 .card-slider .swiper-slide {
   height: 100% !important;
 }
 
 .card-slider img {
-  /* Параметры, чтобы фото любого размера вписывалось полностью */
-  max-width: 90%; 
-  max-height: 90%;
+  /* Оставляем ваши настройки размера */
+  max-width: 95%; 
+  max-height: 95%;
   width: auto;
   height: auto;
-  object-fit: contain; 
+  object-fit: contain;
   display: block;
+  margin: 0 auto; /* Дополнительная страховка центровки */
 }
 
 /* Скрытие пагинации в сетке до наведения */
