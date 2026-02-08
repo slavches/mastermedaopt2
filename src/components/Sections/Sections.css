@@ -21,13 +21,13 @@
   font-style: italic;
 }
 
-/* --- 1. УВЕЛИЧИВАЕМ СЕТКУ --- */
+/* --- 1. СЕТКА (Снова 4 в ряд) --- */
 .products-grid {
   display: grid;
-  /* Увеличили минимальный порог с 240px до 280px */
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-  gap: 35px; /* Немного увеличили расстояние между крупными карточками */
-  margin-top: 40px;
+  /* 220px - оптимальный размер, чтобы на большинстве экранов встало 4 в ряд */
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+  gap: 20px; /* Уменьшили зазор, чтобы карточки были компактнее */
+  margin-top: 30px;
 }
 
 /* --- САМА КАРТОЧКА (Теперь она без общей рамки и фона) --- */
@@ -47,47 +47,39 @@
 }
 
 .product-card-title {
-  font-size: 18px; /* Увеличили шрифт названия, так как карточка стала больше */
-  line-height: 1.3;
-  font-weight: 700;
+  font-size: 15px; /* Уменьшили с 18px */
+  line-height: 1.2;
+  font-weight: 600;
   color: #3E2723;
-  margin-top: 5px;
+  margin-top: 4px;
+  min-height: 36px; /* Резервируем место под 2 строки, чтобы всё было в ряд */
 }
 
-/* --- 2. УВЕЛИЧИВАЕМ КОНТЕЙНЕР ФОТО --- */
+/* --- 2. КОНТЕЙНЕР ФОТО (Компактный) --- */
 .card-image-wrapper {
   width: 100%;
-  /* Возвращаем 1/1 или ставим 4/3, чтобы при большей ширине росла и высота */
   aspect-ratio: 1 / 1; 
   position: relative;
   background: #ffffff;
-  border-radius: 24px; /* Чуть больше скругление для крупных карточек */
+  border-radius: 18px; /* Уменьшили скругление под размер */
   overflow: hidden;
   border: 1px solid rgba(0,0,0,0.05);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
-/* Основной контейнер слайдера */
+/* --- 4. ФИКС ТОРЧАЩИХ ФОТО --- */
 .card-slider {
   width: 100%;
   height: 100%;
-  /* Гарантируем, что ничего лишнего не вылезает за пределы рамки */
-  overflow: hidden !important; 
-  position: relative;
+  overflow: hidden !important;
 }
 
-/* Слайд должен занимать строго 100% ширины */
 .card-slider .swiper-slide {
   width: 100% !important;
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  background: #ffffff;
-  /* Убираем любые возможные тени или контуры, которые могут "торчать" */
-  outline: none;
+  background: #fff;
 }
 
 .card-slider .swiper-slide {
@@ -129,9 +121,9 @@
   z-index: 10;
 }
 
-/* --- 3. КОРРЕКТИРУЕМ ТЕКСТ ПОД НОВЫЙ РАЗМЕР --- */
+/* --- 3. ШРИФТЫ (Уменьшаем под размер карточки) --- */
 .product-card-body {
-  padding: 5px 5px 15px 5px; /* Добавили крошечный отступ по бокам */
+  padding: 0 4px 10px 4px;
 }
 
 .product-card-meta {
@@ -142,13 +134,13 @@
 }
 
 .product-card-price {
-  font-size: 22px; /* Цену тоже делаем заметнее */
-  font-weight: 850;
+  font-size: 18px; /* Было 22px, теперь аккуратнее */
+  font-weight: 800;
   color: #D2691E;
 }
 
 .product-card-weight {
-  font-size: 13px;
+  font-size: 12px;
   color: #A1887F;
 }
 
