@@ -122,6 +122,12 @@
   box-shadow: 0 4px 10px rgba(210, 105, 30, 0.2);
 }
 
+.submit-btn-vertical:hover {
+  background: #A0522D !important;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(210, 105, 30, 0.3);
+}
+
 /* Адаптив для мелких экранов */
 @media (max-width: 400px) {
   .hero-form-card {
@@ -460,8 +466,8 @@
 
 /* Добавляем в блок слайдера */
 .card-slider .swiper-wrapper {
-  /* Делаем переход более «вязким» и приятным */
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+  /* Это заставит анимацию замедляться к концу более естественно */
+  transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1) !important;
 }
 
 .card-slider .swiper-slide img {
