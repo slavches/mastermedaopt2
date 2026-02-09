@@ -222,6 +222,43 @@
   }
 }
 
+.hero-with-slider {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.hero-slider-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* Фон в самый низ */
+}
+
+.hero-slide-item {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Градиент делает левую часть чуть светлее для читаемости текста */
+  background: linear-gradient(to right, rgba(255,255,255,0.9) 20%, rgba(255,255,255,0.3) 100%);
+}
+
+.relative-content {
+  position: relative;
+  z-index: 2; /* Контент над фоном */
+}
+
 /* --- 1. БАЗОВЫЕ СТРУКТУРНЫЕ СТИЛИ --- */
 .section {
   padding: 100px 20px;
@@ -276,29 +313,30 @@
 /* --- 2. КОНТЕЙНЕР ФОТО (Компактный) --- */
 .card-image-wrapper {
   width: 100%;
-  aspect-ratio: 1 / 1; 
+  aspect-ratio: 1 / 1;    /* Строгий квадрат */
   position: relative;
-  background: #fff;
-  border-radius: 18px; 
+  background: #ffffff;    /* Белый фон, чтобы скрыть пустоты по бокам */
+  border-radius: 18px;
   overflow: hidden;
-  border: 1px solid rgba(0,0,0,0.05);
+  border: 1px solid rgba(0,0,0,0.06);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10px;
-  padding: 0 !important; /* Убираем внутренние отступы, если они были */
+  padding: 0 !important;  /* Убираем все внутренние отступы */
 }
 
 /* --- 4. ФИКС ТОРЧАЩИХ ФОТО --- */
 .card-slider {
-  width: 100%;
-  height: 100%;
-  overflow: hidden !important;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .card-slider .swiper-slide {
-  width: 100% !important;
-  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  overflow: hidden;
 }
 
 .card-slider .swiper-slide {
@@ -306,14 +344,26 @@
 }
 
 .card-slider img {
-  width: 100% !important; /* Занимает всю ширину */
-  height: 100% !important; /* Занимает всю высоту */
-  max-width: 100% !important; /* Убираем отступ 95% */
+  /* contain гарантирует, что высокая баночка влезет целиком и не обрежется */
+  object-fit: contain; 
+  
+  /* Растягиваем до краев, но без обрезки */
+  width: 100% !important;
+  height: 100% !important;
+  
+  /* Добавляем белый фон слайду, чтобы узкие фото плавно сливались с карточкой */
+  background-color: #fff;
+
+  /* Убираем старое ограничение в 95%, которое создавало белые поля */
+  max-width: 100% !important;
   max-height: 100% !important;
-  object-fit: contain; /* Фото заполнит контейнер целиком без полей */
+  
   display: block;
-  margin: 0;
+  margin: 0 auto;
+  
+  /* Убирает мыло и микро-отступы */
   transform: translateZ(0);
+  image-rendering: -webkit-optimize-contrast;
 }
 
 /* Скрытие пагинации в сетке до наведения */
@@ -456,7 +506,7 @@
 
 /* Удаляем лишние пересчеты у Swiper */
 .card-slider .swiper-wrapper {
-  transition-timing-function: ease-out; /* Убрали !important */
+  padding: 0 !important;
 }
 
 /* Это оставляем для стабильности картинки */

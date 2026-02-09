@@ -1,37 +1,69 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, EffectFade } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/effect-fade';
 import './Sections.css';
-import OrderForm from './OrderForm'; 
+import OrderForm from './OrderForm';
 
 function Home() {
+  const backgroundImages = [
+    "/images/bg-honey-1.webp",
+    "/images/bg-honey-2.webp",
+    "/images/bg-honey-3.webp"
+  ];
+
   return (
     <motion.section 
       id="home"
-      className="section home-section"
+      className="section home-section hero-with-slider"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
     >
-      <div className="section-content">
+      {/* 1. ФОНОВЫЙ СЛАЙДЕР */}
+      <div className="hero-slider-background">
+        <Swiper
+          modules={[Autoplay, EffectFade]}
+          effect="fade"
+          speed={2000}
+          autoplay={{ delay: 5000, disableOnInteraction: false }}
+          loop={true}
+          className="hero-bg-swiper"
+        >
+          {backgroundImages.map((img, index) => (
+            <SwiperSlide key={index}>
+              <div 
+                className="hero-slide-item" 
+                style={{ backgroundImage: `url(${img})` }}
+              >
+                <div className="hero-overlay"></div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+
+      {/* 2. КОНТЕНТ ПОВЕРХ СЛАЙДЕРА */}
+      <div className="section-content relative-content">
         <div className="home-hero-centered">
           
+          {/* ЛЕВАЯ ЧАСТЬ: ТЕКСТ */}
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8 }}
             className="welcome-card"
           >
-            {/* Надзаголовок для SEO-контекста */}
             <div className="welcome-badge">Прямые поставки мёда урожая 2025 года</div>
             
-            {/* ГЛАВНЫЙ ЗАГОЛОВОК (H1) — Сделали упор на опт и производителя */}
             <h1 className="main-title">
               Натуральный мёд оптом <br /> 
               <span>от производителя Мастер Мёда</span>
             </h1>
 
             <div className="welcome-message">
-              {/* Первый абзац с ключевыми фразами */}
               <p>
                 Мы занимаемся заготовкой и оптовыми поставками мёда, вкладывая душу в каждый куботейнер. 
                 Ежегодно собираем лучший мёд на пасеках <strong>Липецкой, Воронежской областей и Башкирии</strong>. 
@@ -51,6 +83,7 @@ function Home() {
             </div>
           </motion.div>
 
+          {/* ПРАВАЯ ЧАСТЬ: ФОРМА */}
           <motion.div
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -58,7 +91,6 @@ function Home() {
             className="hero-form-centered-wrapper"
           >
             <div className="hero-form-card">
-              {/* H3 тоже важен для SEO структуры */}
               <h3>Запросить оптовый прайс-лист</h3>
               <OrderForm />
               
