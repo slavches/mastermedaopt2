@@ -6,6 +6,7 @@ import 'swiper/css';
 import 'swiper/css/effect-fade';
 import './Sections.css';
 import OrderForm from './OrderForm';
+import 'swiper/css/autoplay'; // Добавьте это, если используете autoplay
 
 function Home() {
   const backgroundImages = [
