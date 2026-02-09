@@ -252,14 +252,11 @@
   gap: 20px;
   margin-top: 30px;
 }
-/* Ускоряем ховер эффект для отзывчивости */
+/* Убираем отступы из самой карточки, если они есть */
 .product-card {
+  padding: 0 !important; 
   background: transparent;
   border: none;
-  box-shadow: none;
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
 }
 
 .product-card:hover .product-card-title {
@@ -279,15 +276,17 @@
 /* --- 2. КОНТЕЙНЕР ФОТО (Компактный) --- */
 .card-image-wrapper {
   width: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1 / 1; 
   position: relative;
   background: #fff;
-  border-radius: 18px;
+  border-radius: 18px; 
   overflow: hidden;
   border: 1px solid rgba(0,0,0,0.05);
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 10px;
+  padding: 0 !important; /* Убираем внутренние отступы, если они были */
 }
 
 /* --- 4. ФИКС ТОРЧАЩИХ ФОТО --- */
@@ -307,12 +306,13 @@
 }
 
 .card-slider img {
-  max-width: 95%;
-  max-height: 95%;
-  object-fit: contain;
-  margin: 0 auto;
+  width: 100% !important; /* Занимает всю ширину */
+  height: 100% !important; /* Занимает всю высоту */
+  max-width: 100% !important; /* Убираем отступ 95% */
+  max-height: 100% !important;
+  object-fit: cover; /* Фото заполнит контейнер целиком без полей */
   display: block;
-  /* Аппаратное ускорение отрисовки */
+  margin: 0;
   transform: translateZ(0);
 }
 
