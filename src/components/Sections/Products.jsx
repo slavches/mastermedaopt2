@@ -159,14 +159,14 @@ const Products = () => {
       key={product.id} 
       className="product-card"
       onMouseEnter={(e) => {
-        const swiper = e.currentTarget.querySelector('.swiper')?.swiper;
+        const swiper = e.currentTarget.querySelector('.card-slider')?.swiper;
         if (swiper) swiper.autoplay.start();
       }}
       onMouseLeave={(e) => {
-        const swiper = e.currentTarget.querySelector('.swiper')?.swiper;
+        const swiper = e.currentTarget.querySelector('.card-slider')?.swiper;
         if (swiper) {
           swiper.autoplay.stop();
-          swiper.slideTo(0);
+          swiper.slideTo(0, 300); // Возвращаем к первому фото за 0.3 сек
         }
       }}
       onClick={() => openModal(product)} // Теперь клик по всей карточке открывает модалку
@@ -174,15 +174,18 @@ const Products = () => {
       <div className="card-image-wrapper">
         <div className="card-badge">{product.category}</div>
         <Swiper
-          modules={[Pagination, Autoplay]} // Убрал EffectFade, если хотим плавный сдвиг
-          speed={1000} // Сделаем еще чуть медленнее (1 секунда) для премиального ощущения
+          modules={[Pagination, Autoplay]}
+          speed={400} // Быстрая, отзывчивая анимация (0.4 сек)
           grabCursor={true}
           pagination={{ clickable: true }}
           autoplay={{
-            delay: 2500,
+            delay: 1200, // Скорость смены кадров при наведении
             disableOnInteraction: false,
           }}
-          // effect={'fade'} // СОВЕТ: Закомментируйте или удалите это, чтобы картинки ПЛЫЛИ, а не мигали
+          // Важнейшая часть: полностью выключаем автоплей при загрузке
+          onSwiper={(swiper) => {
+            swiper.autoplay.stop();
+          }}
           slidesPerView={1}
           spaceBetween={0}
           className="card-slider"

@@ -464,17 +464,16 @@
   flex-shrink: 0;
 }
 
-/* Добавляем в блок слайдера */
+/* Добавляем стандартную мягкую кривую вместо сложной */
 .card-slider .swiper-wrapper {
-  /* Это заставит анимацию замедляться к концу более естественно */
-  transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1) !important;
+  transition-timing-function: ease-out !important;
 }
 
+/* Это оставляем для стабильности картинки */
 .card-slider .swiper-slide img {
-  /* Защита от микро-мерцания при перелистывании */
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  transform: translateZ(0); /* Включаем аппаратное ускорение */
+  transform: translateZ(0);
 }
 
 /* МИНИАТЮРЫ В МОДАЛКЕ */
