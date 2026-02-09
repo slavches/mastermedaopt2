@@ -1,9 +1,9 @@
+import 'swiper/css';
+import 'swiper/css/effect-fade';
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/effect-fade';
 import './Sections.css';
 import OrderForm from './OrderForm';
 import 'swiper/css/autoplay'; // Добавьте это, если используете autoplay
@@ -15,36 +15,35 @@ function Home() {
     "/images/bg-honey-3.webp"
   ];
 
-  return (
-    <motion.section 
-      id="home"
-      className="section home-section hero-with-slider"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-    >
-      {/* 1. ФОНОВЫЙ СЛАЙДЕР */}
-      <div className="hero-slider-background">
-        <Swiper
-          modules={[Autoplay, EffectFade]}
-          effect="fade"
-          speed={2000}
-          autoplay={{ delay: 5000, disableOnInteraction: false }}
-          loop={true}
-          className="hero-bg-swiper"
-        >
-          {backgroundImages.map((img, index) => (
-            <SwiperSlide key={index}>
-              <div 
-                className="hero-slide-item" 
-                style={{ backgroundImage: `url(${img})` }}
-              >
-                <div className="hero-overlay"></div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+return (
+  <motion.section 
+    id="home"
+    className="hero-with-slider" // Оставляем только этот класс для чистоты
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.8 }}
+  >
+    <div className="hero-slider-background">
+      <Swiper
+        modules={[Autoplay, EffectFade]}
+        effect="fade"
+        speed={1500}
+        autoplay={{ delay: 5000, disableOnInteraction: false }}
+        loop={true}
+        className="hero-bg-swiper"
+      >
+        {backgroundImages.map((img, index) => (
+          <SwiperSlide key={index}>
+            <div 
+              className="hero-slide-item" 
+              style={{ backgroundImage: `url(${img})` }}
+            >
+              <div className="hero-overlay"></div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
 
       {/* 2. КОНТЕНТ ПОВЕРХ СЛАЙДЕРА */}
       <div className="section-content relative-content">

@@ -224,26 +224,34 @@
 
 .hero-with-slider {
   position: relative;
-  min-height: 100vh;
+  width: 100%;
+  min-height: 100vh; /* Высота на весь экран */
   overflow: hidden;
+  padding: 0 !important;
+  margin: 0 !important;
+  max-width: none !important; /* Убираем ограничение 1200px для фона */
 }
 
 .hero-slider-background {
   position: absolute;
   top: 0;
   left: 0;
+  width: 100vw; /* Строго на всю ширину окна */
+  height: 100%;
+  z-index: 1;
+}
+
+.hero-bg-swiper {
   width: 100%;
   height: 100%;
-  z-index: 0; /* Фон в самый низ */
 }
 
 .hero-slide-item {
   width: 100%;
-  height: 100vh; /* Используем vh (высота экрана), чтобы контейнер точно был виден */
+  height: 100%;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-color: #f0f0f0; /* Если картинка не грузится, вы увидите серый фон */
 }
 
 .hero-overlay {
@@ -252,13 +260,33 @@
   left: 0;
   width: 100%;
   height: 100%;
-  /* Градиент делает левую часть чуть светлее для читаемости текста */
-  background: linear-gradient(to right, rgba(255,255,255,0.9) 20%, rgba(255,255,255,0.3) 100%);
+  /* Затемнение: слева плотнее (под текст), справа прозрачнее */
+  background: linear-gradient(90deg, 
+    rgba(0, 0, 0, 0.6) 0%, 
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  z-index: 2;
 }
 
 .relative-content {
   position: relative;
-  z-index: 2; /* Контент над фоном */
+  z-index: 10;
+  width: 100%;
+  max-width: 1200px; /* Контентная область остается в рамках */
+  margin: 0 auto;
+  padding: 120px 20px;
+}
+/* Чтобы текст хорошо читался на темном фоне */
+.relative-content .main-title,
+.relative-content .welcome-message p,
+.relative-content .main-title span {
+  color: #ffffff !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3); /* Тень для четкости */
+}
+
+.relative-content .welcome-badge {
+  background: rgba(210, 105, 30, 0.9); /* Сделаем бейдж ярче */
+  color: #fff;
 }
 
 /* --- 1. БАЗОВЫЕ СТРУКТУРНЫЕ СТИЛИ --- */
