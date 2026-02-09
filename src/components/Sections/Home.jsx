@@ -27,7 +27,7 @@ function Home() {
             {/* ГЛАВНЫЙ ЗАГОЛОВОК (H1) — Сделали упор на опт и производителя */}
             <h1 className="main-title">
               Натуральный мёд оптом <br /> 
-              <span>от производителя Master Meda</span>
+              <span>от производителя Мастер Мёда</span>
             </h1>
 
             <div className="welcome-message">

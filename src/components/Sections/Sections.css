@@ -310,7 +310,7 @@
   height: 100% !important; /* Занимает всю высоту */
   max-width: 100% !important; /* Убираем отступ 95% */
   max-height: 100% !important;
-  object-fit: cover; /* Фото заполнит контейнер целиком без полей */
+  object-fit: contain; /* Фото заполнит контейнер целиком без полей */
   display: block;
   margin: 0;
   transform: translateZ(0);
