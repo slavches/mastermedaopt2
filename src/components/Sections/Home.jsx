@@ -9,9 +9,9 @@ import OrderForm from './OrderForm';
 
 function Home() {
   const backgroundImages = [
-    "/images/bg-honey-1.webp",
-    "/images/bg-honey-2.webp",
-    "/images/bg-honey-3.webp"
+    "/images/bg-honey-1.png",
+    "/images/bg-honey-2.png",
+    "/images/bg-honey-3.png"
   ];
 
   return (
