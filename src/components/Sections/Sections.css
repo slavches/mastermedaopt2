@@ -388,15 +388,7 @@
 
 /* --- 3. МОДАЛЬНОЕ ОКНО --- */
 .modal-overlay {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(8px);
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+  background: rgba(0, 0, 0, 0.8); /* Просто темный фон без блюра */
 }
 
 /* 1. Увеличиваем лимит высоты для всей карточки модалки */
@@ -466,7 +458,7 @@
 
 /* Добавляем стандартную мягкую кривую вместо сложной */
 .card-slider .swiper-wrapper {
-  transition-timing-function: ease-out !important;
+  transition-timing-function: ease-out;
 }
 
 /* Это оставляем для стабильности картинки */
