@@ -174,14 +174,19 @@ const Products = () => {
       <div className="card-image-wrapper">
         <div className="card-badge">{product.category}</div>
         <Swiper
-          modules={[Pagination, Autoplay]}
+          modules={[Pagination, Autoplay, EffectFade]} // Добавили эффект если нужно
+          speed={800} // Увеличили скорость перехода с 300 до 800мс (плавность)
+          grabCursor={true} // Курсор-рука
           pagination={{ clickable: true }}
           autoplay={{
-            delay: 1000,
+            delay: 3000,
             disableOnInteraction: false,
           }}
-          autoHeight={false}
-          onSwiper={(swiper) => swiper.autoplay.stop()}
+          // Если хотите эффект «перетекания» вместо обычного сдвига, 
+          // раскомментируйте строку ниже:
+          effect={'fade'} 
+          slidesPerView={1}
+          spaceBetween={0}
           className="card-slider"
         >
           {product.images.map((img, index) => (

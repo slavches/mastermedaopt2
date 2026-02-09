@@ -458,6 +458,19 @@
   flex-shrink: 0;
 }
 
+/* Добавляем в блок слайдера */
+.card-slider .swiper-wrapper {
+  /* Делаем переход более «вязким» и приятным */
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.card-slider .swiper-slide img {
+  /* Защита от микро-мерцания при перелистывании */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0); /* Включаем аппаратное ускорение */
+}
+
 /* МИНИАТЮРЫ В МОДАЛКЕ */
 .thumb-wrapper {
   width: 100%;
