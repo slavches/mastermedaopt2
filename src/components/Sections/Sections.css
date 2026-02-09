@@ -255,15 +255,10 @@
   margin-top: 30px;
 }
 
-/* --- САМА КАРТОЧКА (Теперь она без общей рамки и фона) --- */
+/* Ускоряем ховер эффект для отзывчивости */
 .product-card {
-  background: transparent; /* Убираем фон */
-  border: none; /* Убираем границы */
-  box-shadow: none; /* Убираем тень */
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.3s ease;
-  cursor: pointer;
+  transition: transform 0.2s ease-out;
+  will-change: transform; /* Подсказка браузеру для плавности */
 }
 
 .product-card:hover .product-card-title {
@@ -312,14 +307,13 @@
 }
 
 .card-slider img {
-  /* Чтобы картинка не растягивала контейнер */
   max-width: 95%;
   max-height: 95%;
-  width: auto;
-  height: auto;
   object-fit: contain;
-  /* Центрирование */
   margin: 0 auto;
+  display: block;
+  /* Аппаратное ускорение отрисовки */
+  transform: translateZ(0);
 }
 
 /* Скрытие пагинации в сетке до наведения */
@@ -386,9 +380,10 @@
   color: #fff;
 }
 
-/* --- 3. МОДАЛЬНОЕ ОКНО --- */
+/* Оптимизация модалки */
 .modal-overlay {
-  background: rgba(0, 0, 0, 0.8); /* Просто темный фон без блюра */
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: none; /* УДАЛИТЕ блюр, если тормоза сохраняются */
 }
 
 /* 1. Увеличиваем лимит высоты для всей карточки модалки */
@@ -456,9 +451,9 @@
   flex-shrink: 0;
 }
 
-/* Добавляем стандартную мягкую кривую вместо сложной */
+/* Удаляем лишние пересчеты у Swiper */
 .card-slider .swiper-wrapper {
-  transition-timing-function: ease-out;
+  transition-timing-function: ease-out; /* Убрали !important */
 }
 
 /* Это оставляем для стабильности картинки */

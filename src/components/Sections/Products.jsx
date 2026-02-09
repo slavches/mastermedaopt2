@@ -8,6 +8,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import 'swiper/css/free-mode';
 
+
 const productsData = [
   {
     id: 1,
@@ -153,59 +154,47 @@ const Products = () => {
       <h2 className="section-title">Наша пасека</h2>
       <p className="section-subtitle">Попробуйте натуральный мёд, собранный с любовью</p>
       
-<div className="products-grid">
-  {productsData.map((product) => (
-    <div 
-      key={product.id} 
-      className="product-card"
-      onMouseEnter={(e) => {
-        const swiper = e.currentTarget.querySelector('.card-slider')?.swiper;
-        if (swiper) swiper.autoplay.start();
-      }}
-      onMouseLeave={(e) => {
-        const swiper = e.currentTarget.querySelector('.card-slider')?.swiper;
-        if (swiper) {
-          swiper.autoplay.stop();
-          swiper.slideTo(0, 300); // Возвращаем к первому фото за 0.3 сек
-        }
-      }}
-      onClick={() => openModal(product)} // Теперь клик по всей карточке открывает модалку
-    >
-      <div className="card-image-wrapper">
-        <div className="card-badge">{product.category}</div>
-        <Swiper
-          modules={[Pagination, Autoplay]}
-          speed={400} // Быстрая, отзывчивая анимация (0.4 сек)
-          grabCursor={true}
-          pagination={{ clickable: true }}
-          autoplay={{
-            delay: 1200, // Скорость смены кадров при наведении
-            disableOnInteraction: false,
-          }}
-          // Важнейшая часть: полностью выключаем автоплей при загрузке
-          onSwiper={(swiper) => {
-            swiper.autoplay.stop();
-          }}
-          slidesPerView={1}
-          spaceBetween={0}
-          className="card-slider"
-        >
-          {product.images.map((img, index) => (
-            <SwiperSlide key={index}>
-              <img 
-                src={img} 
-                alt={product.title} 
-                style={{ 
-                  maxWidth: '100%', 
-                  maxHeight: '100%', 
-                  objectFit: 'contain',
-                  display: 'block' 
-                }} 
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+      <div className="products-grid">
+        {productsData.map((product) => (
+          <div 
+            key={product.id} 
+            className="product-card"
+            onMouseEnter={(e) => {
+              const swiper = e.currentTarget.querySelector('.card-slider')?.swiper;
+              if (swiper) swiper.autoplay.start();
+            }}
+            onMouseLeave={(e) => {
+              const swiper = e.currentTarget.querySelector('.card-slider')?.swiper;
+              if (swiper) {
+                swiper.autoplay.stop();
+                swiper.slideTo(0, 300);
+              }
+            }}
+            onClick={() => openModal(product)}
+          >
+            <div className="card-image-wrapper">
+              <div className="card-badge">{product.category}</div>
+              <Swiper
+                modules={[Pagination, Autoplay]}
+                speed={400}
+                grabCursor={true}
+                pagination={{ clickable: true }}
+                autoplay={{ delay: 1200, disableOnInteraction: false }}
+                onSwiper={(swiper) => swiper.autoplay.stop()}
+                slidesPerView={1}
+                className="card-slider"
+              >
+                {product.images.map((img, index) => (
+                  <SwiperSlide key={index}>
+                    <img 
+                      src={img} 
+                      alt={product.title} 
+                      loading="lazy" // Оптимизация загрузки
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
 
             <div className="product-card-body">
               <div className="product-card-meta">
@@ -218,6 +207,7 @@ const Products = () => {
         ))}
       </div>
 
+      {/* МОДАЛЬНОЕ ОКНО (Исправленная структура) */}
       {selectedProduct && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-card" onClick={(e) => e.stopPropagation()}>
@@ -239,7 +229,7 @@ const Products = () => {
                   {selectedProduct.images.map((img, i) => (
                     <SwiperSlide key={i}>
                       <div className="modal-slide-img-wrapper">
-                        <img src={img} alt="продукт" style={{ objectFit: 'contain' }} />
+                        <img src={img} alt="продукт" />
                       </div>
                     </SwiperSlide>
                   ))}
@@ -257,11 +247,8 @@ const Products = () => {
                   {selectedProduct.images.map((img, i) => (
                     <SwiperSlide key={i}>
                       <div className="thumb-wrapper">
-                      <img 
-                        src={img} 
-                        alt="миниатюра" 
-                      />
-                    </div>
+                        <img src={img} alt="мини" />
+                      </div>
                     </SwiperSlide>
                   ))}
                 </Swiper>
@@ -272,9 +259,10 @@ const Products = () => {
                 <div className="modal-price-tag">{selectedProduct.price}</div>
                 <div className="modal-divider-line"></div>
                 <p className="modal-desc">{selectedProduct.description}</p>
-                <button className="details-btn" style={{marginTop: 'auto'}} onClick={closeModal}>
-                  Закрыть
-                </button>
+                
+                <a href="https://t.me/your_bot" target="_blank" rel="noreferrer" className="btn-telegram-wide">
+                  Заказать в Telegram
+                </a>
               </div>
             </div>
           </div>
