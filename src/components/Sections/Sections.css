@@ -657,24 +657,27 @@
   font-weight: 600;
 }
 
-/* Находим вашу навигацию/шапку */
-nav, .navigation, .nav-container { 
+/* Основной контейнер шапки */
+header, .header-container { 
   background-color: rgba(210, 105, 30, 0.9) !important; 
-  backdrop-filter: blur(8px); /* Добавит эффект матового стекла */
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
+  backdrop-filter: blur(10px); /* Добавит стильный эффект размытия заднего плана */
   transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Тонкая линия снизу для изящности */
 }
 
-/* Делаем ссылки в шапке белыми, чтобы они читались на рыжем фоне */
-nav a, .navigation a, .nav-links a {
+/* Ссылки меню в шапке */
+.nav-links a, .nav-menu a {
+  color: #ffffff !important; /* Делаем текст белым */
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+/* Эффект при наведении на ссылки */
+.nav-links a:hover, .nav-menu a:hover {
+  color: #FFE4B5 !important; /* Светло-медовый цвет при наведении */
+}
+
+/* Если у вас в шапке есть логотип текстом */
+.logo {
   color: #ffffff !important;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-}
-
-/* Цвет при наведении на пункты меню */
-nav a:hover, .navigation a:hover {
-  color: #FFF8DC !important; /* Светло-кремовый при наведении */
 }
