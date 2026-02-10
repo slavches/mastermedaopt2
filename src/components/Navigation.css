@@ -23,7 +23,7 @@
 .nav-link {
   background: none;
   border: none;
-  color: #ffffff;
+  color: #ffffff !important;
   font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
@@ -34,12 +34,13 @@
 }
 
 .nav-link:hover {
-  color: #D2691E;
+  /* Светло-кремовый при наведении */
+  color: #FFF8DC !important; 
   background: rgba(255, 255, 255, 0.1);
 }
 
 .nav-link.active {
-  color: #D2691E;
+  color: #FFF8DC !important;
   background: rgba(255, 255, 255, 0.2);
 }
 
