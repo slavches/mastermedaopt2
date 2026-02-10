@@ -34,7 +34,7 @@ function Navigation({ currentSection, onSectionChange }) {
         onSectionChange(section.id);
         setIsOpen(false);
       }}
-      whileHover={{ y: -2, color: "#d4a017" }}
+      whileHover={{ y: -2, color: "#FFF8DC" }}
       whileTap={{ scale: 0.95 }}
     >
       {section.label}

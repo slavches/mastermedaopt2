@@ -79,22 +79,29 @@
   display: block;
 }
 
-/* --- МОБИЛЬНОЕ МЕНЮ (ВЫПАДАЮЩЕЕ) --- */
+/* Мобильное окно навигации */
 .nav-links {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: #ffffff;
+  /* МЕНЯЕМ ФОН НА ТЕМНЫЙ МЕДОВЫЙ, чтобы белый текст был виден */
+  background: rgba(139, 69, 19, 0.98) !important; 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1.5rem;
+  gap: 2rem;
   z-index: 999;
-  /* Скрыто по умолчанию */
   opacity: 0;
   pointer-events: none;
   transform: translateY(-100%);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Текст внутри раскрытого мобильного меню */
+.nav-links.open .nav-link {
+  color: #ffffff !important;
+  font-size: 1.8rem !important; /* Делаем крупнее для удобства пальцев */
+  opacity: 1 !important;
 }
 
 .nav-links.open {
@@ -103,12 +110,11 @@
   transform: translateY(0);
 }
 
+/* Убеждаемся, что кнопка закрытия (крестик) видна */
 .mobile-menu-toggle {
-  display: none;
-  background: none; border: none;
-  font-size: 2.5rem; color: #5D4037;
-  z-index: 1001;
-  cursor: pointer;
+  color: #ffffff !important;
+  position: relative;
+  z-index: 1002;
 }
 
 /* --- АДАПТИВНОСТЬ --- */
@@ -144,4 +150,15 @@
     width: 100%;
     padding: 1rem;
   }
+}
+
+.mobile-menu-toggle {
+  display: none;
+  background: none; 
+  border: none;
+  font-size: 2.5rem; 
+  /* Белый цвет для иконки */
+  color: #ffffff !important; 
+  z-index: 1001;
+  cursor: pointer;
 }
