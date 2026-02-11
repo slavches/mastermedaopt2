@@ -57,7 +57,7 @@ function Navigation({ currentSection, onSectionChange }) {
           
           {/* Новая кнопка 1 — Посмотреть прайс (ссылка на PDF) */}
           <a
-            href="/price-list-2025.pdf"
+            href="/price.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="nav-cta-btn price-btn"
