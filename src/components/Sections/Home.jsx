@@ -77,9 +77,9 @@ return (
             </div>
 
             <div className="welcome-features">
-              <div className="w-feature"><span>🍯</span> Поставки от 15 кг до 20 тонн</div>
-              <div className="w-feature"><span>📄</span> Полный пакет документов</div>
-              <div className="w-feature"><span>🚀</span> Отгрузка в день заказа</div>
+              <div className="w-feature">Поставки от 15 кг до 20 тонн</div>
+              <div className="w-feature">Полный пакет документов</div>
+              <div className="w-feature">Отгрузка в день заказа</div>
             </div>
           </motion.div>
 
