@@ -81,7 +81,7 @@ function Navigation({ currentSection, onSectionChange }) {
           {[...leftLinks, ...rightLinks].map(renderLink)}
           
           <a
-            href="/price-list-2025.pdf"
+            href="/price.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="nav-cta-btn price-btn mobile"
