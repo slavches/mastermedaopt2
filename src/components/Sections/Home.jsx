@@ -81,32 +81,6 @@ return (
               <div className="w-feature">Отгрузка в день заказа</div>
             </div>
           </motion.div>
-
-          {/* ПРАВАЯ ЧАСТЬ: ФОРМА */}
-          <motion.div
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="hero-form-centered-wrapper"
-          >
-            <div className="hero-form-card">
-              <h3>Запросить оптовый прайс-лист</h3>
-              <OrderForm />
-              
-              <div className="form-divider">ИЛИ</div>
-
-              <a 
-                href="https://t.me/master_meda_bot"
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="btn-telegram-wide"
-              >
-                <i className="fab fa-telegram-plane"></i>
-                Написать в Telegram напрямую
-              </a>
-            </div>
-          </motion.div>
-
         </div>
       </div>
     </motion.section>

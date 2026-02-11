@@ -245,10 +245,16 @@
   font-size: 15px;
   line-height: 1.2;
   font-weight: 600;
-  color: var(--color-text-dark);
+  color: #5D4037;  /* Светлее, чем #3E2723 – более "мягкий" коричневый */
   margin-top: 4px;
-  min-height: 36px;  /* Для выравнивания в сетке */
-  text-align: center;  /* Центр, чтобы не подвинуть */
+  min-height: 36px;
+}
+
+.modal-desc {
+  font-size: 16px;
+  line-height: 1.8;  /* Увеличили для воздуха */
+  color: #6D4C41;    /* Ещё светлее, чтобы не "чёрный" */
+  margin-bottom: 30px;
 }
 
 /* Модалка */
