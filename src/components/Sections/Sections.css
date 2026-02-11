@@ -72,11 +72,12 @@
   flex: 1;
   text-align: left;
   max-width: 650px;
-  background: rgba(210, 105, 30, 0.1);  /* Увеличили opacity до 0.3 для лучшего контраста */
-  backdrop-filter: blur(12px);
+  background: rgba(210, 105, 30, 0.15);  /* Прозрачнее: alpha=0.15 (было 0.2/0.3) */
+  backdrop-filter: blur(12px);  /* Размытие сохраняем для "стеклянного" эффекта */
+  -webkit-backdrop-filter: blur(12px);
   padding: 40px;
   border-radius: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);  /* Лёгкая граница для видимости */
   box-shadow: var(--shadow-card);
 }
 
@@ -110,9 +111,9 @@
 .welcome-message p {
   font-size: 1.15rem;
   line-height: 1.7;
-  color: var(--color-text-light);
+  color: var(--color-text-light);  /* #ffffff */
   margin-bottom: 20px;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.2);  /* Лёгкая тень для читаемости */
+  text-shadow: 0 2px 4px rgba(0,0,0,0.4);  /* Усиленная тень для читаемости на прозрачном bg */
 }
 
 .welcome-features {
