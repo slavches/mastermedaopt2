@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { IoMenu, IoClose } from 'react-icons/io5';
 import './Navigation.css';
 import logoImg from '../assets/images/logo-header.png';
-import OrderForm from './OrderForm';  // Исправь путь
+import OrderForm from './Sections/OrderForm';
 
 function Navigation({ currentSection, onSectionChange }) {
   const [isOpen, setIsOpen] = useState(false);  // Мобильное меню
