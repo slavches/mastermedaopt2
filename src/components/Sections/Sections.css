@@ -1,37 +1,40 @@
-/* --- 1. ОБЩИЕ СТИЛИ СЕКЦИЙ --- */
+:root {
+  /* Цвета */
+  --color-honey:        #D2691E;
+  --color-honey-dark:   #A0522D;
+  --color-gold:         #FFD700;
+  --color-bg-glass:     rgba(210, 105, 30, 0.2);
+  --color-white:        #ffffff;
+  --color-text-dark:    #3E2723;
+  --color-text-muted:   #5D4037;
+  --color-border:       #E0E0E0;
+  --color-bg-light:     #F9F9F9;
+  
+  /* Радиусы и тени */
+  --radius-lg:          24px;
+  --radius-md:          12px;
+  --radius-round:       50px;
+  --shadow-card:        0 20px 40px rgba(0, 0, 0, 0.15);
+  --shadow-sm:          0 4px 15px rgba(0, 0, 0, 0.1);
+  
+  /* Анимации */
+  --transition:         0.3s ease;
+}
+
+/* --- 1. БАЗОВЫЕ СТРУКТУРНЫЕ СТИЛИ --- */
 .section {
   padding: 100px 20px;
   max-width: 1200px;
   margin: 0 auto;
   min-height: 80vh;
-  display: block;
 }
 
-/* --- 2. ШАПКА (HERO СЕКЦИЯ) --- */
 .hero-with-slider {
   position: relative;
   width: 100%;
   height: 100vh;
   min-height: 650px;
   overflow: hidden;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-.hero-slider-background, .hero-bg-swiper, .hero-slide-item {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-}
-
-.hero-slide-item { background-size: cover; background-position: center; }
-
-.hero-overlay {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 100%);
-  z-index: 2;
 }
 
 .home-hero-centered {
@@ -48,59 +51,127 @@
   z-index: 10;
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 140px 20px 40px !important;
+  margin: 140px auto 40px;
+  padding: 0 20px;
 }
 
+/* --- 2. ЛЕВАЯ КАРТОЧКА (WELCOME) --- */
 .welcome-card {
   flex: 1;
-  background: rgba(210, 105, 30, 0.2);
+  max-width: 650px;
+  background: var(--color-bg-glass);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   padding: 40px;
   border-radius: 30px;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-card);
+}
+
+.welcome-badge {
+  display: inline-block;
+  background: var(--color-honey);
+  color: var(--color-white);
+  padding: 6px 16px;
+  border-radius: var(--radius-round);
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 20px;
 }
 
 .main-title {
   font-size: 3rem;
+  line-height: 1.1;
+  color: var(--color-white);
+  margin-bottom: 20px;
   font-weight: 800;
-  color: #fff !important;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.main-title span { color: #FFD700 !important; font-size: 1.8rem; display: block; }
+.main-title span {
+  color: var(--color-gold);
+  font-size: 1.8rem;
+  display: block;
+}
 
-/* --- 3. ФОРМА --- */
-.hero-form-centered-wrapper { width: 100%; max-width: 380px; flex-shrink: 0; }
+.w-feature {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: var(--shadow-sm);
+}
+
+/* --- 3. ПРАВАЯ КАРТОЧКА (ФОРМА) --- */
+.hero-form-centered-wrapper {
+  width: 100%;
+  max-width: 380px;
+  flex-shrink: 0;
+}
 
 .hero-form-card {
-  background: white !important;
-  padding: 30px !important;
-  border-radius: 24px !important;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15) !important;
+  background: var(--color-white);
+  padding: 30px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
 }
 
-.hero-form-card input, .hero-form-card select, .hero-form-card textarea {
-  width: 100% !important;
-  padding: 14px !important;
+.hero-form-card h3 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: var(--color-text-dark);
+}
+
+/* Поля ввода */
+.hero-form-card input, 
+.hero-form-card textarea, 
+.hero-form-card select {
+  width: 100%;
+  padding: 14px 16px;
   margin-bottom: 12px;
-  border: 1px solid #E0E0E0 !important;
-  border-radius: 12px !important;
-  background: #F9F9F9 !important;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  background: var(--color-bg-light);
+  display: block;
+  transition: border-color var(--transition), background var(--transition);
+}
+
+.hero-form-card input:focus, 
+.hero-form-card select:focus, 
+.hero-form-card textarea:focus {
+  outline: none;
+  border-color: var(--color-honey);
+  background: var(--color-white);
+  box-shadow: 0 0 0 3px rgba(210, 105, 30, 0.1);
 }
 
 .submit-btn-vertical {
-  width: 100% !important;
-  padding: 16px !important;
-  background: #D2691E !important;
-  color: #fff !important;
-  border-radius: 12px !important;
+  width: 100%;
+  padding: 16px;
+  background: var(--color-honey);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-md);
   font-weight: 700;
+  font-size: 16px;
   cursor: pointer;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
 }
 
-/* --- 4. СЕТКА ТОВАРОВ --- */
+.submit-btn-vertical:hover {
+  background: var(--color-honey-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(210, 105, 30, 0.3);
+}
+
+/* --- 4. КАРТОЧКИ ТОВАРОВ В СЕТКЕ --- */
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
@@ -108,9 +179,29 @@
   margin-top: 30px;
 }
 
+.product-card-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  margin-top: 8px;
+  min-height: 36px;
+  transition: color var(--transition);
+}
+
+.product-card:hover .product-card-title {
+  color: var(--color-honey);
+}
+
+.product-card-price {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--color-honey);
+}
+
 .card-image-wrapper {
-  aspect-ratio: 1/1;
-  background: #fff;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--color-white);
   border-radius: 18px;
   overflow: hidden;
   border: 1px solid rgba(0,0,0,0.06);
@@ -119,50 +210,50 @@
   justify-content: center;
 }
 
-.card-slider img { object-fit: contain; width: 100%; height: 100%; }
-
-.product-card-price { font-size: 18px; font-weight: 800; color: #D2691E; }
-.product-card-title { font-size: 15px; font-weight: 600; color: #3E2723; }
-
 /* --- 5. МОДАЛЬНОЕ ОКНО --- */
-.modal-overlay {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.8);
-  z-index: 10000;
-  display: flex; align-items: center; justify-content: center;
-}
-
 .modal-card {
-  background: #fff; width: 95%; max-width: 1000px;
-  max-height: 90vh; border-radius: 24px;
-  display: flex; overflow: hidden; position: relative;
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
 }
 
-.modal-body { display: flex; width: 100%; overflow-y: auto; }
+.modal-price-tag {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--color-honey);
+}
 
 /* --- 6. АДАПТИВНОСТЬ --- */
 @media (max-width: 1024px) {
-  .home-hero-centered { flex-direction: column; align-items: center; text-align: center; }
+  .home-hero-centered {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
   .welcome-card { max-width: 100%; }
   .hero-form-centered-wrapper { max-width: 400px; }
 }
 
 @media (max-width: 768px) {
   .hero-with-slider { height: auto; min-height: 100vh; }
-  .relative-content { padding: 100px 15px 30px !important; }
-  .main-title { font-size: 1.8rem !important; }
+  .main-title { font-size: 1.8rem; }
   .modal-body { flex-direction: column; }
-  .modal-gallery-container, .modal-text-content { width: 100% !important; border: none; }
-}
-
-@media (max-width: 480px) {
-  .products-grid { grid-template-columns: 1fr; }
+  .modal-gallery-container, .modal-text-content { width: 100%; border: none; }
 }
 
 /* Telegram */
 .btn-telegram-wide {
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-  background: #0088cc; color: #fff !important; padding: 12px;
-  border-radius: 12px; font-weight: 600; text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: #0088cc;
+  color: var(--color-white);
+  padding: 12px 25px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity var(--transition);
 }
+
+.btn-telegram-wide:hover { opacity: 0.9; }
