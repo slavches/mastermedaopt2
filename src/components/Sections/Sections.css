@@ -53,10 +53,11 @@
 .home-hero-centered {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: center;          /* ← центрируем карточку */
   gap: 50px;
   max-width: 1200px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .relative-content {
@@ -70,15 +71,14 @@
 
 .welcome-card {
   flex: 1;
-  text-align: left;
-  max-width: 650px;
-  background: rgba(210, 105, 30, 0.15);  /* Прозрачнее: alpha=0.15 (было 0.2/0.3) */
-  backdrop-filter: blur(12px);  /* Размытие сохраняем для "стеклянного" эффекта */
-  -webkit-backdrop-filter: blur(12px);
-  padding: 40px;
+  max-width: 800px;                 /* ← увеличиваем ширину карточки */
+  background: rgba(210, 105, 30, 0.15); /* прозрачнее, как просил ранее */
+  backdrop-filter: blur(12px);
+  padding: 40px 50px;               /* больше воздуха по бокам */
   border-radius: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.2);  /* Лёгкая граница для видимости */
+  border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: var(--shadow-card);
+  text-align: left;                 /* или center, если хочешь по центру */
 }
 
 .welcome-badge {

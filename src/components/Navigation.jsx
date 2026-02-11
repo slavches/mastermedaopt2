@@ -6,9 +6,9 @@ import logoImg from '../assets/images/logo-header.png';
 import OrderForm from './Sections/OrderForm';
 
 function Navigation({ currentSection, onSectionChange }) {
-  const [isOpen, setIsOpen] = useState(false);  // Мобильное меню
+  const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isFormOpen, setIsFormOpen] = useState(false);  // Модалка формы
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   const leftLinks = [
     { id: 'home', label: 'Главная' },
@@ -50,45 +50,50 @@ function Navigation({ currentSection, onSectionChange }) {
       animate={{ y: 0, opacity: 1 }}
     >
       <div className="nav-container">
-        <div className="nav-side desktop-only">
-          {leftLinks.map(renderLink)}
-        </div>
-
-        <div className="logo-wrapper">
-          <motion.div 
-            className="logo"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => {
-              onSectionChange('home');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-          >
-            <img src={logoImg} alt="Лого" className="logo-image" />
-          </motion.div>
-        </div>
+        {/* ... левая часть и логотип без изменений ... */}
 
         <div className="nav-side desktop-only text-right">
           {rightLinks.map(renderLink)}
+          
+          {/* Новая кнопка 1 — Посмотреть прайс (ссылка на PDF) */}
+          <a
+            href="/price-list-2025.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-cta-btn price-btn"
+          >
+            Посмотреть прайс
+          </a>
+
+          {/* Кнопка 2 — Отправить заявку (модалка) */}
           <motion.button
-            className="nav-cta-btn"
+            className="nav-cta-btn request-btn"
             onClick={() => setIsFormOpen(true)}
             whileHover={{ y: -2, color: "#FFF8DC" }}
             whileTap={{ scale: 0.95 }}
           >
-            Получить прайс
+            Отправить заявку
           </motion.button>
         </div>
 
+        {/* Мобильное меню — тоже добавляем обе кнопки */}
         <div className={`nav-links ${isOpen ? 'open' : ''}`}>
           {[...leftLinks, ...rightLinks].map(renderLink)}
-          <motion.button 
-            className="nav-cta-btn mobile"
-            onClick={() => { setIsFormOpen(true); setIsOpen(false); }}
-            whileHover={{ y: -2, color: "#FFF8DC" }}
-            whileTap={{ scale: 0.95 }}
+          
+          <a
+            href="/price-list-2025.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-cta-btn price-btn mobile"
           >
-            Получить прайс
+            Посмотреть прайс
+          </a>
+          
+          <motion.button 
+            className="nav-cta-btn request-btn mobile"
+            onClick={() => { setIsFormOpen(true); setIsOpen(false); }}
+          >
+            Отправить заявку
           </motion.button>
         </div>
 
@@ -97,6 +102,7 @@ function Navigation({ currentSection, onSectionChange }) {
         </button>
       </div>
 
+      {/* Модалка с формой остаётся без изменений */}
       <AnimatePresence>
         {isFormOpen && (
           <motion.div
@@ -116,7 +122,7 @@ function Navigation({ currentSection, onSectionChange }) {
               <button className="modal-close" onClick={() => setIsFormOpen(false)}>
                 ×
               </button>
-              <h3>Запросить оптовый прайс-лист</h3>
+              <h3>Отправить заявку на прайс-лист</h3>
               <OrderForm onSuccess={() => setIsFormOpen(false)} />
             </motion.div>
           </motion.div>

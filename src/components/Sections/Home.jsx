@@ -5,8 +5,7 @@ import { motion } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade } from 'swiper/modules';
 import './Sections.css';
-import OrderForm from './OrderForm';
-import 'swiper/css/autoplay'; // Добавьте это, если используете autoplay
+import 'swiper/css/autoplay';
 
 function Home() {
   const backgroundImages = [
@@ -15,43 +14,41 @@ function Home() {
     "/images/bg-honey-3.webp"
   ];
 
-return (
-  <motion.section 
-    id="home"
-    className="hero-with-slider" // Оставляем только этот класс для чистоты
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 0.8 }}
-  >
-    <div className="hero-slider-background">
-      <Swiper
-        modules={[Autoplay, EffectFade]}
-        effect="fade"
-        speed={1500}
-        autoplay={{ delay: 5000, disableOnInteraction: false }}
-        loop={true}
-        className="hero-bg-swiper"
-      >
-        {backgroundImages.map((img, index) => (
-          <SwiperSlide key={index}>
-            <div 
-              className="hero-slide-item" 
-              style={{ backgroundImage: `url(${img})` }}
-            >
-              <div className="hero-overlay"></div>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </div>
+  return (
+    <motion.section 
+      id="home"
+      className="hero-with-slider"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+    >
+      <div className="hero-slider-background">
+        <Swiper
+          modules={[Autoplay, EffectFade]}
+          effect="fade"
+          speed={1500}
+          autoplay={{ delay: 5000, disableOnInteraction: false }}
+          loop={true}
+          className="hero-bg-swiper"
+        >
+          {backgroundImages.map((img, index) => (
+            <SwiperSlide key={index}>
+              <div 
+                className="hero-slide-item" 
+                style={{ backgroundImage: `url(${img})` }}
+              >
+                <div className="hero-overlay"></div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
 
-      {/* 2. КОНТЕНТ ПОВЕРХ СЛАЙДЕРА */}
+      {/* Контент поверх слайдера */}
       <div className="section-content relative-content">
         <div className="home-hero-centered">
-          
-          {/* ЛЕВАЯ ЧАСТЬ: ТЕКСТ */}
           <motion.div
-            initial={{ y: 20, opacity: 0 }}
+            initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8 }}
             className="welcome-card"
@@ -64,16 +61,16 @@ return (
             </h1>
 
             <div className="welcome-message">
-            <p>
-              Мы занимаемся заготовкой и оптовыми поставками <strong>натурального мёда</strong>, вкладывая душу в каждый куботейнер.
-            </p>
-            <p>
-              Ежегодно собираем лучший мёд на пасеках <strong>Липецкой, Воронежской областей и Башкирии</strong>. Продукция 2025 года полностью соответствует ГОСТу — чистый, зрелый и ароматный.
-            </p>
-            <p>
-              Работаем официально через систему <strong>«Меркурий»</strong>. Объёмы от 15–33 кг (куботейнер) до фуры. Честное партнёрство для вашего бизнеса.
-            </p>
-          </div>
+              <p>
+                Мы занимаемся заготовкой и оптовыми поставками <strong>натурального мёда</strong>, вкладывая душу в каждый куботейнер.
+              </p>
+              <p>
+                Ежегодно собираем лучший мёд на пасеках <strong>Липецкой, Воронежской областей и Башкирии</strong>. Продукция 2025 года полностью соответствует ГОСТу — чистый, зрелый и ароматный.
+              </p>
+              <p>
+                Работаем официально через систему <strong>«Меркурий»</strong>. Объёмы от 15–33 кг (куботейнер) до фуры. Честное партнёрство для вашего бизнеса.
+              </p>
+            </div>
 
             <div className="welcome-features">
               <div className="w-feature">Поставки от 15 кг до 20 тонн</div>
