@@ -1,3 +1,16 @@
+:root {
+  --color-honey: #D2691E;         /* Основной медовый */
+  --color-honey-dark: #A0522D;    /* Темнее для hover */
+  --color-gold: #FFD700;          /* Золотой */
+  --color-bg-glass: rgba(210, 105, 30, 0.2); /* Полупрозрачный медовый */
+  --color-text-light: #ffffff;    /* Белый текст */
+  --color-text-dark: #3E2723;     /* Тёмный текст */
+  --color-bg-light: #FFF8DC;      /* Светлый фон */
+  --radius-lg: 24px;
+  --radius-md: 12px;
+  --shadow-card: 0 20px 40px rgba(0,0,0,0.15);
+  --transition: 0.3s ease;
+}
 .App {
   text-align: center;
 }
