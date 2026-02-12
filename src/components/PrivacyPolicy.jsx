@@ -1,6 +1,5 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { IoClose } from 'react-icons/io5';
+import { motion } from 'framer-motion';  // ← Добавили motion (для <motion.div>)
 import './PrivacyPolicy.css';
 
 const PrivacyPolicy = ({ isOpen, onClose }) => {
@@ -15,8 +14,8 @@ const PrivacyPolicy = ({ isOpen, onClose }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <button className="policy-close-modern" onClick={onClose} aria-label="Закрыть">
-        <div className="close-line rotate-45"></div>
-        <div className="close-line rotate-minus-45"></div>
+          <div className="close-line rotate-45"></div>
+          <div className="close-line rotate-minus-45"></div>
         </button>
         
         <div className="policy-content">

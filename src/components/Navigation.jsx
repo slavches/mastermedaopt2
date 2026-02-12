@@ -1,23 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';  // AnimatePresence не нужен здесь
 import { IoMenu, IoClose } from 'react-icons/io5';
 import './Navigation.css';
-import logoImg from '../assets/images/logo-header.png';
 import OrderForm from './Sections/OrderForm';
 
-function Navigation({ currentSection, onSectionChange }) {
+function Navigation({ currentSection, onSectionChange, setIsFormOpen }) {  // ← добавили пропс setIsFormOpen
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isFormOpen, setIsFormOpen] = useState(false);
 
   const leftLinks = [
     { id: 'home', label: 'Главная' },
     { id: 'products', label: 'Продукция' },
     { id: 'clients', label: 'Клиенты' },
+    { id: 'partners', label: 'Партнёры' },
   ];
 
   const rightLinks = [
-    { id: 'partners', label: 'Партнеры' },
     { id: 'news', label: 'Новости' },
     { id: 'about', label: 'О нас' },
   ];
@@ -50,25 +48,44 @@ function Navigation({ currentSection, onSectionChange }) {
       animate={{ y: 0, opacity: 1 }}
     >
       <div className="nav-container">
-        {/* ... левая часть и логотип без изменений ... */}
+        <div className="nav-side left desktop-only">
+          {leftLinks.map(renderLink)}
+        </div>
 
-        <div className="nav-side desktop-only text-right">
+        <div className="logo-wrapper">
+          <motion.div 
+            className="logo"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => {
+              onSectionChange('home');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+          >
+            <img 
+              src="/logo-header.png" 
+              alt="Мастер Мёда" 
+              className="logo-image" 
+            />
+          </motion.div>
+        </div>
+
+        <div className="nav-side right desktop-only">
           {rightLinks.map(renderLink)}
           
-          {/* Новая кнопка 1 — Посмотреть прайс (ссылка на PDF) */}
           <a
             href="/price.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="nav-cta-btn price-btn"
+            download="Прайс-лист Мастер Мёда 2025.pdf"
           >
             Посмотреть прайс
           </a>
 
-          {/* Кнопка 2 — Отправить заявку (модалка) */}
           <motion.button
             className="nav-cta-btn request-btn"
-            onClick={() => setIsFormOpen(true)}
+            onClick={() => setIsFormOpen(true)}  // ← используем пропс
             whileHover={{ y: -2, color: "#FFF8DC" }}
             whileTap={{ scale: 0.95 }}
           >
@@ -76,7 +93,6 @@ function Navigation({ currentSection, onSectionChange }) {
           </motion.button>
         </div>
 
-        {/* Мобильное меню — тоже добавляем обе кнопки */}
         <div className={`nav-links ${isOpen ? 'open' : ''}`}>
           {[...leftLinks, ...rightLinks].map(renderLink)}
           
@@ -85,13 +101,16 @@ function Navigation({ currentSection, onSectionChange }) {
             target="_blank"
             rel="noopener noreferrer"
             className="nav-cta-btn price-btn mobile"
+            download="Прайс-лист Мастер Мёда 2025.pdf"
           >
             Посмотреть прайс
           </a>
-          
+
           <motion.button 
             className="nav-cta-btn request-btn mobile"
             onClick={() => { setIsFormOpen(true); setIsOpen(false); }}
+            whileHover={{ y: -2, color: "#FFF8DC" }}
+            whileTap={{ scale: 0.95 }}
           >
             Отправить заявку
           </motion.button>
@@ -101,33 +120,6 @@ function Navigation({ currentSection, onSectionChange }) {
           {isOpen ? <IoClose /> : <IoMenu />}
         </button>
       </div>
-
-      {/* Модалка с формой остаётся без изменений */}
-      <AnimatePresence>
-        {isFormOpen && (
-          <motion.div
-            className="form-modal-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setIsFormOpen(false)}
-          >
-            <motion.div
-              className="form-modal-content"
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 50, opacity: 0 }}
-              onClick={e => e.stopPropagation()}
-            >
-              <button className="modal-close" onClick={() => setIsFormOpen(false)}>
-                ×
-              </button>
-              <h3>Отправить заявку на прайс-лист</h3>
-              <OrderForm onSuccess={() => setIsFormOpen(false)} />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </motion.nav>
   );
 }

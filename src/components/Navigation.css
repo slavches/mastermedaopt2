@@ -1,24 +1,39 @@
-/* Используй переменные из :root в Sections.css */
-.navigation {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 1000;
-  background: rgba(210, 105, 30, 0.9);
-  border-bottom: 1px solid rgba(210, 105, 30, 0.1);
-  transition: all 0.3s ease;
+/* Глобальный сброс */
+.navigation * {
+  box-sizing: border-box;
 }
 
+/* Шапка — прозрачная и компактная */
+.navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(210, 105, 30, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background 0.4s ease, backdrop-filter 0.4s ease;
+}
+
+.navigation.scrolled {
+  background: rgba(210, 105, 30, 0.88);
+  backdrop-filter: blur(20px);
+}
+
+/* Контейнер */
 .nav-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0.5rem 2rem;
+  padding: 0 1.5rem;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  min-height: 80px;
+  min-height: 70px;
   position: relative;
 }
 
+/* Ссылки */
 .nav-link {
   background: none;
   border: none;
@@ -42,165 +57,91 @@
   background: rgba(255, 255, 255, 0.2);
 }
 
+/* Боковые блоки */
 .nav-side {
   display: flex;
-  gap: 1rem;
+  flex-direction: row;
+  gap: 1.5rem;
   flex: 1;
 }
 
-.nav-side.text-right { 
-  justify-content: flex-end; 
+.nav-side.left {
+  justify-content: flex-start;
+}
+
+.nav-side.right {
+  justify-content: flex-end;
 }
 
 .logo-wrapper {
+  flex: 0 0 auto;
   display: flex;
   justify-content: center;
-  flex: 1;  /* Центр */
+  align-items: center;
+  min-width: 180px;
+  padding: 0 1rem;
 }
 
 .logo-image {
-  height: 50px;  /* Пример, настрой */
+  height: 50px;
+  object-fit: contain;
 }
 
+/* Мобильное меню */
 .nav-links {
-  display: none;  /* По умолчанию скрыто на мобилках */
+  display: none;
   flex-direction: column;
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
   background: rgba(210, 105, 30, 0.95);
-  padding: 1rem;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s ease;
-  z-index: 1001;
+  backdrop-filter: blur(16px);
+  padding: 1.5rem;
+  max-height: calc(100vh - 70px);
+  overflow-y: auto;
+  z-index: 999;
 }
 
 .nav-links.open {
   display: flex;
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
 }
 
-.nav-links.open .nav-link {
-  color: #ffffff;
-  font-size: 1.8rem;
-  opacity: 1;
+.nav-links .nav-link {
+  font-size: 1.5rem;
+  width: 100%;
+  padding: 1rem;
+  text-align: center;
 }
 
-.mobile-menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 2.5rem;
-  color: #ffffff;
-  z-index: 1001;
-  cursor: pointer;
-}
-
-/* Адаптив */
-@media (max-width: 1024px) {
-  .nav-side.desktop-only {
-    display: none;
-  }
-
-  .logo-wrapper {
-    order: 1;
-    min-width: auto;
-    justify-content: flex-start;
-    flex: 1;
-  }
-
-  .logo {
-    position: static;
-    transform: none;
-  }
-
-  .mobile-menu-toggle {
-    display: flex;
-    order: 2;
-  }
-
-  .nav-container {
-    justify-content: space-between;
-    padding: 0 1rem;
-  }
-
-  .nav-links .nav-link {
-    font-size: 1.5rem;
-    width: 100%;
-    padding: 1rem;
-  }
-}
-
-/* Стили для CTA и модалки (новые) */
-.nav-cta-btn {
-  background: none;
-  border: 1px solid rgba(255,255,255,0.4);
-  color: #ffffff;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  padding: 0.6rem 1.4rem;
-  border-radius: 12px;
-  transition: all 0.2s ease;
-  margin-left: 1rem;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-}
-
-/* Кнопка "Посмотреть прайс" — более светлая/нейтральная */
-.price-btn {
-  border-color: rgba(255,255,255,0.5);
-}
-
-/* Кнопка "Отправить заявку" — акцентная, медовая */
-.request-btn {
-  background: var(--color-honey);
-  border: none;
-  color: white;
-}
-
-.request-btn:hover {
-  background: var(--color-honey-dark);
-  transform: translateY(-1px);
-}
-
-.nav-cta-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: #FFF8DC;
-  border-color: rgba(255,255,255,0.6);
-}
-
-.nav-cta-btn.mobile {
+.nav-links .nav-cta-btn.mobile {
   width: 100%;
   margin: 1rem 0;
   text-align: center;
-  justify-content: center;
 }
 
+/* Модалка */
 .form-modal-overlay {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 1001;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 2000;  /* выше всего */
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 1rem;
 }
 
 .form-modal-content {
   background: white;
-  max-width: 500px;
-  width: 100%;
-  padding: 30px;
+  width: 90%;
+  max-width: 520px;
+  padding: 2rem;
   border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  max-height: 85vh;
+  overflow-y: auto;
   position: relative;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
 
 .modal-close {
@@ -209,18 +150,74 @@
   right: 20px;
   background: none;
   border: none;
-  font-size: 28px;
+  font-size: 32px;
   cursor: pointer;
   color: #aaa;
   transition: color 0.2s;
 }
 
 .modal-close:hover {
-  color: #D2691E;
+  color: var(--color-honey);
+}
+
+/* Мобильные */
+@media (max-width: 1024px) {
+  .nav-side.desktop-only {
+    display: none;
+  }
+  .mobile-menu-toggle {
+    display: flex;
+  }
+  .nav-container {
+    padding: 0 1rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .mobile-menu-toggle {
+    display: none !important;
+  }
+  .nav-links {
+    display: none !important;
+  }
 }
 
 @media (max-width: 600px) {
   .form-modal-content {
-    padding: 20px;
+    width: 95%;
+    padding: 1.5rem;
   }
+}
+
+/* Кнопки */
+.nav-cta-btn {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.35);
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.6rem 1.4rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.nav-cta-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255,255,255,0.7);
+  color: #FFF8DC;
+}
+
+.request-btn {
+  background: var(--color-honey);
+  border: none;
+}
+
+.request-btn:hover {
+  background: var(--color-honey-dark);
+  transform: translateY(-1px);
 }

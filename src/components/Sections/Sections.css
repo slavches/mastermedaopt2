@@ -2,6 +2,7 @@
 
 /* Вынесенные переменные (добавь в App.css или global) */
 :root {
+  --color-white: #ffffff;
   --color-honey: #D2691E;
   --color-gold: #FFD700;
   --color-bg-glass: rgba(210, 105, 30, 0.2);
@@ -72,11 +73,11 @@
 .welcome-card {
   flex: 1;
   max-width: 800px;                 /* ← увеличиваем ширину карточки */
-  background: rgba(210, 105, 30, 0.15); /* прозрачнее, как просил ранее */
-  backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.3); /* Темная полупрозрачная подложка */
+  backdrop-filter: blur(8px); /* Размытие фона под текстом */
   padding: 40px 50px;               /* больше воздуха по бокам */
   border-radius: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: var(--shadow-card);
   text-align: left;                 /* или center, если хочешь по центру */
 }
@@ -94,26 +95,33 @@
 .main-title {
   font-size: 3rem;
   line-height: 1.1;
-  color: var(--color-text-light);
+  color: var(--color-white) !important; /* Белый по умолчанию */
   margin-bottom: 20px;
   font-weight: 800;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);  /* Тень для четкости */
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Тень, чтобы текст "оторвался" от фото */
 
   & span {
-    color: var(--color-gold);
+    color: var(--color-gold) !important; /* Золотой/Желтый */
     font-size: 1.8rem;
     display: block;
     font-weight: 600;
     margin-bottom: 10px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
   }
 }
 
 .welcome-message p {
   font-size: 1.15rem;
-  line-height: 1.7;
-  color: var(--color-text-light);  /* #ffffff */
+  line-height: 1.6;
+  color: var(--color-white) !important; /* Делаем белым */
+  font-weight: 500; /* Чуть жирнее для лучшей читаемости */
   margin-bottom: 20px;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.4);  /* Усиленная тень для читаемости на прозрачном bg */
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5); /* Важно для читаемости на пестром фоне */
+}
+
+/* Если внутри p есть выделения жирным (strong) */
+.welcome-message p strong {
+  color: var(--color-gold); /* Выделяем ключевые слова желтым */
 }
 
 .welcome-features {
@@ -460,4 +468,15 @@
   &:hover {
     opacity: 0.9;
   }
+}
+
+/* Добавь в конец — фикс для конфликта с шапкой */
+body {
+  margin: 0; /* сброс, чтобы шапка не съезжала */
+  padding: 0;
+}
+
+/* Если шапка конфликтует с hero — повысь z-index hero */
+.hero-with-slider {
+  z-index: 1; /* ниже шапки */
 }
