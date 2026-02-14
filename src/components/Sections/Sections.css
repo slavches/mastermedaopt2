@@ -73,8 +73,7 @@
 .welcome-card {
   flex: 1;
   max-width: 800px;                 /* ← увеличиваем ширину карточки */
-  background: rgba(0, 0, 0, 0.3); /* Темная полупрозрачная подложка */
-  backdrop-filter: blur(8px); /* Размытие фона под текстом */
+  background: rgba(0, 0, 0, 0.5); /* Темная полупрозрачная подложка */
   padding: 40px 50px;               /* больше воздуха по бокам */
   border-radius: 30px;
   border: 1px solid rgba(255, 255, 255, 0.1);
