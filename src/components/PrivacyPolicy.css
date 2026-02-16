@@ -1,7 +1,8 @@
+/* Оверлей — фон за модалкой */
 .policy-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6); /* Темный фон без размытия */
+  background: rgba(0, 0, 0, 0.45); /* Немного светлее, чтобы стекло сияло */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,27 +10,51 @@
   padding: 20px;
 }
 
-.policy-modal {
-  background: #ffffff;
-  width: 100%;
-  max-width: 700px;
-  max-height: 85vh;
-  border-radius: 16px;
-  position: relative; /* Для позиционирования крестика */
+/* Сама модалка (стекло) */
+.form-modal-content.privacy-modal {
+  max-width: 800px;
+  width: 95%;
+  max-height: 75vh;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-  border: 1px solid #DEB887;
+  position: relative;
+  border-radius: 24px; /* Сделал чуть круглее как в навигации */
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  overflow: hidden; /* Важно для блюра */
+  background: transparent !important; /* Фон берется из JS */
+  border: 1px solid rgba(250, 246, 246, 0.4) !important;
 }
 
-/* СОВРЕМЕННАЯ КНОПКА ЗАКРЫТИЯ */
+/* Контент с текстом */
+.policy-content {
+  padding: 40px;
+  overflow-y: auto;
+  text-align: left;
+  -webkit-overflow-scrolling: touch;
+  color: #fffcfa; /* Темный цвет для чтения */
+}
+
+/* Заголовки */
+.policy-content h2 {
+  color: #f36702;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.policy-content h3 {
+  color: #ffffff !important; /* Меняем с оранжевого на белый */
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Рекомендую добавить легкую тень, чтобы белый текст не терялся на светлом стекле */
+}
+
+/* Современная кнопка закрытия */
 .policy-close-modern {
   position: absolute;
   top: 15px;
   right: 15px;
-  width: 34px;
-  height: 34px;
-  background: #FFF8DC;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.5);
   border: none;
   border-radius: 50%;
   cursor: pointer;
@@ -38,10 +63,11 @@
   justify-content: center;
   z-index: 101;
   transition: all 0.2s;
+  backdrop-filter: blur(5px);
 }
 
 .policy-close-modern:hover {
-  background: #D2691E;
+  background: #774826;
 }
 
 .policy-close-modern .close-line {
@@ -49,7 +75,6 @@
   height: 2px;
   background: #5D4037;
   position: absolute;
-  transition: background 0.2s;
 }
 
 .policy-close-modern:hover .close-line {
@@ -59,22 +84,14 @@
 .rotate-45 { transform: rotate(45deg); }
 .rotate-minus-45 { transform: rotate(-45deg); }
 
-.policy-content {
-  padding: 35px;
-  padding-right: 25px; /* Даем небольшой запас справа для ползунка */
-  overflow-y: auto;
-  text-align: left;
-  /* Плавный скролл для мобилок */
-  -webkit-overflow-scrolling: touch;
+/* Скроллбар */
+.policy-content::-webkit-scrollbar {
+  width: 8px;
 }
-
-@media (max-width: 480px) {
-  .policy-content {
-    padding: 20px;
-    padding-right: 15px;
-  }
-
-  .policy-content::-webkit-scrollbar {
-    width: 4px; /* Делаем его очень тонким на мобилках */
-  }
+.policy-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+.policy-content::-webkit-scrollbar-thumb {
+  background: rgba(210, 105, 30, 0.3);
+  border-radius: 10px;
 }

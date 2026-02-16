@@ -24,6 +24,12 @@ const CookieConsent = ({ onOpenPolicy }) => { // ПРИНИМАЕМ ПРОПС �
       {isVisible && (
         <motion.div 
           className="cookie-banner-fix"
+          style={{ 
+            backgroundColor: 'rgba(255, 255, 255, 0.1)', // Тот же тон, что в меню
+            backdropFilter: 'blur(15px)',
+            WebkitBackdropFilter: 'blur(15px)',
+            border: '1px solid rgba(255, 255, 255, 0.4)',
+          }}
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}

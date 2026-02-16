@@ -5,50 +5,55 @@
   right: 10px;
   max-width: 480px;
   margin: 0 auto;
-  background: #FFF8DC; /* Мягкий бежевый/медовый фон */
-  padding: 18px;
-  border-radius: 15px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-  border: 1px solid #DEB887;
+  /* background удалили отсюда, он теперь в JSX */
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
   z-index: 99999;
 }
 
 .cookie-banner-content p {
-  font-size: 0.9rem;
-  color: #5D4037;
-  margin-bottom: 12px;
-  line-height: 1.4;
+  font-size: 0.95rem;
+  color: #fffcfb; /* Сделал чуть темнее для контраста на стекле */
+  margin-bottom: 15px;
+  line-height: 1.5;
+  font-weight: 500;
 }
 
 .cookie-banner-buttons {
   display: flex;
-  gap: 8px;
+  gap: 10px;
 }
 
 .btn-cookie {
   flex: 1;
-  padding: 10px;
-  border-radius: 8px;
+  padding: 12px;
+  border-radius: 12px;
   border: none;
-  font-weight: 600;
-  font-size: 0.85rem;
+  font-weight: 700;
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: all 0.2s ease;
 }
 
-/* Принять — медовая */
+/* Кнопка ПРИНЯТЬ */
 .btn-cookie.primary {
   background: #D2691E;
   color: #ffffff;
 }
 
-/* Подробнее — светлая */
+/* Кнопка ПОДРОБНЕЕ */
 .btn-cookie.secondary {
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.5); /* Полупрозрачная кнопка */
   color: #5D4037;
-  border: 1px solid #DEB887;
+  border: 1px solid rgba(210, 105, 30, 0.2);
 }
 
 .btn-cookie:hover {
-  opacity: 0.8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.btn-cookie:active {
+  transform: translateY(0);
 }

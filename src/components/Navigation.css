@@ -20,7 +20,7 @@
   inset: 0; /* Растягивается на всю шапку */
   z-index: -1; /* Ложится под контент */
   background: rgba(210, 105, 30, 0.88);
-  transition: all 1s ease;
+  transition: all 0.6s ease;
   /* Изначально без блюра или с легким */
 }
 
@@ -161,30 +161,44 @@
   padding: 1rem;
 }
 
-/* Модалка */
+/* Оверлей — теперь он плавно затемняет фон */
 .form-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.65);
-  z-index: 2000;  /* выше всего */
+  background-color: rgba(0, 0, 0, 0.5) !important; /* Вернули затемнение */
+  z-index: 2000;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1rem;
 }
 
+/* Контент модалки — "Стеклянный монолит" */
 .form-modal-content {
-  background: white;
+  position: relative;
   width: 90%;
   max-width: 520px;
-  padding: 2rem;
-  border-radius: 24px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-  max-height: 85vh;
-  overflow-y: auto;
-  position: relative;
+  padding: 2.5rem;
+  border-radius: 30px;
+  
+  /* Эффекты стекла — жестко в CSS */
+  background: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  
+  /* Вернули белую рамку */
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  
+  /* Тень для объема */
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  
+  /* Ускорение рендеринга */
+  overflow: hidden;
+  transform: translateZ(0); 
+  will-change: opacity, backdrop-filter;
 }
 
+/* Кнопка закрытия */
 .modal-close {
   position: absolute;
   top: 15px;
@@ -193,8 +207,9 @@
   border: none;
   font-size: 32px;
   cursor: pointer;
-  color: #aaa;
-  transition: color 0.2s;
+  color: #4b2c20; /* Цвет под общий стиль */
+  z-index: 10;
+  line-height: 1;
 }
 
 .modal-close:hover {
@@ -203,35 +218,71 @@
 
 /* Мобильные */
 @media (max-width: 1024px) {
-  
-  .nav-side.desktop-only {
-    display: none !important;
+/* Контейнер: фиксируем высоту и позиционирование */
+.nav-container {
+    display: flex;
+    align-items: center;
+    /* Убираем justify-content, чтобы он не дергал элементы */
+    justify-content: flex-end; 
+    min-height: 70px;
+    padding: 0 1.5rem;
+    position: relative;
+    width: 100%; 
+    box-sizing: border-box;
   }
-  .mobile-menu-toggle {
+
+/* ЛОГОТИП: Привязываем к ЛЕВОМУ краю на 50% ширины */
+  .logo-wrapper {
+    position: fixed !important;
+    /* Вместо center используем расчет от левого края */
+    left: 50vw !important; 
+    top: 35px !important; 
+    /* Используем translate, чтобы учесть собственную ширину логотипа */
+    transform: translate(-50%, -50%) !important;
+    
+    margin: 0 !important;
+    width: auto !important;
+    z-index: 1010;
     display: flex !important;
+    justify-content: center !important;
+  }
+
+.logo-image {
+    height: 42px;
+    display: block;
+  }
+
+.mobile-menu-toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 44px; /* Чуть увеличим область клика */
+    height: 44px;
+    margin-left: auto;
+    z-index: 1011; /* Кнопка должна быть выше всего */
+    font-size: 2.2rem;
+    color: white;
     background: none;
     border: none;
-    color: white;
-    font-size: 2rem;
-    cursor: pointer;
-    z-index: 1001; /* Выше мобильного меню */
-  }
-  .nav-container {
-    justify-content: space-between; /* Бургер и логотип по разным краям */
-    padding: 0 1rem;
+    /* Убираем любые переходы, чтобы смена иконки была мгновенной */
+    transition: none !important;
   }
 
-  .logo-wrapper {
-    position: static;
-    transform: none;
-    flex: 1; /* Позволяет логотипу занимать свободное место */
-    justify-content: flex-start; /* Логотип уходит влево */
+.nav-side.desktop-only {
+    display: none !important;
   }
 
-/* Логотип на мобилках чуть поменьше */
-  .logo-image {
-    height: 40px;
+  .navigation.menu-is-open {
+    /* Если при открытии меню вся навигация дергается вправо */
+    left: 0 !important;
+    width: 100% !important;
   }
+
+/* ГЛАВНЫЙ ФИКС: отключаем прыжок при исчезновении скролла */
+  html, body {
+    overflow-x: hidden;
+  }
+  
 }
 @media (min-width: 1025px) {
   .mobile-menu-toggle {

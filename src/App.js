@@ -99,20 +99,22 @@ function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
             onClick={() => setIsFormOpen(false)}
           >
             <motion.div
               className="form-modal-content"
-              initial={{ y: 50, opacity: 0, scale: 0.95 }}
-              animate={{ y: 0, opacity: 1, scale: 1 }}
-              exit={{ y: 50, opacity: 0, scale: 0.95 }}
+              /* Мы убрали отсюда все Blur и Background, они теперь в CSS */
+              initial={{ opacity: 0, scale: 0.98 }} 
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
               onClick={(e) => e.stopPropagation()}
             >
               <button className="modal-close" onClick={() => setIsFormOpen(false)}>
                 ×
               </button>
-              <div className="hero-form-card" style={{ boxShadow: 'none', padding: 0 }}>
-                <h3 style={{ marginTop: 0 }}>Отправить заявку</h3>
+              <div className="hero-form-card" style={{ background: 'transparent', boxShadow: 'none', padding: 0 }}>
                 <OrderForm onSuccess={() => setIsFormOpen(false)} />
               </div>
             </motion.div>

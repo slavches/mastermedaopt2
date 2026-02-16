@@ -6,46 +6,83 @@
   gap: 15px;
 }
 
-input,
-select,
-textarea {
+
+
+.order-form-vertical input,
+.order-form-vertical select,
+.order-form-vertical textarea {
   width: 100%;
-  padding: 12px 15px;
-  border: 1px solid #DEB887;
-  border-radius: 10px;
-  font-size: 0.95rem;
-  background: white;
+  padding: 14px 18px;
+  border-radius: 14px;
+  font-size: 1rem;
+  
+  /* Легкий фон, как в меню */
+  background: rgba(255, 255, 255, 0.7); 
+  border: 1px solid rgba(241, 106, 9, 0.15);
+  
+  color: #5d4037;
+  font-weight: 600;
   outline: none;
-  box-sizing: border-box;
-  transition: border-color 0.2s ease;
+  transition: all 0.3s ease;
 }
 
-input:focus,
-select:focus {
-  border-color: var(--color-honey);
-  box-shadow: 0 0 0 3px rgba(210, 105, 30, 0.15);
+/* Цвет подсказок тоже сделаем темнее */
+.order-form-vertical input::placeholder {
+  color: #5d4037;
 }
 
+/* Эффект при фокусе */
+.order-form-vertical input:focus,
+.order-form-vertical select:focus {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: #d2691e;
+  box-shadow: 0 0 0 4px rgba(15, 218, 123, 0.1);
+}
+
+/* Специально для выпадающего списка, чтобы опции были читаемыми */
+.order-form-vertical select option {
+  background: white; /* Список внутри должен быть белым */
+  color: #333;
+}
+
+/* Стилизация выпадающего списка (select) */
+.order-form-vertical select {
+  cursor: pointer;
+  appearance: none; /* Убираем стандартную стрелку для красоты */
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d2691e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 15px;
+  color: #d2691e;
+  font-weight: 600;
+}
+
+/* Поле комментария */
 .comment-input {
-  min-height: 80px;
-  resize: vertical;
+  min-height: 90px;
+  resize: none;
 }
 
-.submit-btn-vertical {  /* ← переименовал класс, чтобы соответствовать JSX */
-  background: var(--color-honey);
+/* Кнопка отправки */
+.submit-btn-vertical {
+  background: #d2691e; /* Цвет "Мастер Мёда" */
   color: white;
   border: none;
-  padding: 14px 25px;
-  border-radius: 10px;
+  padding: 16px 30px;
+  border-radius: 14px;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 1.1rem;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.1s ease;
+  margin-top: 10px;
+  box-shadow: 0 4px 15px rgba(210, 105, 30, 0.3);
+  transition: all 0.3s ease;
 }
 
+
 .submit-btn-vertical:hover {
-  background: var(--color-honey-dark);
-  transform: translateY(-1px);
+  background: #b55a1a;
+  box-shadow: 0 6px 20px rgba(210, 105, 30, 0.4);
+  transform: translateY(-2px);
 }
 
 .submit-btn-vertical:active {

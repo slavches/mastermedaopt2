@@ -8,9 +8,16 @@ const PrivacyPolicy = ({ isOpen, onClose }) => {
   return (
     <div className="policy-overlay" onClick={onClose}>
       <motion.div 
-        className="policy-modal"
-        initial={{ y: 50, opacity: 0 }}
+        className="form-modal-content privacy-modal" // Добавили класс для отличия
+        style={{ 
+          backgroundColor: 'rgba(255, 255, 255, 0.7)', 
+          backdropFilter: 'blur(15px)',
+          WebkitBackdropFilter: 'blur(15px)',
+          border: '1px solid rgba(255, 255, 255, 0.3)',
+        }}
+        initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
+        exit={{ y: 20, opacity: 0 }}
         onClick={(e) => e.stopPropagation()}
       >
         <button className="policy-close-modern" onClick={onClose} aria-label="Закрыть">
