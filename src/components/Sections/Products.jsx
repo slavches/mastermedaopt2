@@ -224,6 +224,7 @@ const Products = () => {
                   navigation={true}
                   observer={true}          /* Добавь это */
                   observeParents={true}    /* И это */
+                  autoHeight={true}
                   thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
                   modules={[FreeMode, Navigation, Thumbs]}
                   className="modal-swiper-main"
