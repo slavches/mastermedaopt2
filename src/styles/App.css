@@ -39,6 +39,24 @@ body, html {
   z-index: 1;
 }
 
+/* Универсальный класс стекла */
+.glass-morphism {
+  background: rgba(255, 255, 255, 0.6) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.45) !important;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1) !important;
+}
+
+/* Вариант для модалок (чуть плотнее, чтобы текст читался лучше) */
+.glass-morphism-heavy {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(25px) !important;
+  -webkit-backdrop-filter: blur(25px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.15) !important;
+}
+
 /* Плавная прокрутка */
 html {
   scroll-behavior: smooth;
@@ -62,22 +80,17 @@ html {
   background: rgba(255, 165, 0, 0.7);
 }
 
-/* Убираем любые фоны, которые могут лежать поверх стекла */
-.form-modal-content, 
-.hero-form-card,
-.order-form-vertical {
-    background-color: transparent !important;
-}
 
-/* Оверлей — просто затемняет фон вокруг */
+/* В App.css оставь только глобальные вещи */
 .form-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.3); /* Не слишком темно */
+  background: rgba(0, 0, 0, 0.4); /* Чуть темнее для контраста со стеклом */
   z-index: 2000;
   display: flex;
   align-items: center;
   justify-content: center;
+  backdrop-filter: blur(4px); /* Добавь легкий блюр всему сайту при модалке */
 }
 
 /* Убираем фон у внутренней карточки, чтобы видеть стекло внешней */

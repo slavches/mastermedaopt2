@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay, Thumbs, FreeMode } from 'swiper/modules';
-
+import './Products.css';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -158,7 +158,7 @@ const Products = () => {
         {productsData.map((product) => (
           <div 
             key={product.id} 
-            className="product-card"
+            className="product-card glass-morphism"
             onMouseEnter={(e) => {
               const swiper = e.currentTarget.querySelector('.card-slider')?.swiper;
               if (swiper) swiper.autoplay.start();
@@ -210,7 +210,7 @@ const Products = () => {
       {/* МОДАЛЬНОЕ ОКНО (Исправленная структура) */}
       {selectedProduct && (
         <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+          <div className="modal-card glass-morphism-heavy" onClick={(e) => e.stopPropagation()}>
             <button className="close-modal" onClick={closeModal}>✕</button>
             
             <div className="modal-body">
@@ -222,6 +222,8 @@ const Products = () => {
                   }}
                   spaceBetween={10}
                   navigation={true}
+                  observer={true}          /* Добавь это */
+                  observeParents={true}    /* И это */
                   thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
                   modules={[FreeMode, Navigation, Thumbs]}
                   className="modal-swiper-main"
@@ -236,6 +238,7 @@ const Products = () => {
                 </Swiper>
 
                 <Swiper
+                  autoHeight={true}
                   onSwiper={setThumbsSwiper}
                   spaceBetween={10}
                   slidesPerView={4}

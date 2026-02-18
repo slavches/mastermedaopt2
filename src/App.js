@@ -18,23 +18,48 @@ function App() {
   const [isPolicyOpen, setIsPolicyOpen] = useState(false); 
   const [isFormOpen, setIsFormOpen] = useState(false); 
 
-  const backgrounds = {
-    default: 'linear-gradient(135deg, #FFF8DC 0%, #FFEBCD 50%, #FFF8DC 100%)',
-    linden: 'linear-gradient(135deg, #FFFACD 0%, #FFF8DC 50%, #FFFACD 100%)',
-    buckwheat: 'linear-gradient(135deg, #DEB887 0%, #D2B48C 50%, #DEB887 100%)',
-    acacia: 'linear-gradient(135deg, #FDF5E6 0%, #FAFAD2 50%, #FDF5E6 100%)',
-    flower: 'linear-gradient(135deg, #FFE4B5 0%, #FFF8DC 50%, #FFE4B5 100%)',
+    const backgrounds = {
+  default: 'linear-gradient(135deg, #FFF8DC 0%, #FFEBCD 50%, #FFF8DC 100%)', // Главная
+  linden: 'linear-gradient(135deg, #FFFACD 0%, #FFF8DC 50%, #FFFACD 100%)',  // О нас (светлый)
+  buckwheat: 'linear-gradient(135deg, #DEB887 0%, #D2B48C 50%, #DEB887 100%)', // Продукты
+  acacia: 'linear-gradient(135deg, #FDF5E6 0%, #FAFAD2 50%, #FDF5E6 100%)',   // Клиенты
+  partners: 'linear-gradient(135deg, #F5F5DC 0%, #E8E8AD 50%, #F5F5DC 100%)', // Партнеры
+  news: 'linear-gradient(135deg, #FFF5E1 0%, #FFDAB9 50%, #FFF5E1 100%)',     // Новости
+
   };
 
   const [currentBg, setCurrentBg] = useState(backgrounds.default);
 
-  // Плавный скролл при клике в Navigation
-  useEffect(() => {
-    const element = document.getElementById(currentSection);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }, [currentSection]);
+useEffect(() => {
+  const element = document.getElementById(currentSection);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // Распределяем фоны по секциям
+  switch (currentSection) {
+    case 'home':
+      setCurrentBg(backgrounds.default);
+      break;
+    case 'products':
+      setCurrentBg(backgrounds.buckwheat);
+      break;
+    case 'clients':
+      setCurrentBg(backgrounds.acacia);
+      break;
+    case 'partners':
+      setCurrentBg(backgrounds.partners);
+      break;
+    case 'news':
+      setCurrentBg(backgrounds.news);
+      break;
+    case 'about':
+      setCurrentBg(backgrounds.linden);
+      break;
+    default:
+      setCurrentBg(backgrounds.default);
+  }
+}, [currentSection]); // Оставляем только currentSection в зависимостях для чистоты
 
   const handleProductSelect = (productId) => {
     setSelectedProduct(productId);
@@ -103,7 +128,7 @@ function App() {
             onClick={() => setIsFormOpen(false)}
           >
             <motion.div
-              className="form-modal-content"
+              className="form-modal-content glass-morphism-heavy" // <-- Добавили класс
               /* Мы убрали отсюда все Blur и Background, они теперь в CSS */
               initial={{ opacity: 0, scale: 0.98 }} 
               animate={{ opacity: 1, scale: 1 }}
