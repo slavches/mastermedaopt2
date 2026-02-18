@@ -246,36 +246,57 @@ cursor: pointer;
 /* --- ОБНОВЛЕННЫЕ СТИЛИ МОДАЛЬНОГО ОКНА --- */
 
 .modal-overlay {
-  position: fixed;
+position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.7); /* Чуть темнее, чтобы белый текст читался лучше */
   display: flex;
-  align-items: flex-start; /* Изменили с center на flex-start, чтобы окно прижалось к верху */
+  align-items: flex-start; 
   justify-content: center;
-  z-index: 9999 !important; 
-  backdrop-filter: blur(8px);
-  
-  /* Магия здесь: */
-  padding-top: 100px; /* Опускает окно на 100px от верхнего края (подстрой под высоту своей шапки) */
-  padding-bottom: 40px; /* Чтобы снизу тоже был отступ */
-  overflow-y: auto; /* Если окно не влезет по высоте, скроллиться будет весь оверлей */
+  z-index: 99999 !important; /* Увеличил, чтобы точно было над шапкой */
+  backdrop-filter: blur(10px);
+  padding: 40px 20px; /* Отступы со всех сторон */
+  overflow-y: auto;
 }
 
 .modal-card {
-  /* Убираем жесткую центровку, теперь окно просто лежит в оверлее с отступом */
+margin-top: 60px; /* Тот самый отступ от шапки */
   margin-bottom: 40px; 
-  
-  /* Остальные параметры оставляем: */
   width: 95%;
-  max-width: 1200px;
-  background: rgba(255, 255, 255, 0.8) !important;
+  max-width: 1100px;
+  background: rgba(255, 255, 255, 0.15) !important; /* Стекло */
   backdrop-filter: blur(25px) !important;
   border-radius: 30px;
   position: relative;
-  padding: 50px 40px 40px 40px;
+  padding: 60px 40px 40px 40px; /* Сверху 60px, чтобы крестик не мешал */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 3. Кнопка закрытия — теперь она всегда сверху и видна */
+.close-modal {
+position: absolute;
+  top: 20px;
+  right: 25px;
+  width: 45px;
+  height: 45px;
+  background: white !important; /* Сделаем белым кружком, так его всегда видно */
+  border-radius: 50%;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333 !important; /* Темный крестик на белом фоне */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; 
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.close-modal:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.3) !important;
 }
 
 /* Сетка: даем тексту больше ширины (1.4 части против 1 части у фото) */
@@ -299,76 +320,100 @@ cursor: pointer;
   flex: 0 0 45%;
   min-width: 0; /* Критично для Swiper, чтобы он не распирал родителя */
   overflow: hidden; /* Убирает горизонтальный скролл */
+  display: flex;
+  flex-direction: column;
 }
 
-/* 4. Рамка для фото: уходим от жесткой высоты */
+.modal-swiper-main {
+width: 100%;
+  border-radius: 20px;
+  overflow: visible !important; /* Чтобы тени и края фото не резались */
+}
+
+/* ФОТО: Главный фикс обрезки */
 .modal-slide-img-wrapper {
-  width: 100%;
-  height: auto;
-  min-height: 300px; /* Минимальный размер */
-  max-height: 55vh;   /* Максимально — чуть больше половины высоты экрана */
+width: 100%;
+  height: 550px; /* Увеличили высоту, чтобы влезла любая банка */
   display: flex;
   align-items: center;
   justify-content: center;
   background: transparent;
-  padding: 10px;
+  overflow: visible !important; /* Разрешаем контенту быть видимым */
+  padding: 20px; /* Добавляем отступ снизу и сверху, чтобы края не резались */
+  box-sizing: border-box;
 }
 
 .modal-slide-img-wrapper img {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-  object-fit: contain; /* Теперь фото впишется в любые рамки без обрезки */
+max-width: 100% !important;
+  max-height: 100% !important; 
+  width: auto !important; 
+  height: auto !important;
+  object-fit: contain !important; /* Картинка сжимается, чтобы влезть целиком */
+  display: block;
+  filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
 }
 
 .thumbs-slider {
-  margin-top: 15px;
+margin-top: 15px;
+  width: 100%;
+  padding: 2px 0;
 }
 
 .thumb-wrapper {
-  height: 80px;
+height: 80px; /* Высота для десктопа */
   cursor: pointer;
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
   border: 2px solid transparent;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.thumb-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Чтобы миниатюры баночек тоже не обрезались */
+  padding: 5px;
 }
 
 .swiper-slide-thumb-active .thumb-wrapper {
-  border-color: #D2691E;
+border-color: #ffffff; /* Белая рамка активной превьюшки */
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* Заголовок и описание */
 .modal-text-content h2 {
-  font-size: 2.8rem; /* Еще крупнее */
-  color: #3e2723;
+font-size: 2.8rem;
+  color: #ffffff !important; /* Чистый белый */
   margin-top: 0;
   margin-bottom: 15px;
   line-height: 1.1;
-  font-weight: 850;
+  font-weight: 800;
+  text-shadow: none !important; /* Убираем подсветку/тени */
 }
 
 .modal-price-tag {
-  font-size: 2.2rem;
+font-size: 2.2rem;
   font-weight: 900;
-  color: #bf360c; /* Более насыщенный рыжий/красный для контраста */
+  color: #ffffff !important; /* Тоже белый */
   margin-bottom: 20px;
+  text-shadow: none !important;
 }
 
 .modal-desc {
-  font-size: 1.2rem; /* Увеличили шрифт текста */
+font-size: 1.1rem;
   line-height: 1.6;
-  color: #1a0f0d;
+  color: rgba(255, 255, 255, 0.9) !important; /* Почти белый (чуть мягче для глаз) */
   margin-bottom: 30px;
-  font-weight: 500;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+  font-weight: 400;
+  text-shadow: none !important; /* Убираем белую тень, которая была в коде */
 }
 
 /* Убираем пустоту внизу, если текста мало */
 .modal-divider-line {
-  width: 100%; /* Линия на всю ширину текстового блока */
+width: 100%;
   height: 1px;
-  background: rgba(93, 64, 55, 0.2);
+  background: rgba(255, 255, 255, 0.2) !important; /* Светлая линия вместо коричневой */
   margin-bottom: 20px;
 }
 
@@ -394,105 +439,103 @@ cursor: pointer;
   box-shadow: 0 15px 30px rgba(0, 136, 204, 0.4);
 }
 
-/* 3. Кнопка закрытия — теперь она всегда сверху и видна */
-.close-modal {
-  position: absolute;
-  top: 20px;
-  right: 25px;
-  width: 40px;
-  height: 40px;
-  background: white; /* Белый кружок, чтобы не терялась на фоне */
-  border-radius: 50%;
-  border: none;
-  font-size: 22px;
-  cursor: pointer;
-  color: #3e2723;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  z-index: 101; /* Выше всего внутри модалки */
-  transition: all 0.2s;
-}
 
-.close-modal:hover {
-  transform: scale(1.1);
-  background: #f5f5f5;
-}
 
 /* --- ЕДИНЫЙ БЛОК АДАПТАЦИИ --- */
 @media (max-width: 950px) {
-  /* Опускаем оверлей чуть ниже, чтобы не мешал шапке на мобилках */
-  .modal-overlay {
-    padding-top: 70px;
+.modal-overlay {
+    padding: 10px;
   }
 
-  /* Исправляем сетку */
-  .modal-body {
-    flex-direction: column !important; /* Только колонкой */
-    gap: 15px !important;
+.modal-card {
+    margin-top: 80px; /* Отступ от мобильной шапки */
+    padding: 50px 20px 30px 20px !important;
+    display: block !important; /* Текст под фото */
   }
 
-  .modal-card {
-    padding: 40px 15px 25px 15px !important;
-    width: 96%;
-    max-height: 85vh;
+.modal-body {
+    display: block !important;
   }
 
-  /* Фото-контейнер: ГЛАВНОЕ ИСПРАВЛЕНИЕ */
-  .modal-gallery-container {
+  /* ГАЛЕРЕЯ: Уменьшаем высоту, чтобы не резало фото */
+.modal-gallery-container {
     width: 100% !important;
-    flex: none !important;
+    margin-bottom: 25px;
   }
 
-  .modal-slide-img-wrapper {
-    height: auto !important;
-    min-height: 200px !important;
-    max-height: 40vh !important; /* Ограничиваем высоту, чтобы не резало */
-    background: transparent;
+.modal-slide-img-wrapper {
+    height: 40vh !important; /* Высота главного фото на мобильном */
+    min-height: auto !important;
   }
 
-  .modal-slide-img-wrapper img {
-    max-width: 100% !important;
-    max-height: 100% !important;
-    width: auto !important;
-    height: auto !important;
-    object-fit: contain !important; /* Баночка влезет целиком */
-  }
-
-  /* Миниатюры на мобилках */
+/* Исправляем превьюшки, чтобы не обрезались */
   .thumbs-slider {
-    height: 60px !important;
+    margin-top: 10px;
+    height: auto !important; /* Даем слайдеру самому определить высоту */
   }
 
   .thumb-wrapper {
-    height: 50px !important;
+    height: 60px !important; /* Уменьшаем высоту на мобилках */
+    border-radius: 8px;
   }
 
-  /* Текст на мобилках */
-  .modal-text-content {
+  .modal-slide-img-wrapper img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto !important; 
+  height: auto !important;
+  object-fit: contain !important;
+  }
+
+  /* ТЕКСТ: Белый цвет и убираем тени */
+.modal-text-content {
     width: 100% !important;
-    padding-right: 0 !important;
+    padding: 0 !important;
   }
 
-  .modal-text-content h2 {
+.modal-text-content h2 {
     font-size: 1.6rem !important;
-    line-height: 1.2;
-  }
-
-  .modal-price-tag {
-    font-size: 1.8rem !important;
     margin-bottom: 10px;
   }
 
-  .modal-desc {
+  .modal-price-tag {
+    font-size: 1.6rem !important;
+    color: #ffffff !important; /* Цену тоже в белый для строгости */
+    text-shadow: none !important;
+    margin-bottom: 10px;
+  }
+
+.modal-desc {
     font-size: 1rem !important;
     line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  .btn-telegram-wide {
+    position: relative; /* Чтобы не перекрывала текст */
+    margin-top: 10px;
+  }
+
+  .modal-divider-line {
+    background: rgba(255, 255, 255, 0.3) !important; /* Светлая линия */
+    margin-bottom: 15px;
+  }
+
+  /* Кнопка закрытия */
+  .close-modal {
+    top: 10px;
+    right: 10px;
+    width: 36px;
+    height: 36px;
   }
 }
 
-/* Фикс для горизонтальных телефонов */
-@media (max-height: 500px) {
-  .modal-overlay { padding-top: 50px; }
-  .modal-slide-img-wrapper { max-height: 30vh !important; }
+/* Фикс для очень маленьких или горизонтальных экранов */
+@media (max-height: 550px) {
+  .modal-slide-img-wrapper {
+    max-height: 20vh !important;
+  }
+  .modal-card {
+    padding-top: 50px !important;
+  }
 }

@@ -220,11 +220,11 @@ const Products = () => {
                     '--swiper-navigation-color': '#D2691E',
                     '--swiper-pagination-color': '#D2691E',
                   }}
+                  autoHeight={false}
                   spaceBetween={10}
                   navigation={true}
                   observer={true}          /* Добавь это */
                   observeParents={true}    /* И это */
-                  autoHeight={true}
                   thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
                   modules={[FreeMode, Navigation, Thumbs]}
                   className="modal-swiper-main"
@@ -239,10 +239,9 @@ const Products = () => {
                 </Swiper>
 
                 <Swiper
-                  autoHeight={true}
                   onSwiper={setThumbsSwiper}
                   spaceBetween={10}
-                  slidesPerView={4}
+                  slidesPerView={5}
                   freeMode={true}
                   watchSlidesProgress={true}
                   modules={[FreeMode, Navigation, Thumbs]}
