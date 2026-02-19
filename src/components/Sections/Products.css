@@ -1,3 +1,11 @@
+/* Блокировка сайта при открытой модалке */
+body.modal-open {
+  overflow: hidden !important;
+  height: 100vh !important;
+  position: fixed; /* Для iOS */
+  width: 100%;
+}
+
 .products-section {
   padding: 80px 20px;
   max-width: 1400px;
@@ -251,27 +259,40 @@ position: fixed;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7); /* Чуть темнее, чтобы белый текст читался лучше */
-  display: flex;
-  align-items: flex-start; 
-  justify-content: center;
-  z-index: 99999 !important; /* Увеличил, чтобы точно было над шапкой */
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 99999;
   backdrop-filter: blur(10px);
-  padding: 40px 20px; /* Отступы со всех сторон */
-  overflow-y: auto;
+  
+  /* Магия плавного скролла: */
+  display: block; /* Важно: уходим от flex для мобильного скролла */
+  overflow-y: auto; /* Скроллится только оверлей */
+  -webkit-overflow-scrolling: touch; /* Плавность для iPhone */
+  padding: 0; /* Убираем падинги здесь */
 }
 
 .modal-card {
-margin-top: 60px; /* Тот самый отступ от шапки */
-  margin-bottom: 40px; 
-  width: 95%;
-  max-width: 1100px;
-  background: rgba(255, 255, 255, 0.15) !important; /* Стекло */
-  backdrop-filter: blur(25px) !important;
+width: 95%; /* Чуть меньше 100%, чтобы на планшетах были зазоры */  max-width: 1100px;
+max-width: 1100px; 
+margin: 40px auto; /* Центрируем за счет маржинов */
+margin: 60px auto; /* Центрирует карточку по горизонтали и дает отступ сверху */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(25px);
   border-radius: 30px;
   position: relative;
-  padding: 60px 40px 40px 40px; /* Сверху 60px, чтобы крестик не мешал */
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex; /* Возвращаем флекс для контента внутри */
+  flex-direction: column;
+  min-height: auto;
+  
+  /* Убираем внутренние скроллы */
+  overflow: visible !important;
+}
+
+/* Специально для iPhone (iOS Safari) */
+.modal-open {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 /* 3. Кнопка закрытия — теперь она всегда сверху и видна */
@@ -445,12 +466,19 @@ width: 100%;
 @media (max-width: 950px) {
 .modal-overlay {
     padding: 10px;
+    background: #1a1a1a;
+    display: flex; /* Вернем flex для оверлея на мобилках */
+    flex-direction: column;
   }
 
 .modal-card {
-    margin-top: 80px; /* Отступ от мобильной шапки */
-    padding: 50px 20px 30px 20px !important;
-    display: block !important; /* Текст под фото */
+margin-top: 110px !important; 
+    margin-bottom: 20px !important;
+    
+    border-radius: 20px; /* На мобилках лучше оставить небольшое скругление */
+    width: 100%;
+    min-height: auto; /* Убираем 100vh, чтобы карточка была по контенту */
+    padding: 50px 20px 40px 20px !important;
   }
 
 .modal-body {
@@ -514,6 +542,7 @@ width: 100%;
   .btn-telegram-wide {
     position: relative; /* Чтобы не перекрывала текст */
     margin-top: 10px;
+    margin-bottom: 50px;
   }
 
   .modal-divider-line {
@@ -523,10 +552,9 @@ width: 100%;
 
   /* Кнопка закрытия */
   .close-modal {
-    top: 10px;
-    right: 10px;
-    width: 36px;
-    height: 36px;
+top: 15px;
+    right: 15px;
+    position: fixed; /* Закрепляем её, чтобы всегда можно было закрыть */
   }
 }
 

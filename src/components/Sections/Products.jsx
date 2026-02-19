@@ -139,15 +139,24 @@ const Products = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   const openModal = (product) => {
-    setSelectedProduct(product);
-    setThumbsSwiper(null);
-    document.body.style.overflow = 'hidden';
-  };
+  // Сохраняем текущую прокрутку
+  const scrollY = window.scrollY;
+  setSelectedProduct(product);
+  setThumbsSwiper(null);
+  
+  document.body.style.top = `-${scrollY}px`;
+  document.body.classList.add('modal-open');
+};
 
-  const closeModal = () => {
-    setSelectedProduct(null);
-    document.body.style.overflow = 'auto';
-  };
+const closeModal = () => {
+  // Возвращаем прокрутку на место
+  const scrollY = document.body.style.top;
+  document.body.classList.remove('modal-open');
+  document.body.style.top = '';
+  window.scrollTo(0, parseInt(scrollY || '0') * -1);
+  
+  setSelectedProduct(null);
+};
 
   return (
     <section id="products" className="section">
@@ -221,6 +230,7 @@ const Products = () => {
                     '--swiper-pagination-color': '#D2691E',
                   }}
                   autoHeight={false}
+                  centeredSlides={true}
                   spaceBetween={10}
                   navigation={true}
                   observer={true}          /* Добавь это */
