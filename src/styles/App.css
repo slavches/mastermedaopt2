@@ -58,7 +58,7 @@ body, html {
 }
 
 /* Плавная прокрутка */
-html {
+html:not(.modal-open) {
   scroll-behavior: smooth;
 }
 

@@ -61,24 +61,23 @@ useEffect(() => {
   
 }, [currentSection]); // Оставляем currentSection
 useEffect(() => {
-if (isFormOpen || isPolicyOpen) {
-      const scrollY = window.scrollY;
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = '100%';
-      document.documentElement.classList.add('modal-open');
-    } else {
-      const scrollY = document.body.style.top;
+  if (isFormOpen || isPolicyOpen) {
+    // Вычисляем ширину скроллбара, чтобы страница не "дергалась" влево-вправо
+    const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+    
+    document.body.style.overflow = 'hidden';
+    document.body.style.paddingRight = `${scrollBarWidth}px`;
+  } else {
+    document.body.style.overflow = '';
+    document.body.style.paddingRight = '';
+  }
 
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      document.documentElement.classList.remove('modal-open');
-      if (scrollY) {
-        window.scrollTo(0, parseInt(scrollY) * -1);
-      }
-    }
-  }, [isFormOpen, isPolicyOpen]);
+  // Очистка при размонтировании
+  return () => {
+    document.body.style.overflow = '';
+    document.body.style.paddingRight = '';
+  };
+}, [isFormOpen, isPolicyOpen]);
   const handleProductSelect = (productId) => {
     setSelectedProduct(productId);
     setCurrentSection('products');
