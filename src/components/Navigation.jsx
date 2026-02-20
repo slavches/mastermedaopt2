@@ -44,6 +44,9 @@
         onClick={() => {
           onSectionChange(section.id);
           setIsOpen(false);
+          if (section.id === 'home') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
         }}
         whileHover={{ y: -2, color: "#FFF8DC" }}
         whileTap={{ scale: 0.95 }}
