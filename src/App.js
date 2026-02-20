@@ -14,9 +14,9 @@ import './styles/App.css';
 
 function App() {
   const [currentSection, setCurrentSection] = useState('home');
-  const [selectedProduct, setSelectedProduct] = useState('default');
   const [isPolicyOpen, setIsPolicyOpen] = useState(false); 
   const [isFormOpen, setIsFormOpen] = useState(false); 
+  const [selectedProduct, setSelectedProduct] = useState('default');
 
     const backgrounds = {
   default: 'linear-gradient(135deg, #FFF8DC 0%, #FFEBCD 50%, #FFF8DC 100%)', // Главная
@@ -32,35 +32,53 @@ function App() {
 
 useEffect(() => {
   const element = document.getElementById(currentSection);
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  
+  // Добавляем проверку на наличие значения в style.top
+  // Если там что-то есть, значит мы в процессе переключения скролла
+  const isTransitioning = document.body.style.top !== '';
+  const isLocked = document.body.style.position === 'fixed';
+
+  if (element && currentSection !== 'home' && !isLocked && !isTransitioning) {
+    const rect = element.getBoundingClientRect();
+    // Увеличим порог до 50px, чтобы микро-сдвиги не провоцировали скролл
+    const alreadyAtTarget = Math.abs(rect.top) < 50; 
+
+    if (!alreadyAtTarget) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
-  // Распределяем фоны по секциям
-  switch (currentSection) {
-    case 'home':
-      setCurrentBg(backgrounds.default);
-      break;
-    case 'products':
-      setCurrentBg(backgrounds.buckwheat);
-      break;
-    case 'clients':
-      setCurrentBg(backgrounds.acacia);
-      break;
-    case 'partners':
-      setCurrentBg(backgrounds.partners);
-      break;
-    case 'news':
-      setCurrentBg(backgrounds.news);
-      break;
-    case 'about':
-      setCurrentBg(backgrounds.linden);
-      break;
-    default:
-      setCurrentBg(backgrounds.default);
-  }
-}, [currentSection]); // Оставляем только currentSection в зависимостях для чистоты
+  // Логика смены фона
+  const bgMap = {
+    home: backgrounds.default,
+    products: backgrounds.buckwheat,
+    clients: backgrounds.acacia,
+    partners: backgrounds.partners,
+    news: backgrounds.news,
+    about: backgrounds.linden
+  };
+  setCurrentBg(bgMap[currentSection] || backgrounds.default);
+  
+}, [currentSection]); // Оставляем currentSection
+useEffect(() => {
+if (isFormOpen || isPolicyOpen) {
+      const scrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+      document.documentElement.classList.add('modal-open');
+    } else {
+      const scrollY = document.body.style.top;
 
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.documentElement.classList.remove('modal-open');
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY) * -1);
+      }
+    }
+  }, [isFormOpen, isPolicyOpen]);
   const handleProductSelect = (productId) => {
     setSelectedProduct(productId);
     setCurrentSection('products');
@@ -90,7 +108,6 @@ useEffect(() => {
       <div className="app-content">
         {/* Список секций (теперь они снова видны!) */}
         <motion.div
-          initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
           style={{ willChange: 'opacity' }}

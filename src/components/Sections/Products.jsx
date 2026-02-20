@@ -139,29 +139,47 @@ const Products = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   const openModal = (product) => {
-  // Сохраняем текущую прокрутку
   const scrollY = window.scrollY;
-  setSelectedProduct(product);
-  setThumbsSwiper(null);
   
-  document.body.style.top = `-${scrollY}px`;
+document.documentElement.classList.add('modal-open');
   document.body.classList.add('modal-open');
+  
+  document.body.style.position = 'fixed';
+  document.body.style.top = `-${scrollY}px`;
+  document.body.style.width = '100%';
+  
+  setSelectedProduct(product);
 };
 
-const closeModal = () => {
-  const scrollY = document.body.style.top;
+const handleClose = () => {
+ const scrollY = document.body.style.top;
+  const scrollPosition = parseInt(scrollY || '0') * -1;
   
-  // 1. Снимаем блокировку
+// 1. Сначала ПРИНУДИТЕЛЬНО выключаем плавность везде
+  document.documentElement.style.scrollBehavior = 'auto';
+  document.body.style.scrollBehavior = 'auto';
+// 2. Снимаем фиксацию
+  document.documentElement.classList.remove('modal-open');
   document.body.classList.remove('modal-open');
+  document.body.style.position = '';
   document.body.style.top = '';
-  
-  // 2. Скроллим обратно (используем Math.abs для надежности)
-  const scrollPosition = Math.abs(parseInt(scrollY || '0'));
+  document.body.style.width = '';
+
+// 3. Мгновенно возвращаем скролл
   window.scrollTo(0, scrollPosition);
-  
-  // 3. Закрываем модалку
-  setSelectedProduct(null);
+// 4. Даем браузеру 10мс "осознать" позицию, прежде чем удалять модалку
+  setTimeout(() => {
+    setSelectedProduct(null);
+    setThumbsSwiper(null);
+    // Возвращаем плавный скролл назад для обычной навигации
+    document.documentElement.style.scrollBehavior = '';
+    document.body.style.scrollBehavior = '';
+  }, 10);
 };
+
+// Не забудьте обновить вызовы в JSX:
+// <div className="modal-overlay" onClick={handleClose}>
+// <button className="close-modal" onClick={handleClose}>✕</button>
 
   return (
     <section id="products" className="section">
@@ -223,9 +241,9 @@ const closeModal = () => {
 
       {/* МОДАЛЬНОЕ ОКНО (Исправленная структура) */}
       {selectedProduct && (
-        <div className="modal-overlay" onClick={closeModal}>
+        <div className="modal-overlay" onClick={handleClose}>
           <div className="modal-card glass-morphism-heavy" onClick={(e) => e.stopPropagation()}>
-            <button className="close-modal" onClick={closeModal}>✕</button>
+            <button className="close-modal" onClick={handleClose}>✕</button>
             
             <div className="modal-body">
               <div className="modal-gallery-container">
@@ -238,8 +256,8 @@ const closeModal = () => {
                   centeredSlides={true}
                   spaceBetween={10}
                   navigation={true}
-                  observer={true}          /* Добавь это */
-                  observeParents={true}    /* И это */
+                  observer={true}        
+                  observeParents={true}    
                   thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
                   modules={[FreeMode, Navigation, Thumbs]}
                   className="modal-swiper-main"

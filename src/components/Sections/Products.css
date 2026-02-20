@@ -1,9 +1,24 @@
-/* Блокировка сайта при открытой модалке */
+/* 1. Глобально включаем плавный скролл для навигации */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 2. Если на html или body есть класс модалки — ВЫКЛЮЧАЕМ плавность.
+      Это нужно, чтобы window.scrollTo в JS сработал мгновенно. */
+html.modal-open, 
 body.modal-open {
-  overflow: hidden !important;
-  height: 100vh !important;
-  position: fixed; /* Для iOS */
+  scroll-behavior: auto !important;
+  overflow: hidden;
+  /* Для iOS фиксации */
+  height: 100vh;
+  position: fixed;
   width: 100%;
+}
+
+/* 3. Убираем лишние дубликаты */
+body {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .products-section {
