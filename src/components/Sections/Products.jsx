@@ -149,12 +149,17 @@ const Products = () => {
 };
 
 const closeModal = () => {
-  // Возвращаем прокрутку на место
   const scrollY = document.body.style.top;
+  
+  // 1. Снимаем блокировку
   document.body.classList.remove('modal-open');
   document.body.style.top = '';
-  window.scrollTo(0, parseInt(scrollY || '0') * -1);
   
+  // 2. Скроллим обратно (используем Math.abs для надежности)
+  const scrollPosition = Math.abs(parseInt(scrollY || '0'));
+  window.scrollTo(0, scrollPosition);
+  
+  // 3. Закрываем модалку
   setSelectedProduct(null);
 };
 

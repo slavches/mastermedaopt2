@@ -465,26 +465,41 @@ width: 100%;
 /* --- ЕДИНЫЙ БЛОК АДАПТАЦИИ --- */
 @media (max-width: 950px) {
 .modal-overlay {
-    padding: 10px;
-    background: #1a1a1a;
-    display: flex; /* Вернем flex для оверлея на мобилках */
+padding: 0; /* Убираем падинги, чтобы не было зазоров */
+    background: rgba(26, 26, 26, 0.6); /* Чуть прозрачнее, как ты хотел */
+    display: flex !important;
+    justify-content: flex-start; /* Начинаем сверху */
+    align-items: center;
     flex-direction: column;
+    overflow-y: auto; /* Скроллим только здесь */
+    -webkit-overflow-scrolling: touch;
   }
 
 .modal-card {
-margin-top: 110px !important; 
-    margin-bottom: 20px !important;
-    
-    border-radius: 20px; /* На мобилках лучше оставить небольшое скругление */
-    width: 100%;
-    min-height: auto; /* Убираем 100vh, чтобы карточка была по контенту */
+/* Чтобы не залезало под шапку и не было двойного скролла */
+    margin-top: 100px !important; /* Уменьшил со 130 до 100 для баланса */
+    margin-bottom: 50px !important;
+    width: 92% !important; /* Оставляем небольшие ушки по бокам для красоты */
+    border-radius: 20px; /* На мобилках лучше оставить небольшое скругление */    min-height: auto; /* Убираем 100vh, чтобы карточка была по контенту */
     padding: 50px 20px 40px 20px !important;
+    /* Важно для предотвращения "залипания" скролла */
+    flex-shrink: 0; 
+    min-height: auto;
+    overflow: visible !important;
   }
 
 .modal-body {
     display: block !important;
   }
 
+/* Исправление для body при открытой модалке */
+  body.modal-open {
+    /* Убираем лишние параметры, оставляем только блокировку */
+    overflow: hidden !important;
+    position: fixed;
+    width: 100%;
+  }
+  
   /* ГАЛЕРЕЯ: Уменьшаем высоту, чтобы не резало фото */
 .modal-gallery-container {
     width: 100% !important;
