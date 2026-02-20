@@ -34,8 +34,8 @@
 /* Состояние при открытом меню */
 .navigation.menu-is-open .nav-blur-bg {
   /* Растягиваем фон на весь экран вниз! */
-  height: 100dvh; 
-  background: rgba(181, 90, 26, 0.95);
+  height: 100vh; 
+  background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -89,10 +89,10 @@
   /* Убираем отсюда все фоны и блюры, они теперь в .nav-blur-bg */
   background: transparent !important;
   backdrop-filter: none !important;
-  -webkit-overflow-scrolling: touch;
+  -webkit-backdrop-filter: none !important;
   
   padding: 2rem 1.5rem;
-  max-height: calc(100dvh - 70px);
+  max-height: calc(100vh - 70px);
   overflow-y: auto;
   gap: 1.5rem;
 }
