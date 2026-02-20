@@ -89,12 +89,71 @@
   transform: translateY(0);
 }
 
-/* Адаптивность */
-@media (max-width: 600px) {
-  input,
-  select,
+/* Полностью обновленный блок адаптивности для iOS и Android */
+@media (max-width: 480px) {
+  /* Уменьшаем расстояние между полями */
+  .form-fields-container {
+    gap: 8px !important; 
+  }
+
+  /* Настраиваем поля ввода */
+  .order-form-vertical input,
+  .order-form-vertical select,
+  .order-form-vertical textarea {
+    padding: 10px 14px !important;
+    border-radius: 12px !important;
+    /* 16px — критично для iOS Safari, чтобы не было авто-зума */
+    font-size: 16px !important; 
+    height: 44px; /* Стандартная удобная высота для тач-скринов */
+  }
+
+  /* Поле комментария делаем компактнее */
+  .comment-input {
+    min-height: 60px !important;
+    height: 60px !important;
+    padding-top: 8px !important;
+  }
+
+  /* Кнопка отправки */
   .submit-btn-vertical {
-    padding: 14px 16px;
-    font-size: 1rem;
+    padding: 12px 20px !important;
+    font-size: 1rem !important;
+    margin-top: 5px !important;
+    border-radius: 12px !important;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Экстремально маленькие экраны (например, iPhone SE или если открыта клавиатура) */
+@media (max-height: 670px) and (max-width: 480px) {
+  .form-fields-container {
+    gap: 6px !important;
+  }
+  
+  .order-form-vertical input,
+  .order-form-vertical select {
+    height: 38px !important;
+    padding: 8px 12px !important;
+  }
+
+  .comment-input {
+    height: 40px !important;
+    min-height: 40px !important;
+  }
+
+  .submit-btn-vertical {
+    height: 44px;
+    margin-top: 2px !important;
+  }
+}
+
+/* Фикс для Safari: предотвращаем смещение при фокусе */
+@supports (-webkit-overflow-scrolling: touch) {
+  .order-form-vertical input:focus,
+  .order-form-vertical select:focus {
+    font-size: 16px !important;
   }
 }

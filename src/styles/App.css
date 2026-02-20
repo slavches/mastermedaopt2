@@ -102,12 +102,16 @@ html {
 
 .form-modal-content {
   border-radius: 30px;
-  padding: 40px;
-  max-width: 500px; /* Немного сузим для изящности */
+  padding: 40px; /* Для десктопа оставляем как было */
+  max-width: 500px;
   width: 90%;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
   position: relative;
-  overflow: hidden; /* Важно для мягкости краев блюра */
+  
+  /* --- ГЛАВНЫЕ ИСПРАВЛЕНИЯ ДЛЯ МОБИЛОК --- */
+  max-height: 95vh; /* Форма не будет больше экрана */
+  overflow-y: auto; /* Если не влезет (например, с клавиатурой), появится внутренний скролл */
+  -webkit-overflow-scrolling: touch; /* Плавный скролл для iOS */
 }
 
 /* Заголовок внутри стекла */
@@ -125,8 +129,11 @@ html {
   }
 }
 
+/* Адаптируем само окно под мобильные экраны */
 @media (max-width: 480px) {
-  .app {
-    font-size: 12px;
+  .form-modal-content {
+    padding: 30px 20px 20px 20px; /* Уменьшаем отступы окна, освобождая место для кнопки */
+    border-radius: 24px;
+    margin-top: 20px; /* Запас сверху */
   }
 }
