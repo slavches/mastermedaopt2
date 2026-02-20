@@ -89,64 +89,41 @@
   transform: translateY(0);
 }
 
-/* Полностью обновленный блок адаптивности для iOS и Android */
+/* Ультра-сжатие для iPhone */
 @media (max-width: 480px) {
-  /* Уменьшаем расстояние между полями */
   .form-fields-container {
-    gap: 8px !important; 
+    gap: 6px !important; /* Еще меньше расстояние между строками */
   }
 
-  /* Настраиваем поля ввода */
   .order-form-vertical input,
-  .order-form-vertical select,
-  .order-form-vertical textarea {
-    padding: 10px 14px !important;
-    border-radius: 12px !important;
-    /* 16px — критично для iOS Safari, чтобы не было авто-зума */
+  .order-form-vertical select {
+    padding: 8px 12px !important; /* Минимальный внутренний отступ */
+    height: 40px !important;     /* Уменьшаем высоту строки */
     font-size: 16px !important; 
-    height: 44px; /* Стандартная удобная высота для тач-скринов */
+    border-radius: 10px !important;
   }
 
-  /* Поле комментария делаем компактнее */
   .comment-input {
-    min-height: 60px !important;
-    height: 60px !important;
-    padding-top: 8px !important;
+    min-height: 45px !important; /* Поле комментария теперь почти как обычная строка */
+    height: 45px !important;
   }
 
-  /* Кнопка отправки */
   .submit-btn-vertical {
-    padding: 12px 20px !important;
-    font-size: 1rem !important;
-    margin-top: 5px !important;
-    border-radius: 12px !important;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height: 46px !important; /* Чуть ниже кнопку */
+    margin-top: 4px !important;
+    padding: 0 !important;
+    font-size: 0.95rem !important;
   }
 }
 
-/* Экстремально маленькие экраны (например, iPhone SE или если открыта клавиатура) */
-@media (max-height: 670px) and (max-width: 480px) {
+/* Фикс для совсем маленьких экранов или при открытой клавиатуре */
+@media (max-height: 700px) and (max-width: 480px) {
   .form-fields-container {
-    gap: 6px !important;
+    gap: 4px !important;
   }
-  
   .order-form-vertical input,
   .order-form-vertical select {
-    height: 38px !important;
-    padding: 8px 12px !important;
-  }
-
-  .comment-input {
-    height: 40px !important;
-    min-height: 40px !important;
-  }
-
-  .submit-btn-vertical {
-    height: 44px;
-    margin-top: 2px !important;
+    height: 36px !important;
   }
 }
 
