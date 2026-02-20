@@ -216,86 +216,148 @@
   color: var(--color-honey);
 }
 
-/* --- МОБИЛЬНАЯ АДАПТАЦИЯ (iPhone / Android) --- */
+/* Мобильные */
 @media (max-width: 1024px) {
-  .nav-container {
+/* Контейнер: фиксируем высоту и позиционирование */
+.nav-container {
     display: flex;
     align-items: center;
+    /* Убираем justify-content, чтобы он не дергал элементы */
     justify-content: flex-end; 
     min-height: 70px;
     padding: 0 1.5rem;
     position: relative;
     width: 100%; 
+    box-sizing: border-box;
   }
 
-  /* ЛОГОТИП: Центрируем */
+/* ЛОГОТИП: Привязываем к ЛЕВОМУ краю на 50% ширины */
   .logo-wrapper {
     position: fixed !important;
+    /* Вместо center используем расчет от левого края */
     left: 50vw !important; 
     top: 35px !important; 
+    /* Используем translate, чтобы учесть собственную ширину логотипа */
     transform: translate(-50%, -50%) !important;
+    
+    margin: 0 !important;
+    width: auto !important;
     z-index: 1010;
-  }
-
-  .logo-image {
-    height: 38px !important; /* Уменьшили, чтобы выиграть место */
-  }
-
-  /* МОБИЛЬНОЕ МЕНЮ: Ультра-сжатие */
-  .nav-links {
-    display: none; /* Скрыто по умолчанию */
-    padding: 4.5rem 1.5rem 1.5rem 1.5rem !important; /* Уменьшили верхний отступ */
-    gap: 0.6rem !important; /* Минимальный зазор между пунктами */
-    max-height: 100dvh;
-    overflow-y: auto;
-  }
-
-  .nav-links.open {
-    display: flex;
-  }
-
-  .nav-links .nav-link {
-    font-size: 1.1rem !important; /* Уменьшили шрифт */
-    padding: 0.5rem 1rem !important; /* Уменьшили высоту клика */
-    text-shadow: none;
-  }
-
-  /* КНОПКИ В МЕНЮ */
-  .nav-links .nav-cta-btn.mobile {
-    max-width: 260px;
-    padding: 0.8rem !important;
-    font-size: 0.95rem !important;
-    margin: 0.2rem 0 !important;
-    height: 46px; /* Компактная высота */
-  }
-
-  .mobile-menu-toggle {
     display: flex !important;
-    z-index: 1011;
+    justify-content: center !important;
+  }
+
+.logo-image {
+    height: 42px;
+    display: block;
+  }
+
+.mobile-menu-toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 44px; /* Чуть увеличим область клика */
+    height: 44px;
+    margin-left: auto;
+    z-index: 1011; /* Кнопка должна быть выше всего */
     font-size: 2.2rem;
     color: white;
     background: none;
     border: none;
+    /* Убираем любые переходы, чтобы смена иконки была мгновенной */
+    transition: none !important;
   }
-}
 
-/* ФИКС ДЛЯ КОМПЬЮТЕРОВ (возвращаем как было) */
-@media (min-width: 1025px) {
-  .mobile-menu-toggle, .nav-links {
+.nav-side.desktop-only {
     display: none !important;
   }
-  .nav-side.desktop-only {
-    display: flex !important;
+
+  .navigation.menu-is-open {
+    /* Если при открытии меню вся навигация дергается вправо */
+    left: 0 !important;
+    width: 100% !important;
+  }
+
+/* ГЛАВНЫЙ ФИКС: отключаем прыжок при исчезновении скролла */
+  html, body {
+    overflow-x: hidden;
+  }
+  
+}
+@media (min-width: 1025px) {
+  .mobile-menu-toggle {
+    display: none !important;
+  }
+  .nav-links {
+    /* Уменьшаем отступ сверху, чтобы ссылки поднялись выше */
+    padding: 5rem 1rem 1.5rem 1.1rem !important; 
+    gap: 0.8rem !important; /* Уменьшаем расстояние между ссылками (было 1.5rem) */
+    justify-content: center;
+  }
+  .nav-links .nav-link {
+    /* Уменьшаем шрифт ссылок */
+    font-size: 1.1rem !important; 
+    padding: 0.4rem 1rem !important; /* Сжимаем высоту каждой ссылки */
+    margin: 0 !important;
+  }
+  .nav-links .nav-cta-btn.mobile {
+    /* Сжимаем кнопки действий */
+    width: 100%;
+    max-width: 260px;
+    padding: 0.8rem !important; /* Было 1rem */
+    font-size: 0.95rem !important;
+    margin: 0.2rem 0 !important; /* Минимальный отступ между кнопками */
+    height: 48px; /* Фиксированная высота для аккуратности */
+  }
+  /* Логотип на мобилках чуть меньше, чтобы освободить место */
+  .logo-image {
+    height: 38px !important;
   }
 }
 
-/* Совсем маленькие iPhone (SE) */
-@media (max-height: 670px) and (max-width: 600px) {
-  .nav-links {
-    gap: 0.4rem !important;
-    padding-top: 4rem !important;
+@media (max-width: 600px) {
+  .form-modal-content {
+    width: 95%;
+    padding: 1.5rem;
   }
-  .nav-links .nav-link {
-    font-size: 1rem !important;
-  }
+}
+
+/* Кнопки */
+.nav-cta-btn {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.35);
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.6rem 1.4rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.nav-cta-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255,255,255,0.7);
+  color: #FFF8DC;
+  transform: translateY(-1px);
+}
+
+.nav-cta-btn.price-btn.mobile {
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.request-btn {
+  background: var(--color-honey);
+  border-color: rgba(255,255,255,0.7);
+  color: #FFF8DC;
+
+}
+
+.request-btn:hover {
+  background: var(--color-honey-dark);
+  transform: translateY(-1px);
 }
