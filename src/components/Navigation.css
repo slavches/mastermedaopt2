@@ -201,13 +201,13 @@
 /* Кнопка закрытия */
 .modal-close {
   position: absolute;
-  top: 15px;
-  right: 20px;
+  top: 1px;
+  right: 10px;
   background: none;
   border: none;
   font-size: 32px;
   cursor: pointer;
-  color: #4b2c20; /* Цвет под общий стиль */
+  color: #e9602a; /* Цвет под общий стиль */
   z-index: 10;
   line-height: 1;
 }
