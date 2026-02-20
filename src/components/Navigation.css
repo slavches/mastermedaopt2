@@ -34,8 +34,8 @@
 /* Состояние при открытом меню */
 .navigation.menu-is-open .nav-blur-bg {
   /* Растягиваем фон на весь экран вниз! */
-  height: 100vh; 
-  background: rgba(0, 0, 0, 0.4);
+  height: 100dvh; 
+  background: rgba(181, 90, 26, 0.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -89,10 +89,10 @@
   /* Убираем отсюда все фоны и блюры, они теперь в .nav-blur-bg */
   background: transparent !important;
   backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  -webkit-overflow-scrolling: touch;
   
   padding: 2rem 1.5rem;
-  max-height: calc(100vh - 70px);
+  max-height: calc(100dvh - 70px);
   overflow-y: auto;
   gap: 1.5rem;
 }
@@ -216,80 +216,87 @@
   color: var(--color-honey);
 }
 
-/* Мобильные */
+/* --- МОБИЛЬНАЯ АДАПТАЦИЯ (iPhone / Android) --- */
 @media (max-width: 1024px) {
-/* Контейнер: фиксируем высоту и позиционирование */
-.nav-container {
+  .nav-container {
     display: flex;
     align-items: center;
-    /* Убираем justify-content, чтобы он не дергал элементы */
     justify-content: flex-end; 
     min-height: 70px;
     padding: 0 1.5rem;
     position: relative;
     width: 100%; 
-    box-sizing: border-box;
   }
 
-/* ЛОГОТИП: Привязываем к ЛЕВОМУ краю на 50% ширины */
+  /* ЛОГОТИП: Центрируем */
   .logo-wrapper {
     position: fixed !important;
-    /* Вместо center используем расчет от левого края */
     left: 50vw !important; 
     top: 35px !important; 
-    /* Используем translate, чтобы учесть собственную ширину логотипа */
     transform: translate(-50%, -50%) !important;
-    
-    margin: 0 !important;
-    width: auto !important;
     z-index: 1010;
-    display: flex !important;
-    justify-content: center !important;
   }
 
-.logo-image {
-    height: 42px;
-    display: block;
+  .logo-image {
+    height: 38px !important; /* Уменьшили, чтобы выиграть место */
   }
 
-.mobile-menu-toggle {
+  /* МОБИЛЬНОЕ МЕНЮ: Ультра-сжатие */
+  .nav-links {
+    display: none; /* Скрыто по умолчанию */
+    padding: 4.5rem 1.5rem 1.5rem 1.5rem !important; /* Уменьшили верхний отступ */
+    gap: 0.6rem !important; /* Минимальный зазор между пунктами */
+    max-height: 100dvh;
+    overflow-y: auto;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links .nav-link {
+    font-size: 1.1rem !important; /* Уменьшили шрифт */
+    padding: 0.5rem 1rem !important; /* Уменьшили высоту клика */
+    text-shadow: none;
+  }
+
+  /* КНОПКИ В МЕНЮ */
+  .nav-links .nav-cta-btn.mobile {
+    max-width: 260px;
+    padding: 0.8rem !important;
+    font-size: 0.95rem !important;
+    margin: 0.2rem 0 !important;
+    height: 46px; /* Компактная высота */
+  }
+
+  .mobile-menu-toggle {
     display: flex !important;
-    align-items: center;
-    justify-content: center;
-    width: 44px; /* Чуть увеличим область клика */
-    height: 44px;
-    margin-left: auto;
-    z-index: 1011; /* Кнопка должна быть выше всего */
+    z-index: 1011;
     font-size: 2.2rem;
     color: white;
     background: none;
     border: none;
-    /* Убираем любые переходы, чтобы смена иконки была мгновенной */
-    transition: none !important;
   }
-
-.nav-side.desktop-only {
-    display: none !important;
-  }
-
-  .navigation.menu-is-open {
-    /* Если при открытии меню вся навигация дергается вправо */
-    left: 0 !important;
-    width: 100% !important;
-  }
-
-/* ГЛАВНЫЙ ФИКС: отключаем прыжок при исчезновении скролла */
-  html, body {
-    overflow-x: hidden;
-  }
-  
 }
+
+/* ФИКС ДЛЯ КОМПЬЮТЕРОВ (возвращаем как было) */
 @media (min-width: 1025px) {
-  .mobile-menu-toggle {
+  .mobile-menu-toggle, .nav-links {
     display: none !important;
   }
+  .nav-side.desktop-only {
+    display: flex !important;
+  }
+}
+
+/* Совсем маленькие iPhone (SE) */
+@media (max-height: 670px) and (max-width: 600px) {
   .nav-links {
-    display: none !important;
+    gap: 0.4rem !important;
+    padding-top: 4rem !important;
+  }
+  .nav-links .nav-link {
+    font-size: 1rem !important;
   }
 }
 
