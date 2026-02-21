@@ -5,49 +5,48 @@ import './News.css';
 function News() {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
-  
   const CHANNEL_NAME = 'mastermedaspb'; 
 
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://tg.snotra.org/rss/${CHANNEL_NAME}`);
+        // Используем проверенный мост i-c-a.su
+        const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://tg.i-c-a.su/rss/${CHANNEL_NAME}`);
         const data = await response.json();
+        
+        console.log("Данные из TG:", data); // Посмотрите в консоль F12, если тут пусто
 
-        if (data.status === 'ok') {
+        if (data.status === 'ok' && data.items) {
           const items = data.items.slice(0, 6).map((item, index) => {
-            let imageUrl = null;
-
-            if (item.enclosure?.link) {
-              imageUrl = item.enclosure.link;
-            }
-
+            
+            // Пытаемся вытащить картинку из разных полей
+            let imageUrl = item.enclosure?.link || item.thumbnail;
+            
             if (!imageUrl) {
-              const imgRegExp = /src="([^">]+)"/; 
-              const searchString = (item.content || "") + (item.description || "");
-              const match = searchString.match(imgRegExp);
-              imageUrl = match ? match[1] : null;
+              // Ищем картинку в описании через регулярку
+              const imgMatch = item.description.match(/<img[^>]+src="([^">]+)"/);
+              imageUrl = imgMatch ? imgMatch[1] : null;
             }
 
-            if (!imageUrl && item.thumbnail) {
-              imageUrl = item.thumbnail;
-            }
+            // Очистка текста от HTML и странных символов
+            const cleanText = item.description
+              .replace(/<[^>]*>?/gm, '')
+              .replace(/&nbsp;/g, ' ')
+              .replace(/&quot;/g, '"');
 
             return {
               id: index,
-              title: item.title && item.title !== CHANNEL_NAME ? item.title : 'Новость компании',
+              title: item.title && item.title !== CHANNEL_NAME ? item.title : 'Новость пасеки',
               date: new Date(item.pubDate).toLocaleDateString('ru-RU'),
-              content: (item.description || "")
-                .replace(/<[^>]*>?/gm, '') 
-                .slice(0, 150) + '...',
+              content: cleanText.slice(0, 120) + '...',
               image: imageUrl,
               link: item.link
             };
-          }); // <-- Здесь была ошибка (не хватало этой скобки)
+          });
           setNews(items);
         }
       } catch (error) {
-        console.error("Ошибка синхронизации с Telegram:", error);
+        console.error("Ошибка загрузки:", error);
       } finally {
         setLoading(false);
       }
@@ -60,27 +59,34 @@ function News() {
     <section id="news" className="section news-section">
       <div className="section-content">
         <h2 className="section-title">Новости из Telegram</h2>
-        <p className="section-description">Свежие события с наших пасек и выгодные предложения</p>
         
         {loading ? (
-          <div className="loading">Синхронизация с каналом...</div>
+          <div className="loading">Загрузка ленты...</div>
+        ) : news.length === 0 ? (
+          <div className="loading">Новостей пока нет или канал недоступен</div>
         ) : (
           <div className="news-grid">
             {news.map((item, index) => (
               <motion.article 
-                key={item.id} 
+                key={index} 
                 className="news-card"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -5 }}
               >
                 <div className="news-img-container">
                   {item.image ? (
-                    <img src={item.image} alt={item.title} />
+                    <img 
+                      src={item.image} 
+                      alt="" 
+                      onError={(e) => {
+                        // Если картинка не прогрузилась (403 ошибка), заменяем на мед
+                        e.target.onerror = null; 
+                        e.target.src = "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=500";
+                      }}
+                    />
                   ) : (
-                    <div className="no-image-placeholder">🐝</div>
+                    <div className="no-image-placeholder">🍯</div>
                   )}
                 </div>
                 <div className="news-body">
@@ -88,7 +94,7 @@ function News() {
                   <h3>{item.title}</h3>
                   <p>{item.content}</p>
                   <a href={item.link} target="_blank" rel="noreferrer" className="tg-link">
-                    Читать в Telegram →
+                    Перейти в канал →
                   </a>
                 </div>
               </motion.article>
