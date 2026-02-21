@@ -8,6 +8,12 @@ function News() {
   const CHANNEL_NAME = 'mastermedaspb'; 
 
   useEffect(() => {
+    // Создайте объект соответствия (какое фото к какому индексу новости)
+const manualImages = {
+  0: '/images/news-main.webp', // Для самой свежей новости
+  1: '/images/news-pchely.jpg', // Для второй
+  // и так далее...
+};
     const fetchNews = async () => {
       try {
         // Используем проверенный мост
@@ -37,7 +43,8 @@ function News() {
               date: new Date(item.pubDate).toLocaleDateString('ru-RU'),
               content: cleanText.slice(0, 140) + '...',
               image: imageUrl,
-              link: item.link
+              link: item.link,
+              image: manualImages[index] || "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=500",
             };
           });
           setNews(items);
