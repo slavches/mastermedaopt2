@@ -10,36 +10,28 @@ function News() {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        // Используем проверенный мост i-c-a.su
         const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://tg.i-c-a.su/rss/${CHANNEL_NAME}`);
         const data = await response.json();
-        
-        console.log("Данные из TG:", data); // Посмотрите в консоль F12, если тут пусто
 
         if (data.status === 'ok' && data.items) {
           const items = data.items.slice(0, 6).map((item, index) => {
-            
-            // Пытаемся вытащить картинку из разных полей
-            let imageUrl = item.enclosure?.link || item.thumbnail;
-            
-            if (!imageUrl) {
-              // Ищем картинку в описании через регулярку
-              const imgMatch = item.description.match(/<img[^>]+src="([^">]+)"/);
-              imageUrl = imgMatch ? imgMatch[1] : null;
-            }
-
-            // Очистка текста от HTML и странных символов
+            // Очищаем текст от HTML-тегов и лишних символов
             const cleanText = item.description
-              .replace(/<[^>]*>?/gm, '')
+              .replace(/<[^>]*>?/gm, '') 
               .replace(/&nbsp;/g, ' ')
-              .replace(/&quot;/g, '"');
+              .replace(/&quot;/g, '"')
+              .replace(/&amp;/g, '&');
 
             return {
               id: index,
-              title: item.title && item.title !== CHANNEL_NAME ? item.title : 'Новость пасеки',
-              date: new Date(item.pubDate).toLocaleDateString('ru-RU'),
-              content: cleanText.slice(0, 120) + '...',
-              image: imageUrl,
+              // Если заголовка нет, используем дату как заголовок или стандартную фразу
+              title: item.title && item.title !== CHANNEL_NAME ? item.title : 'Обновление в канале',
+              date: new Date(item.pubDate).toLocaleDateString('ru-RU', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+              }),
+              content: cleanText.slice(0, 180) + '...', // Увеличили лимит текста, раз нет фото
               link: item.link
             };
           });
@@ -58,45 +50,31 @@ function News() {
   return (
     <section id="news" className="section news-section">
       <div className="section-content">
-        <h2 className="section-title">Новости из Telegram</h2>
+        <h2 className="section-title">Свежее в Telegram</h2>
+        <p className="section-description">Последние новости с пасек и актуальные остатки мёда</p>
         
         {loading ? (
-          <div className="loading">Загрузка ленты...</div>
-        ) : news.length === 0 ? (
-          <div className="loading">Новостей пока нет или канал недоступен</div>
+          <div className="loading">Синхронизация с лентой...</div>
         ) : (
-          <div className="news-grid">
+          <div className="news-grid-text">
             {news.map((item, index) => (
               <motion.article 
                 key={index} 
-                className="news-card"
+                className="news-card-text"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
               >
-                <div className="news-img-container">
-                  {item.image ? (
-                    <img 
-                      src={item.image} 
-                      alt="" 
-                      onError={(e) => {
-                        // Если картинка не прогрузилась (403 ошибка), заменяем на мед
-                        e.target.onerror = null; 
-                        e.target.src = "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=500";
-                      }}
-                    />
-                  ) : (
-                    <div className="no-image-placeholder">🍯</div>
-                  )}
+                <div className="news-header">
+                  <span className="news-badge">TG News</span>
+                  <span className="news-date">{item.date}</span>
                 </div>
-                <div className="news-body">
-                  <div className="news-date">{item.date}</div>
-                  <h3>{item.title}</h3>
-                  <p>{item.content}</p>
-                  <a href={item.link} target="_blank" rel="noreferrer" className="tg-link">
-                    Перейти в канал →
-                  </a>
-                </div>
+                <h3>{item.title}</h3>
+                <p>{item.content}</p>
+                <a href={item.link} target="_blank" rel="noreferrer" className="tg-link-simple">
+                  Читать полностью <span className="arrow">→</span>
+                </a>
               </motion.article>
             ))}
           </div>

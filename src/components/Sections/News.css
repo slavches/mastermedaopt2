@@ -1,83 +1,114 @@
+/* Общий контейнер секции */
 .news-section { 
-    padding: 80px 20px; 
+  padding: 80px 20px; 
   background: transparent;
- }
+}
+
+/* Сетка карточек */
 .news-grid {
   display: grid;
+  /* Автоматическое распределение: минимум 300px, максимум 1 часть доступного места */
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 25px;
   max-width: 1200px;
   margin: 40px auto 0;
 }
+
+/* Сама карточка новости (без фото) */
 .news-card {
-  background: rgba(255, 255, 255, 0.7); /* Чуть больше непрозрачности */
-  backdrop-filter: blur(10px); /* Эффект стекла */
+  background: rgba(255, 255, 255, 0.8); /* Чуть плотнее, так как внутри только текст */
+  backdrop-filter: blur(12px); 
   border-radius: 24px;
   overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  padding: 30px; /* Внутренние отступы для всего содержимого */
+  position: relative;
 }
+
+/* Декоративная полоска сверху каждой карточки для стиля */
+.news-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--color-honey);
+  opacity: 0.6;
+}
+
 .news-card:hover { 
-border-color: var(--color-honey); 
-box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-transform: translateY(-5px);
+  border-color: var(--color-honey); 
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.95);
 }
-.news-img-container img[src=""] {
-  display: none; /* Скрываем пустые картинки */
-}
-.news-img-container { 
-    width: 100%; 
-  height: 200px; 
-  background: #f0f0f0; 
-  overflow: hidden; 
+
+/* Блок с датой и иконкой */
+.news-header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
- }
-
- .news-img-container img { 
-  width: 100%; 
-  height: 100%; 
-  object-fit: cover; 
+  margin-bottom: 15px;
 }
 
-.no-image-placeholder {
-  font-size: 3rem;
-  opacity: 0.3;
-}
-.news-body { padding: 24px; 
-  display: flex; 
-  flex-direction: column; 
-  flex-grow: 1;
-}
 .news-date { 
-    font-size: 0.85rem; 
+  font-size: 0.85rem; 
   color: var(--color-honey); 
   font-weight: 700; 
-  margin-bottom: 8px; }
-.news-body h3 { 
-    font-size: 1.2rem; 
-  margin-bottom: 12px; 
+  letter-spacing: 0.5px;
+}
+
+/* Заголовок новости */
+.news-card h3 { 
+  font-size: 1.25rem; 
+  margin-bottom: 15px; 
   color: var(--color-text-dark); 
   font-weight: 800;
-  line-height: 1.3;
+  line-height: 1.4;
 }
-.news-body p { 
-    font-size: 0.95rem; 
+
+/* Текст новости */
+.news-card p { 
+  font-size: 1rem; 
   color: #5D4037; 
-  line-height: 1.6; 
-  margin-bottom: 15px;
- }
-.tg-link { margin-top: auto; 
+  line-height: 1.7; 
+  margin-bottom: 25px;
+  flex-grow: 1; /* Чтобы кнопка всегда была внизу */
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Ограничиваем текст 4 строками для красоты */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Ссылка на Telegram */
+.tg-link { 
+  margin-top: auto; 
   color: #0088cc; 
   text-decoration: none; 
   font-weight: 700; 
-  font-size: 0.9rem; 
+  font-size: 0.95rem; 
+  display: flex;
+  align-items: center;
   transition: 0.2s;
- }
+}
 
- .tg-link:hover {
+.tg-link:hover {
   color: var(--color-honey);
+  gap: 8px; /* Небольшой эффект при наведении */
+}
+
+/* Адаптив для телефонов */
+@media (max-width: 768px) {
+  .news-grid {
+    grid-template-columns: 1fr; /* В один столбец на мобильных */
+    gap: 20px;
+  }
+  
+  .news-card {
+    padding: 25px;
+  }
 }
