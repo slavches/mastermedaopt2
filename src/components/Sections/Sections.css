@@ -319,56 +319,68 @@
   min-height: 36px;
 }
 
+/* --- ГЛОБАЛЬНЫЙ GLASS-MODAL --- */
+
+/* Блокировка фона при открытии */
+body.modal-open {
+  overflow: hidden !important;
+  height: 100vh;
+}
+
 .modal-overlay {
-  position: fixed;
+position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.85); /* Затемнение */
-  backdrop-filter: blur(8px);
-  z-index: 10000;
+  background: rgba(0, 0, 0, 0.4); /* Темный прозрачный фон */
+  backdrop-filter: blur(15px); /* Сильное размытие заднего плана */
+  -webkit-backdrop-filter: blur(15px);
+  z-index: 99999;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
 }
 
+/* 1. ИСПРАВЛЯЕМ КОРПУС КАРТОЧКИ (Добавляем ряд) */
 .modal-card {
-  background: #ffffff !important; /* Принудительно белый фон всей карточки */
-  width: 95%;
-  max-width: 1000px;
-  height: auto;
-  min-height: 500px;
-  max-height: 90vh;
-  border-radius: var(--radius-lg);
-  position: relative;
-  display: flex; /* Горизонтальное деление: фото слева, текст справа */
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 100%;
+  max-width: 1100px;
+  height: 85vh;
+  max-height: 700px;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: row; /* ОБЯЗАТЕЛЬНО: чтобы текст был справа от фото */
   overflow: hidden;
-  box-shadow: var(--shadow-card);
+  position: relative;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
 }
 
 .modal-body {
-  display: flex;
+display: flex;
   width: 100%;
-  overflow-y: auto;
+  height: 100%;
 }
 
+/* 2. ФИКС ГАЛЕРЕИ (Чтобы миниатюры не нализали) */
 .modal-gallery-container {
   width: 50%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   padding: 30px;
-  background: #fdfdfd;
-  border-right: 1px solid #f0f0f0;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
   box-sizing: border-box;
+  flex-shrink: 0; /* Чтобы левая часть не сжималась текстом */
 }
 
 .modal-swiper-main {
 width: 100%;
-  flex: 1; /* Занимает всё свободное место сверху */
-  min-height: 0; /* Важно для flex-контейнеров */
+  flex: 1; /* Занимает всё верхнее пространство */
+  min-height: 0;
   margin-bottom: 20px;
-  position: relative;
-  display: flex;
-  align-items: center;
 }
 
 .modal-slide-img-wrapper {
@@ -413,26 +425,34 @@ width: 100%;
 .modal-slide-img-wrapper img {
 max-width: 100%;
   max-height: 100%;
-  object-fit: contain; /* Чтобы фото не обрезалось */
+  object-fit: contain;
+  /* Эффект свечения для баночки на стекле */
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
 }
 
+/* МИНИАТЮРЫ */
 .thumbs-slider {
-width: 100%;
-  height: 80px; /* Фиксированная высота миниатюр */
-  flex-shrink: 0; /* Чтобы не сжимались */
+  width: 100%;
+  height: 80px;
+  flex-shrink: 0;
 }
 
 .thumb-wrapper {
 width: 100%;
   height: 100%;
-  border-radius: 8px;
-  overflow: hidden;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
   border: 2px solid transparent;
-  background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.swiper-slide-thumb-active .thumb-wrapper {
+  border-color: #FFD700; /* Золотая рамка активной превьюшки */
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .thumb-wrapper img {
@@ -441,19 +461,15 @@ width: 100%;
   object-fit: contain;
 }
 
-.thumbs-slider .swiper-slide-thumb-active .thumb-wrapper {
-border-color: var(--color-honey);
-}
-
+/* 4. КОРРЕКТИРОВКА ТЕКСТА */
 .modal-text-content {
-width: 50%;
+  width: 50%;
   padding: 40px;
   display: flex;
   flex-direction: column;
-  background: #ffffff !important; /* Фон именно текстового блока */
   overflow-y: auto;
-  box-sizing: border-box;
-  text-align: left; /* Сброс центрирования */
+  color: #ffffff;
+  background: transparent; /* Убедись, что тут нет белого фона */
 }
 
 /* Тонкий красивый скроллбар для текста */
@@ -467,47 +483,55 @@ width: 50%;
 
 /* Стилизация текста внутри (чтобы не был белым) */
 .modal-text-content h2 {
-  font-size: 26px;
+  font-size: 2.2rem;
   font-weight: 800;
-  color: var(--color-text-dark) !important; /* Явно темный цвет */
-  margin-bottom: 10px;
-  text-shadow: none; /* Убираем тени от Hero */
+  margin-bottom: 15px;
+  color: #ffffff !important;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
 .modal-price-tag {
-  font-size: 24px;
+font-size: 2rem;
   font-weight: 800;
-  color: var(--color-honey) !important;
-  margin: 10px 0 20px 0;
+  color: #FFD700 !important; /* Цена золотая */
+  margin-bottom: 20px;
 }
-.modal-text-content .modal-divider-line { height: 1px; background: #eee; margin-bottom: 20px; }
+
+.modal-divider-line {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  margin-bottom: 20px;
+}
 
 .modal-desc {
-  font-size: 16px;
+font-size: 1.05rem;
   line-height: 1.6;
-  color: #5D4037 !important; /* Явно коричневый/темный текст */
+  color: rgba(255, 255, 255, 0.9) !important;
   margin-bottom: 30px;
   flex-grow: 1; /* Толкает кнопку вниз */
 }
 
+/* КНОПКА ЗАКРЫТИЯ */
 .close-modal {
-position: absolute;
-  top: 15px;
-  right: 15px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
   z-index: 100;
-  background: #f0f0f0;
+  background: rgba(255, 255, 255, 0.2);
   border: none;
-  width: 35px;
-  height: 35px;
+  color: white;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-text-dark);
 }
 
-.close-modal:hover { transform: rotate(90deg); color: var(--color-honey); }
+.close-modal:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
 
 @media (max-width: 1024px) {
   .home-hero-centered {
@@ -519,16 +543,21 @@ position: absolute;
   .hero-form-centered-wrapper { max-width: 400px; }
 }
 
+/* АДАПТИВ */
 @media (max-width: 850px) {
   .modal-card {
-    flex-direction: column; /* На мобилках фото сверху, текст снизу */
-    height: 95vh;
+    flex-direction: column;
+    height: 90vh;
+    max-height: none;
   }
   .modal-gallery-container, .modal-text-content {
     width: 100%;
+    height: auto;
   }
   .modal-gallery-container {
     height: 45%;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 }
 
@@ -542,26 +571,28 @@ position: absolute;
   .products-grid { grid-template-columns: 1fr; }
 }
 
+/* 3. ФИКС КНОПКИ TELEGRAM (Чтобы не была вертикальной) */
 .btn-telegram-wide {
-width: 100%;
   display: flex !important;
-  flex-direction: row !important; /* Чтобы иконка и текст были в ряд */
+  flex-direction: row !important; /* Гарантируем горизонтальность иконки и текста */
   align-items: center;
   justify-content: center;
   gap: 12px;
   background: #0088cc !important;
   color: #ffffff !important;
-  padding: 16px;
-  border-radius: var(--radius-md);
+  padding: 18px;
+  border-radius: 15px;
   font-weight: 700;
   text-decoration: none;
-  transition: var(--transition);
-  margin-top: auto; /* Прижимает к низу */
+  width: 100%; /* Занимает всю ширину текстового блока */
+  box-sizing: border-box;
+  margin-top: auto; /* Прижимает кнопку к низу */
+  flex-shrink: 0;
 }
 
 .btn-telegram-wide:hover { 
-  background: #0077b5 !important;
-  transform: translateY(-2px); 
+transform: translateY(-2px);
+  background: #0099e6 !important;
 }
 
 body {
