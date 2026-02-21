@@ -10,74 +10,94 @@ function News() {
   useEffect(() => {
     const fetchNews = async () => {
       try {
+        // Используем проверенный мост
         const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://tg.i-c-a.su/rss/${CHANNEL_NAME}`);
         const data = await response.json();
 
         if (data.status === 'ok' && data.items) {
           const items = data.items.slice(0, 6).map((item, index) => {
-            // Очищаем текст от HTML-тегов и лишних символов
+            
+            // Ищем картинку в разных полях, которые отдает Telegram
+            let imageUrl = item.enclosure?.link || item.thumbnail;
+            
+            if (!imageUrl) {
+              const imgMatch = item.description.match(/<img[^>]+src="([^">]+)"/);
+              imageUrl = imgMatch ? imgMatch[1] : null;
+            }
+
+            // Очистка текста
             const cleanText = item.description
-              .replace(/<[^>]*>?/gm, '') 
+              .replace(/<[^>]*>?/gm, '')
               .replace(/&nbsp;/g, ' ')
-              .replace(/&quot;/g, '"')
-              .replace(/&amp;/g, '&');
+              .replace(/&quot;/g, '"');
 
             return {
               id: index,
-              // Если заголовка нет, используем дату как заголовок или стандартную фразу
-              title: item.title && item.title !== CHANNEL_NAME ? item.title : 'Обновление в канале',
-              date: new Date(item.pubDate).toLocaleDateString('ru-RU', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric'
-              }),
-              content: cleanText.slice(0, 180) + '...', // Увеличили лимит текста, раз нет фото
+              title: item.title && item.title !== CHANNEL_NAME ? item.title : 'Новость из канала',
+              date: new Date(item.pubDate).toLocaleDateString('ru-RU'),
+              content: cleanText.slice(0, 140) + '...',
+              image: imageUrl,
               link: item.link
             };
           });
           setNews(items);
         }
       } catch (error) {
-        console.error("Ошибка загрузки:", error);
+        console.error("Ошибка:", error);
       } finally {
         setLoading(false);
       }
     };
-
     fetchNews();
   }, [CHANNEL_NAME]);
 
   return (
     <section id="news" className="section news-section">
       <div className="section-content">
-        <h2 className="section-title">Свежее в Telegram</h2>
-        <p className="section-description">Последние новости с пасек и актуальные остатки мёда</p>
+        <h2 className="section-title">Следите за нами в Telegram</h2>
         
         {loading ? (
-          <div className="loading">Синхронизация с лентой...</div>
+          <div className="loading">Обновляем ленту новостей...</div>
         ) : (
-          <div className="news-grid-text">
-            {news.map((item, index) => (
-              <motion.article 
-                key={index} 
-                className="news-card-text"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <div className="news-header">
-                  <span className="news-badge">TG News</span>
-                  <span className="news-date">{item.date}</span>
-                </div>
-                <h3>{item.title}</h3>
-                <p>{item.content}</p>
-                <a href={item.link} target="_blank" rel="noreferrer" className="tg-link-simple">
-                  Читать полностью <span className="arrow">→</span>
-                </a>
-              </motion.article>
-            ))}
-          </div>
+          <>
+            <div className="news-grid">
+              {news.map((item, index) => (
+                <motion.article 
+                  key={index} 
+                  className="news-card glass-card"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                >
+                  <div className="news-image-box">
+                    <img 
+                      src={item.image || "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=500"} 
+                      alt="" 
+                      onError={(e) => {
+                        e.target.onerror = null; 
+                        e.target.src = "https://images.unsplash.com/photo-1473973266408-ed4e27abdd47?w=500";
+                      }}
+                    />
+                  </div>
+                  <div className="news-body">
+                    <span className="news-date">{item.date}</span>
+                    <h3>{item.title}</h3>
+                    <p>{item.content}</p>
+                    <a href={item.link} target="_blank" rel="noreferrer" className="read-more-btn">
+                      Читать статью в TG →
+                    </a>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+
+            <div className="tg-footer-cta">
+               <p>Все самые свежие отчеты с пасек и акции — в нашем основном канале</p>
+               <a href={`https://t.me/${CHANNEL_NAME}`} target="_blank" rel="noreferrer" className="tg-main-link">
+                 Подписаться на Master Мёда
+               </a>
+            </div>
+          </>
         )}
       </div>
     </section>
