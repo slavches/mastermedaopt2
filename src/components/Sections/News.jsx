@@ -13,38 +13,44 @@ function News() {
     const fetchNews = async () => {
       try {
         // Запрос к RSS-мосту через сервис rss2json
-        const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://tg.i-c-a.su/rss/${CHANNEL_NAME}`);
+        const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://tg.snotra.org/rss/${CHANNEL_NAME}`);
         const data = await response.json();
 
         if (data.status === 'ok') {
           const items = data.items.slice(0, 6).map((item, index) => {
-            
-            // 1. Поиск картинки
-            let imageUrl = item.enclosure?.link;
-            
-            if (!imageUrl) {
-              const imgRegExp = /<img[^>]+src="([^">]+)"/;
-              // Ищем картинку в контенте или описании
-              const match = (item.content && item.content.match(imgRegExp)) || 
-                            (item.description && item.description.match(imgRegExp));
-              imageUrl = match ? match[1] : null;
-            }
+  
+  // 1. Пытаемся найти картинку везде, где она может быть
+  let imageUrl = null;
 
-            // 3. Очистка текста
-            const cleanContent = (item.description || "")
-              .replace(/<[^>]*>?/gm, '') 
-              .replace(/&nbsp;/g, ' ')  
-              .replace(/&quot;/g, '"'); 
+  // Ищем в поле enclosure
+  if (item.enclosure?.link) {
+    imageUrl = item.enclosure.link;
+  }
 
-            return {
-              id: index,
-              title: item.title && item.title !== CHANNEL_NAME ? item.title : 'Новость компании',
-              date: new Date(item.pubDate).toLocaleDateString('ru-RU'),
-              content: cleanContent.slice(0, 150) + (cleanContent.length > 150 ? '...' : ''),
-              image: imageUrl,
-              link: item.link
-            };
-          });
+  // Если нет, ищем регуляркой во всех полях текста
+  if (!imageUrl) {
+    const imgRegExp = /src="([^">]+)"/; // Упростили регулярку для надежности
+    const searchString = (item.content || "") + (item.description || "");
+    const match = searchString.match(imgRegExp);
+    imageUrl = match ? match[1] : null;
+  }
+
+  // 2. Если фото всё ещё нет, проверим, нет ли ссылки в самом объекте (некоторые мосты так делают)
+  if (!imageUrl && item.thumbnail) {
+    imageUrl = item.thumbnail;
+  }
+
+  return {
+    id: index,
+    title: item.title && item.title !== CHANNEL_NAME ? item.title : 'Новость компании',
+    date: new Date(item.pubDate).toLocaleDateString('ru-RU'),
+    content: (item.description || "")
+      .replace(/<[^>]*>?/gm, '') 
+      .slice(0, 150) + '...',
+    image: imageUrl, // Если здесь null, картинка просто не отобразится (пустой блок)
+    link: item.link
+  };
+});
           setNews(items);
         }
       } catch (error) {
