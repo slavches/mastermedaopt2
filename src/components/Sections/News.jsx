@@ -7,7 +7,7 @@ function News() {
   const [loading, setLoading] = useState(true);
   
   // Укажите здесь ваш логин канала (без @)
-  const CHANNEL_NAME = 'master_meda_optshop'; 
+  const CHANNEL_NAME = 'mastermedaspb'; 
 
   useEffect(() => {
     const fetchNews = async () => {
