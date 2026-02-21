@@ -11,8 +11,11 @@ function News() {
     // Создайте объект соответствия (какое фото к какому индексу новости)
 const manualImages = {
   0: '/images/news-main.webp', // Для самой свежей новости
-  1: '/images/news-pchely.jpg', // Для второй
-  // и так далее...
+  1: '/images/news-main1.jpg', // Для второй
+  2: '/images/news-main3.jpg',
+  3: '/images/news-main1.jpg',
+  4: '/images/news-main4.jpg',
+  5: '/images/news-main2.jpg',
 };
     const fetchNews = async () => {
       try {
