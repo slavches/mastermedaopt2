@@ -35,17 +35,30 @@ const manualImages = {
             }
 
             // Очистка текста
-            const cleanText = item.description
-              .replace(/<[^>]*>?/gm, '')
+            const cleanTitle = (item.title || "")
+            .replace(/\[Photo\]/g, '')
+            .replace(/\[Video\]/g, '')
+            .replace(/\[Media\]/g, '')
+            .replace(/\[File\]/g, '')
+            .trim(); // Удаляем лишние пробелы по краям
+
+            // 2. Очищаем основной текст (description)
+            const cleanText = (item.description || "")
+              .replace(/\[Photo\]/g, '') // Убираем [Photo]
+              .replace(/\[Video\]/g, '') // Убираем [Video]
+              .replace(/\[Media\]/g, '') // Убираем [Media]
+              .replace(/<[^>]*>?/gm, '')  // Удаляем HTML теги
               .replace(/&nbsp;/g, ' ')
-              .replace(/&quot;/g, '"');
+              .replace(/&quot;/g, '"')
+              .trim();
 
             return {
               id: index,
-              title: item.title && item.title !== CHANNEL_NAME ? item.title : 'Новость из канала',
+              // Используем очищенный заголовок. 
+              // Если после очистки заголовок стал пустым или совпал с названием канала, ставим свой.
+              title: cleanTitle && cleanTitle !== CHANNEL_NAME ? cleanTitle : 'Новость пасеки',
               date: new Date(item.pubDate).toLocaleDateString('ru-RU'),
               content: cleanText.slice(0, 140) + '...',
-              image: imageUrl,
               link: item.link,
               image: manualImages[index] || "https://unsplash.com/photos/honey-jar-with-honey-comb-yQzrDgU-KAI",
             };
