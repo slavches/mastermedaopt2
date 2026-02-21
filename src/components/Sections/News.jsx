@@ -26,36 +26,25 @@ const manualImages = {
         if (data.status === 'ok' && data.items) {
           const items = data.items.slice(0, 6).map((item, index) => {
             
-            // Ищем картинку в разных полях, которые отдает Telegram
-            let imageUrl = item.enclosure?.link || item.thumbnail;
-            
-            if (!imageUrl) {
-              const imgMatch = item.description.match(/<img[^>]+src="([^">]+)"/);
-              imageUrl = imgMatch ? imgMatch[1] : null;
-            }
+            // Очистка от служебных тегов Telegram [Photo], [Video] и т.д.
+            const filterContent = (text) => {
+              return (text || "")
+                .replace(/\[Photo\]/g, '')
+                .replace(/\[Video\]/g, '')
+                .replace(/\[Media\]/g, '')
+                .replace(/\[File\]/g, '')
+                .replace(/<[^>]*>?/gm, '') // Удаляем HTML
+                .replace(/&nbsp;/g, ' ')
+                .replace(/&quot;/g, '"')
+                .trim();
+            };
 
-            // Очистка текста
-            const cleanTitle = (item.title || "")
-            .replace(/\[Photo\]/g, '')
-            .replace(/\[Video\]/g, '')
-            .replace(/\[Media\]/g, '')
-            .replace(/\[File\]/g, '')
-            .trim(); // Удаляем лишние пробелы по краям
+            const cleanTitle = filterContent(item.title);
+            const cleanText = filterContent(item.description);
 
-            // 2. Очищаем основной текст (description)
-            const cleanText = (item.description || "")
-              .replace(/\[Photo\]/g, '') // Убираем [Photo]
-              .replace(/\[Video\]/g, '') // Убираем [Video]
-              .replace(/\[Media\]/g, '') // Убираем [Media]
-              .replace(/<[^>]*>?/gm, '')  // Удаляем HTML теги
-              .replace(/&nbsp;/g, ' ')
-              .replace(/&quot;/g, '"')
-              .trim();
 
             return {
               id: index,
-              // Используем очищенный заголовок. 
-              // Если после очистки заголовок стал пустым или совпал с названием канала, ставим свой.
               title: cleanTitle && cleanTitle !== CHANNEL_NAME ? cleanTitle : 'Новость пасеки',
               date: new Date(item.pubDate).toLocaleDateString('ru-RU'),
               content: cleanText.slice(0, 140) + '...',
@@ -107,18 +96,25 @@ const manualImages = {
                     <h3>{item.title}</h3>
                     <p>{item.content}</p>
                     <a href={item.link} target="_blank" rel="noreferrer" className="read-more-btn">
-                      Читать статью в TG →
+                      Читать статью в Телеграмм →
                     </a>
                   </div>
                 </motion.article>
               ))}
             </div>
 
-            <div className="tg-footer-cta">
-               <p>Все самые свежие отчеты с пасек и акции — в нашем основном канале</p>
-               <a href={`https://t.me/${CHANNEL_NAME}`} target="_blank" rel="noreferrer" className="tg-main-link">
-                 Подписаться на Master Мёда
-               </a>
+            <div className="tg-footer-cta glass-footer">
+              <div className="tg-icon-circle">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                  <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.53-1.39.51-.46-.01-1.33-.26-1.98-.48-.8-.27-1.43-.42-1.38-.89.03-.25.38-.51 1.07-.78 4.21-1.83 7.02-3.03 8.43-3.61 4.02-1.66 4.86-1.95 5.41-1.95.12 0 .39.03.56.17.14.11.18.28.2.43.02.06.03.13.02.21z" />
+                </svg>
+              </div>
+              <div className="tg-footer-content">
+                <p>Все самые свежие отчеты с пасек и акции — в нашем канале</p>
+                <a href={`https://t.me/${CHANNEL_NAME}`} target="_blank" rel="noreferrer" className="tg-main-link">
+                  Подписаться на Master Мёда
+                </a>
+              </div>
             </div>
           </>
         )}
