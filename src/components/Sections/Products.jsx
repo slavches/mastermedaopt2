@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion'; // ДОБАВЛЕНО: без этого билд упадет
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay, Thumbs, FreeMode } from 'swiper/modules';
 import './Products.css';
+
+// Swiper CSS
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import 'swiper/css/free-mode';
-
 
 const productsData = [
   {
@@ -119,7 +121,7 @@ const productsData = [
   {
     id: 9,
     category: "Новинка",
-    title: "400 г",
+    title: "Башкирский мёд 400 г",
     price: "700 ₽",
     weight: "1 баночка",
     images: [
@@ -129,9 +131,7 @@ const productsData = [
       "/images/bashmed400/bashmed4004.webp",  
       "/images/bashmed400/bashmed4005.webp" 
     ],
-    description: "Слава о нем ходит по всему миру. Он является излюбленным лакомством ценителей мёда. Целительные свойства мёда много веков используются людьми для сохранения и поддержания здоровья. Ценность и неповторимость башкирского мёда обусловлены уникальностью природы Башкортостана.Такое многообразие цветущих медоносных растений (около 400 видов), которые являются ценнейшими лекарственными растениями, вряд ли встретишь ещё в каком-нибудь уголке России. Более трети территории Башкортостана покрыто лесами, сосредотачивающими самые обширные в стране площади медоносной растительности. Башкирский мёд своей славой обязан липе, она является основным медоносом республики. Липовый башкирский мёд прозрачен, светло-янтарного цвета с легким зеленоватым оттенком.Он обладает антибактериальными свойствами, содержит противомикробные вещества. Прекрасное профилактическое и лечебное средство против простудных и легочных заболеваний. Рекомендуется при воспалении желудочно-кишечного тракта, сердечных, почечных болезнях. Оказывает хорошее местное действие при лечении ран и ожогов. Не менее ценен и хорош башкирский сборно-цветочный мёд (лесной, луговой, горный), собранный не с одного, а с многих медоносов. Его используют как диетический продукт при желудочно-кишечных заболеваниях, для улучшения кровообращения и укрепления капиллярных сосудов. Он вобрал в себя силу десятков лекарственных растений, их нектар, пыльцу.Башкирский мёд в разные годы получал высокие награды выставок, ярмарок, конкурсов, как российских, так и международных, в том числе медали выставок конгрессов Апимондии.Условия хранения При температуре от 5 ºC до 20 ºC, в защищенном от прямых солнечных лучей местеСостав. Мёд натуральный 100%"
-  }
-  
+    description: "Слава о нем ходит по всему миру. Он является излюбленным лакомством ценителей мёда. Целительные свойства мёда много веков используются людьми для сохранения и поддержания здоровья. Ценность и неповторимость башкирского мёда обусловлены уникальностью природы Башкортостана.Такое многообразие цветущих медоносных растений (около 400 видов), которые являются ценнейшими лекарственными растениями, вряд ли встретишь ещё в каком-нибудь уголке России. Более трети территории Башкортостана покрыто лесами, сосредотачивающими самые обширные в стране площади медоносной растительности. Башкирский мёд своей славой обязан липе, она является основным медоносом республики. Липовый башкирский мёд прозрачен, светло-янтарного цвета с легким зеленоватым оттенком.Он обладает антибактериальными свойствами, содержит противомикробные вещества. Прекрасное профилактическое и лечебное средство против простудных и легочных заболеваний. Рекомендуется при воспалении желудочно-кишечного тракта, сердечных, почечных болезнях. Оказывает хорошее местное действие при лечении ран и ожогов. Не менее ценен и хорош башкирский сборно-цветочный мёд (лесной, луговой, горный), собранный не с одного, а с многих медоносов. Его используют как диетический продукт при желудочно-кишечных заболеваниях, для улучшения кровообращения и укрепления капиллярных сосудов. Он вобрал в себя силу десятков лекарственных растений, их нектар, пыльцу.Башкирский мёд в разные годы получал высокие награды выставок, ярмарок, конкурсов, как российских, так и международных, в том числе медали выставок конгрессов Апимондии.Условия хранения При температуре от 5 ºC до 20 ºC, в защищенном от прямых солнечных лучей местеСостав. Мёд натуральный 100%"  }
 ];
 
 const Products = () => {
@@ -139,100 +139,76 @@ const Products = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   const openModal = (product) => {
-  const scrollY = window.scrollY;
-  
-document.documentElement.classList.add('modal-open');
-  document.body.classList.add('modal-open');
-  
-  document.body.style.position = 'fixed';
-  document.body.style.top = `-${scrollY}px`;
-  document.body.style.width = '100%';
-  
-  setSelectedProduct(product);
-};
+    const scrollY = window.scrollY;
+    document.documentElement.classList.add('modal-open');
+    document.body.classList.add('modal-open');
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = '100%';
+    setSelectedProduct(product);
+  };
 
-const handleClose = () => {
- const scrollY = document.body.style.top;
-  const scrollPosition = parseInt(scrollY || '0') * -1;
-  
-// 1. Сначала ПРИНУДИТЕЛЬНО выключаем плавность везде
-  document.documentElement.style.scrollBehavior = 'auto';
-  document.body.style.scrollBehavior = 'auto';
-// 2. Снимаем фиксацию
-  document.documentElement.classList.remove('modal-open');
-  document.body.classList.remove('modal-open');
-  document.body.style.position = '';
-  document.body.style.top = '';
-  document.body.style.width = '';
-
-// 3. Мгновенно возвращаем скролл
-  window.scrollTo(0, scrollPosition);
-// 4. Даем браузеру 10мс "осознать" позицию, прежде чем удалять модалку
-  setTimeout(() => {
-    setSelectedProduct(null);
-    setThumbsSwiper(null);
-    // Возвращаем плавный скролл назад для обычной навигации
-    document.documentElement.style.scrollBehavior = '';
-    document.body.style.scrollBehavior = '';
-  }, 10);
-};
-
-// Не забудьте обновить вызовы в JSX:
-// <div className="modal-overlay" onClick={handleClose}>
-// <button className="close-modal" onClick={handleClose}>✕</button>
+  const handleClose = () => {
+    const scrollY = document.body.style.top;
+    const scrollPosition = parseInt(scrollY || '0') * -1;
+    document.documentElement.style.scrollBehavior = 'auto';
+    document.body.style.scrollBehavior = 'auto';
+    document.documentElement.classList.remove('modal-open');
+    document.body.classList.remove('modal-open');
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    window.scrollTo(0, scrollPosition);
+    setTimeout(() => {
+      setSelectedProduct(null);
+      setThumbsSwiper(null);
+      document.documentElement.style.scrollBehavior = '';
+      document.body.style.scrollBehavior = '';
+    }, 10);
+  };
 
   return (
     <section id="products" className="section">
-  <div className="section-header">
-    <motion.h2 
-      className="section-title"
-      initial={{ opacity: 0, y: -20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-    >
-      Наша продукция
-    </motion.h2>
-    <div className="title-divider"></div>
-    <p className="section-subtitle">Попробуйте натуральный мёд, собранный с любовью</p>
-  </div>
+      {/* ИСПРАВЛЕНО: закрывающий div добавлен */}
+      <div className="section-header">
+        <motion.h2 
+          className="section-title"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          Наша продукция
+        </motion.h2>
+        <div className="title-divider"></div>
+        <p className="section-subtitle">Попробуйте натуральный мёд, собранный с любовью</p>
+      </div>
       
       <div className="products-grid">
         {productsData.map((product) => (
           <div 
             key={product.id} 
-            className="product-card glass-morphism"
-            onMouseEnter={(e) => {
-              const swiper = e.currentTarget.querySelector('.card-slider')?.swiper;
-              if (swiper) swiper.autoplay.start();
-            }}
-            onMouseLeave={(e) => {
-              const swiper = e.currentTarget.querySelector('.card-slider')?.swiper;
-              if (swiper) {
-                swiper.autoplay.stop();
-                swiper.slideTo(0, 300);
-              }
-            }}
+            className="product-card"
             onClick={() => openModal(product)}
+            style={{ cursor: 'pointer' }}
           >
             <div className="card-image-wrapper">
               <div className="card-badge">{product.category}</div>
               <Swiper
                 modules={[Pagination, Autoplay]}
                 speed={400}
-                grabCursor={true}
                 pagination={{ clickable: true }}
                 autoplay={{ delay: 1200, disableOnInteraction: false }}
                 onSwiper={(swiper) => swiper.autoplay.stop()}
-                slidesPerView={1}
+                onMouseEnter={(e) => e.target.closest('.card-slider')?.swiper?.autoplay.start()}
+                onMouseLeave={(e) => {
+                    const sw = e.target.closest('.card-slider')?.swiper;
+                    if(sw) { sw.autoplay.stop(); sw.slideTo(0); }
+                }}
                 className="card-slider"
               >
                 {product.images.map((img, index) => (
                   <SwiperSlide key={index}>
-                    <img 
-                      src={img} 
-                      alt={product.title} 
-                      loading="lazy" // Оптимизация загрузки
-                    />
+                    <img src={img} alt={product.title} loading="lazy" />
                   </SwiperSlide>
                 ))}
               </Swiper>
@@ -249,25 +225,15 @@ const handleClose = () => {
         ))}
       </div>
 
-      {/* МОДАЛЬНОЕ ОКНО (Исправленная структура) */}
       {selectedProduct && (
         <div className="modal-overlay" onClick={handleClose}>
-          <div className="modal-card glass-morphism-heavy" onClick={(e) => e.stopPropagation()}>
+          <div className="modal-card" onClick={(e) => e.stopPropagation()}>
             <button className="close-modal" onClick={handleClose}>✕</button>
-            
             <div className="modal-body">
               <div className="modal-gallery-container">
                 <Swiper 
-                  style={{
-                    '--swiper-navigation-color': '#D2691E',
-                    '--swiper-pagination-color': '#D2691E',
-                  }}
-                  autoHeight={false}
-                  centeredSlides={true}
                   spaceBetween={10}
                   navigation={true}
-                  observer={true}        
-                  observeParents={true}    
                   thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
                   modules={[FreeMode, Navigation, Thumbs]}
                   className="modal-swiper-main"
@@ -284,7 +250,7 @@ const handleClose = () => {
                 <Swiper
                   onSwiper={setThumbsSwiper}
                   spaceBetween={10}
-                  slidesPerView={5}
+                  slidesPerView={4}
                   freeMode={true}
                   watchSlidesProgress={true}
                   modules={[FreeMode, Navigation, Thumbs]}
@@ -305,7 +271,6 @@ const handleClose = () => {
                 <div className="modal-price-tag">{selectedProduct.price}</div>
                 <div className="modal-divider-line"></div>
                 <p className="modal-desc">{selectedProduct.description}</p>
-                
                 <a href="https://t.me/your_bot" target="_blank" rel="noreferrer" className="btn-telegram-wide">
                   Заказать в Telegram
                 </a>
