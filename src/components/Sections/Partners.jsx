@@ -1,13 +1,29 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import './Sections.css';
+import './Partners.css'; // Подключаем новый файл
 
 function Partners() {
   const partners = [
-    { name: 'Союз Пчеловодов России', description: 'Официальный партнёр по сертификации продукции', logo: '🐝' },
-    { name: 'Эко-Ферма "Поля России"', description: 'Поставщик экологически чистого сырья', logo: '🌾' },
-    { name: 'Лаборатория качества мёда', description: 'Партнёр по контролю качества продукции', logo: '🔬' },
-    { name: 'Транспортная компания "Быстрая доставка"', description: 'Логистический партнёр', logo: '🚚' },
+    { 
+      name: 'Союз Пчеловодов России', 
+      description: 'Официальный партнёр по сертификации и контролю стандартов продукции.', 
+      logo: '/partners/soyuz.png' 
+    },
+    { 
+      name: 'Эко-Ферма "Поля России"', 
+      description: 'Наш ключевой поставщик экологически чистого сырья из заповедных зон.', 
+      logo: '/partners/farm.png' 
+    },
+    { 
+      name: 'Лаборатория качества', 
+      description: 'Ежемесячный анализ каждой партии мёда на соответствие ГОСТ.', 
+      logo: '/partners/lab.png' 
+    },
+    { 
+      name: 'Быстрая доставка', 
+      description: 'Надёжная логистика по всей России с соблюдением температурного режима.', 
+      logo: '/partners/delivery.png' 
+    },
   ];
 
   return (
@@ -22,6 +38,7 @@ function Partners() {
         >
           Наши Партнёры
         </motion.h2>
+        
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -29,20 +46,23 @@ function Partners() {
           transition={{ delay: 0.2, duration: 0.6 }}
           className="section-description"
         >
-          Мы работаем только с проверенными партнёрами, гарантирующими качество и надёжность
+          Мы работаем только с проверенными компаниями, гарантирующими качество
         </motion.p>
+
         <div className="partners-grid">
           {partners.map((partner, index) => (
             <motion.div
               key={index}
               className="partner-card"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.15, duration: 0.6 }}
-              whileHover={{ scale: 1.05, rotate: 2 }}
+              transition={{ delay: index * 0.1, duration: 0.5 }}
+              whileHover={{ y: -8 }}
             >
-              <div className="partner-logo">{partner.logo}</div>
+              <div className="partner-logo-box">
+                <img src={partner.logo} alt={partner.name} className="partner-img" />
+              </div>
               <h3>{partner.name}</h3>
               <p>{partner.description}</p>
             </motion.div>

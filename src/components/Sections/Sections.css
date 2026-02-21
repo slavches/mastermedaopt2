@@ -13,6 +13,16 @@
   --transition: 0.3s ease;
 }
 
+/* Анимация плавного зума для активного слайда */
+.swiper-slide-active .hero-slide-item {
+  animation: kenburns 6s ease-out forwards;
+}
+
+@keyframes kenburns {
+  from { transform: scale(1); }
+  to { transform: scale(1.02); }
+}
+
 /* Базовые стили секций */
 .section {
   padding: 100px 20px;
@@ -42,6 +52,13 @@
 .hero-slide-item {
   background-size: cover;
   background-position: center;
+  /* ГЛАВНЫЕ НАСТРОЙКИ: */
+  background-size: cover;      /* Растягивает фото так, чтобы закрыть весь экран без щелей */
+  background-position: center;  /* Удерживает центр фото посередине экрана */
+  background-repeat: no-repeat;
+  
+  /* Чтобы фото не "дергалось" при смене слайдов */
+  will-change: transform, opacity;
 }
 
 .hero-overlay {

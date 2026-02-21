@@ -11,7 +11,8 @@ function Home() {
   const backgroundImages = [
     "/images/bg-honey-1.webp",
     "/images/bg-honey-2.webp",
-    "/images/bg-honey-3.webp"
+    "/images/bg-honey-3.webp",
+    "/images/bg-honey-9.webp"
   ];
 
   return (
