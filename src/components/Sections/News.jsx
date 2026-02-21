@@ -30,11 +30,6 @@ function News() {
               imageUrl = match ? match[1] : null;
             }
 
-            // 2. Заглушка, если в посте нет фото
-            if (!imageUrl) {
-              imageUrl = 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?q=80&w=800&auto=format&fit=crop'; 
-            }
-
             // 3. Очистка текста
             const cleanContent = (item.description || "")
               .replace(/<[^>]*>?/gm, '') 
