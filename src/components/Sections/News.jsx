@@ -44,7 +44,7 @@ const manualImages = {
               content: cleanText.slice(0, 140) + '...',
               image: imageUrl,
               link: item.link,
-              image: manualImages[index] || "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=500",
+              image: manualImages[index] || "https://unsplash.com/photos/honey-jar-with-honey-comb-yQzrDgU-KAI",
             };
           });
           setNews(items);
