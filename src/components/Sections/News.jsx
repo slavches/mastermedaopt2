@@ -66,7 +66,7 @@ const manualImages = {
   return (
     <section id="news" className="section news-section">
       <div className="section-content">
-        <h2 className="section-title">Следите за нами в Telegram</h2>
+        <h2 className="section-title">Новости</h2>
         
         {loading ? (
           <div className="loading">Обновляем ленту новостей...</div>
@@ -110,9 +110,9 @@ const manualImages = {
                 </svg>
               </div>
               <div className="tg-footer-content">
-                <p>Все самые свежие отчеты с пасек и акции — в нашем канале</p>
+                <p>Все самые свежие новости — в нашем канале</p>
                 <a href={`https://t.me/${CHANNEL_NAME}`} target="_blank" rel="noreferrer" className="tg-main-link">
-                  Подписаться на Master Мёда
+                  Подписаться на Мастер Мёда
                 </a>
               </div>
             </div>
