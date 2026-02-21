@@ -183,8 +183,18 @@ const handleClose = () => {
 
   return (
     <section id="products" className="section">
-      <h2 className="section-title">Наша пасека</h2>
-      <p className="section-subtitle">Попробуйте натуральный мёд, собранный с любовью</p>
+  <div className="section-header">
+    <motion.h2 
+      className="section-title"
+      initial={{ opacity: 0, y: -20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+    >
+      Наша продукция
+    </motion.h2>
+    <div className="title-divider"></div>
+    <p className="section-subtitle">Попробуйте натуральный мёд, собранный с любовью</p>
+  </div>
       
       <div className="products-grid">
         {productsData.map((product) => (

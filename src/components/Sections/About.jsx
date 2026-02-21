@@ -12,16 +12,17 @@ function About() {
 
   return (
     <section id="about" className="section about-section">
-      <div className="section-content">
-        <motion.h2
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="section-title"
-        >
-          О Нас
-        </motion.h2>
+        <div className="section-header">
+          <motion.h2 
+            className="section-title"
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            О Нас
+          </motion.h2>
+          <div className="title-divider"></div>
+          <p className="section-subtitle">Мастер Мёда — качество, проверенное временем</p>
 
         <div className="about-container">
           {/* Основной текстовый блок в стеклянном стиле */}
