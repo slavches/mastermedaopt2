@@ -333,7 +333,7 @@
   background: white;
   width: 95%;
   max-width: 1000px;
-  height: auto;
+  height: 600px; /* Фиксированная высота всей модалки */
   max-height: 90vh;
   border-radius: var(--radius-lg);
   position: relative;
@@ -351,17 +351,21 @@
   width: 55%;
   display: flex;
   flex-direction: column;
+  gap: 20px; /* Фиксированный зазор между главным фото и миниатюрами */
   padding: 30px;
   border-right: 1px solid #eee;
-  background: #fdfdfd;
+  background: #fdfdfda1;
+  height: 600px; /* Фиксируем высоту левой части, чтобы она не тянулась за текстом */
   flex-shrink: 0;
+  justify-content: center;
 }
 
 .modal-swiper-main {
   width: 100%;
   aspect-ratio: 1 / 1;
-  max-height: 50vh;
-  margin-bottom: 20px;
+  max-height: 400px; /* Ограничиваем главное фото */
+  margin-bottom: 0; /* Убираем margin, так как теперь есть gap у контейнера */
+  position: relative;
 }
 
 .modal-slide-img-wrapper {
@@ -370,6 +374,35 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Цвет стрелок Swiper в модалке */
+.modal-swiper-main .swiper-button-next,
+.modal-swiper-main .swiper-button-prev {
+  color: #ffffff !important; /* Белый цвет */
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); /* Тень, чтобы не терялись */
+  transition: transform 0.2s ease;
+}
+
+/* Позиция стрелок (ближе к краям) */
+.modal-swiper-main .swiper-button-prev {
+  left: 5px !important;
+}
+
+.modal-swiper-main .swiper-button-next {
+  right: 5px !important;
+}
+
+.modal-swiper-main .swiper-button-next:hover,
+.modal-swiper-main .swiper-button-prev:hover {
+  transform: scale(1.1);
+}
+
+/* Уменьшаем размер стрелок, если они кажутся слишком большими */
+.modal-swiper-main .swiper-button-next::after,
+.modal-swiper-main .swiper-button-prev::after {
+  font-size: 24px !important;
+  font-weight: bold;
 }
 
 .modal-slide-img-wrapper img {
@@ -412,8 +445,17 @@
   width: 45%;
   padding: 40px;
   display: flex;
-  flex-direction: column;
-  overflow-y: auto;
+  overflow-y: auto; /* Позволяет прокручивать текст, если он длинный */
+  background: #fff;
+}
+
+/* Тонкий красивый скроллбар для текста */
+.modal-text-content::-webkit-scrollbar {
+  width: 6px;
+}
+.modal-text-content::-webkit-scrollbar-thumb {
+  background: #eee;
+  border-radius: 10px;
 }
 
 .modal-text-content h2 { font-size: 28px; color: var(--color-text-dark); margin-bottom: 10px; }

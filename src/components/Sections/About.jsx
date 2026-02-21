@@ -20,7 +20,7 @@ function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          О Нас
+          О нас
         </motion.h2>
         <div className="title-divider"></div>
         <p className="section-subtitle">Мастер Мёда — качество, проверенное временем</p>
