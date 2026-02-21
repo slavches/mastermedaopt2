@@ -322,23 +322,27 @@
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0, 0, 0, 0.85); /* Затемнение */
+  backdrop-filter: blur(8px);
   z-index: 10000;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 20px;
 }
 
 .modal-card {
-  background: white;
+  background: #ffffff !important; /* Принудительно белый фон всей карточки */
   width: 95%;
   max-width: 1000px;
-  height: 600px; /* Фиксированная высота всей модалки */
+  height: auto;
+  min-height: 500px;
   max-height: 90vh;
   border-radius: var(--radius-lg);
   position: relative;
-  display: flex;
+  display: flex; /* Горизонтальное деление: фото слева, текст справа */
   overflow: hidden;
+  box-shadow: var(--shadow-card);
 }
 
 .modal-body {
@@ -348,28 +352,27 @@
 }
 
 .modal-gallery-container {
-  width: 55%;
+  width: 50%;
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Фиксированный зазор между главным фото и миниатюрами */
   padding: 30px;
-  border-right: 1px solid #eee;
-  background: #fdfdfda1;
-  height: 600px; /* Фиксируем высоту левой части, чтобы она не тянулась за текстом */
-  flex-shrink: 0;
-  justify-content: center;
+  background: #fdfdfd;
+  border-right: 1px solid #f0f0f0;
+  box-sizing: border-box;
 }
 
 .modal-swiper-main {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  max-height: 400px; /* Ограничиваем главное фото */
-  margin-bottom: 0; /* Убираем margin, так как теперь есть gap у контейнера */
+width: 100%;
+  flex: 1; /* Занимает всё свободное место сверху */
+  min-height: 0; /* Важно для flex-контейнеров */
+  margin-bottom: 20px;
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .modal-slide-img-wrapper {
-  width: 100%;
+width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -379,9 +382,11 @@
 /* Цвет стрелок Swiper в модалке */
 .modal-swiper-main .swiper-button-next,
 .modal-swiper-main .swiper-button-prev {
-  color: #ffffff !important; /* Белый цвет */
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); /* Тень, чтобы не терялись */
-  transition: transform 0.2s ease;
+ color: var(--color-honey) !important; /* Сделал медовыми, чтобы были видны на белом */
+  background: rgba(255, 255, 255, 0.8);
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
 }
 
 /* Позиция стрелок (ближе к краям) */
@@ -401,33 +406,33 @@
 /* Уменьшаем размер стрелок, если они кажутся слишком большими */
 .modal-swiper-main .swiper-button-next::after,
 .modal-swiper-main .swiper-button-prev::after {
-  font-size: 24px !important;
+  font-size: 18px !important;
   font-weight: bold;
 }
 
 .modal-slide-img-wrapper img {
-  max-width: 100%;
+max-width: 100%;
   max-height: 100%;
-  object-fit: contain;
+  object-fit: contain; /* Чтобы фото не обрезалось */
 }
 
 .thumbs-slider {
-  width: 100%;
-  height: 90px;
-  margin-top: auto;
+width: 100%;
+  height: 80px; /* Фиксированная высота миниатюр */
+  flex-shrink: 0; /* Чтобы не сжимались */
 }
 
 .thumb-wrapper {
-  width: 100%;
-  height: 80px;
+width: 100%;
+  height: 100%;
   border-radius: 8px;
   overflow: hidden;
-  cursor: pointer;
   border: 2px solid transparent;
   background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .thumb-wrapper img {
@@ -437,16 +442,18 @@
 }
 
 .thumbs-slider .swiper-slide-thumb-active .thumb-wrapper {
-  border-color: var(--color-honey);
-  box-shadow: 0 2px 8px rgba(210, 105, 30, 0.2);
+border-color: var(--color-honey);
 }
 
 .modal-text-content {
-  width: 45%;
+width: 50%;
   padding: 40px;
   display: flex;
-  overflow-y: auto; /* Позволяет прокручивать текст, если он длинный */
-  background: #fff;
+  flex-direction: column;
+  background: #ffffff !important; /* Фон именно текстового блока */
+  overflow-y: auto;
+  box-sizing: border-box;
+  text-align: left; /* Сброс центрирования */
 }
 
 /* Тонкий красивый скроллбар для текста */
@@ -458,28 +465,46 @@
   border-radius: 10px;
 }
 
-.modal-text-content h2 { font-size: 28px; color: var(--color-text-dark); margin-bottom: 10px; }
-.modal-text-content .modal-price-tag { font-size: 24px; font-weight: 800; color: var(--color-honey); margin: 15px 0; }
+/* Стилизация текста внутри (чтобы не был белым) */
+.modal-text-content h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--color-text-dark) !important; /* Явно темный цвет */
+  margin-bottom: 10px;
+  text-shadow: none; /* Убираем тени от Hero */
+}
+
+.modal-price-tag {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--color-honey) !important;
+  margin: 10px 0 20px 0;
+}
 .modal-text-content .modal-divider-line { height: 1px; background: #eee; margin-bottom: 20px; }
-.modal-text-content .modal-desc { font-size: 16px; line-height: 1.6; color: #5D4037; margin-bottom: 30px; }
+
+.modal-desc {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #5D4037 !important; /* Явно коричневый/темный текст */
+  margin-bottom: 30px;
+  flex-grow: 1; /* Толкает кнопку вниз */
+}
 
 .close-modal {
-  position: absolute;
+position: absolute;
   top: 15px;
   right: 15px;
-  background: white;
+  z-index: 100;
+  background: #f0f0f0;
   border: none;
-  font-size: 20px;
-  cursor: pointer;
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: var(--transition);
-  z-index: 11;
+  color: var(--color-text-dark);
 }
 
 .close-modal:hover { transform: rotate(90deg); color: var(--color-honey); }
@@ -495,10 +520,16 @@
 }
 
 @media (max-width: 850px) {
-  .modal-body { flex-direction: column; }
-  .modal-gallery-container, .modal-text-content { width: 100%; border: none; }
-  .modal-swiper-main { max-height: 40vh; }
-  .modal-card { max-height: 90vh; overflow-y: auto; }
+  .modal-card {
+    flex-direction: column; /* На мобилках фото сверху, текст снизу */
+    height: 95vh;
+  }
+  .modal-gallery-container, .modal-text-content {
+    width: 100%;
+  }
+  .modal-gallery-container {
+    height: 45%;
+  }
 }
 
 @media (max-width: 768px) {
@@ -512,20 +543,26 @@
 }
 
 .btn-telegram-wide {
-  display: flex;
+width: 100%;
+  display: flex !important;
+  flex-direction: row !important; /* Чтобы иконка и текст были в ряд */
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  background: #0088cc;
-  color: #fff;
-  padding: 12px;
+  gap: 12px;
+  background: #0088cc !important;
+  color: #ffffff !important;
+  padding: 16px;
   border-radius: var(--radius-md);
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
   transition: var(--transition);
+  margin-top: auto; /* Прижимает к низу */
 }
 
-.btn-telegram-wide:hover { opacity: 0.9; }
+.btn-telegram-wide:hover { 
+  background: #0077b5 !important;
+  transform: translateY(-2px); 
+}
 
 body {
   margin: 0;
