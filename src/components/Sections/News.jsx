@@ -1,90 +1,73 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import './Sections.css';
+import './News.css';
 
 function News() {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
+  
+  // Укажите здесь ваш логин канала (без @)
+  const CHANNEL_NAME = 'master_meda_optshop'; 
 
-  // Имитация получения новостей из Telegram
-  // В реальном приложении здесь будет API запрос к Telegram каналу
   useEffect(() => {
-    // Симуляция загрузки новостей
-    setTimeout(() => {
-      setNews([
-        {
-          id: 1,
-          title: 'Новый урожай липового мёда 2025',
-          date: '25.01.2025',
-          content: 'Рады сообщить о поступлении свежего липового мёда урожая 2025 года. Мёд собран с экологически чистых пасек в Липецкой области.',
-          image: '🍯'
-        },
-        {
-          id: 2,
-          title: 'Специальное предложение для оптовиков',
-          date: '20.01.2025',
-          content: 'При заказе от 100 кг мёда - скидка 15%. Акция действует до конца месяца.',
-          image: '💰'
-        },
-        {
-          id: 3,
-          title: 'Открытие нового склада в Москве',
-          date: '15.01.2025',
-          content: 'Теперь мы можем обеспечить быструю доставку мёда в Москве и Московской области.',
-          image: '🏢'
-        },
-        {
-          id: 4,
-          title: 'Сертификация продукции',
-          date: '10.01.2025',
-          content: 'Вся наша продукция прошла сертификацию и соответствует ГОСТам качества.',
-          image: '✅'
-        },
-      ]);
-      setLoading(false);
-    }, 500);
+    const fetchNews = async () => {
+      try {
+        // Используем бесплатный сервис-мост для получения постов в формате JSON
+        const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://tg.i-c-a.su/rss/${CHANNEL_NAME}`);
+        const data = await response.json();
+
+        if (data.status === 'ok') {
+          const items = data.items.slice(0, 6).map((item, index) => {
+            // Пытаемся вытащить картинку из контента, если её нет — ставим заглушку
+            const imgRegExp = /<img[^>]+src="([^">]+)"/;
+            const match = item.content.match(imgRegExp);
+            const imageUrl = match ? match[1] : '/images/news-placeholder.jpg';
+
+            return {
+              id: index,
+              title: item.title || 'Новость компании',
+              date: new Date(item.pubDate).toLocaleDateString('ru-RU'),
+              content: item.description.replace(/<[^>]*>?/gm, '').slice(0, 150) + '...', // чистим HTML теги
+              image: imageUrl,
+              link: item.link
+            };
+          });
+          setNews(items);
+        }
+      } catch (error) {
+        console.error("Ошибка загрузки новостей:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNews();
   }, []);
 
   return (
     <section id="news" className="section news-section">
       <div className="section-content">
-        <motion.h2
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="section-title"
-        >
-          Новости из Telegram
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className="section-description"
-        >
-          Следите за нашими обновлениями и акциями в Telegram канале
-        </motion.p>
+        <h2 className="section-title">Новости из Telegram</h2>
+        <p className="section-description">Свежие события с наших пасек и выгодные предложения</p>
+        
         {loading ? (
-          <div className="loading">Загрузка новостей...</div>
+          <div className="loading">Синхронизация с каналом...</div>
         ) : (
           <div className="news-grid">
             {news.map((item, index) => (
-              <motion.article
-                key={item.id}
+              <motion.article 
+                key={item.id} 
                 className="news-card"
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
-                whileHover={{ scale: 1.03, y: -5 }}
+                whileHover={{ y: -5 }}
               >
-                <div className="news-image">{item.image}</div>
-                <div className="news-content">
+                <div className="news-img-container">
+                  <img src={item.image} alt={item.title} />
+                </div>
+                <div className="news-body">
                   <div className="news-date">{item.date}</div>
                   <h3>{item.title}</h3>
                   <p>{item.content}</p>
+                  <a href={item.link} target="_blank" rel="noreferrer" className="tg-link">Читать в Telegram →</a>
                 </div>
               </motion.article>
             ))}

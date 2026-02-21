@@ -1,8 +1,8 @@
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     const { name, company, phone, volume, message } = req.body;
-    const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;  // ← Из .env
-    const CHAT_ID = process.env.TELEGRAM_CHAT_ID;      // ← Из .env
+    const TELEGRAM_TOKEN = process.env.REACT_APP_TG_TOKEN;  
+    const CHAT_ID = process.env.REACT_APP_TG_CHAT_ID;
 
     const text = `
 🍯 **Новая заявка с сайта!**
