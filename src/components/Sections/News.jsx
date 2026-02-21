@@ -6,51 +6,44 @@ function News() {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
   
-  // Укажите здесь ваш логин канала (без @)
   const CHANNEL_NAME = 'mastermedaspb'; 
 
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        // Запрос к RSS-мосту через сервис rss2json
         const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://tg.snotra.org/rss/${CHANNEL_NAME}`);
         const data = await response.json();
 
         if (data.status === 'ok') {
           const items = data.items.slice(0, 6).map((item, index) => {
-  
-  // 1. Пытаемся найти картинку везде, где она может быть
-  let imageUrl = null;
+            let imageUrl = null;
 
-  // Ищем в поле enclosure
-  if (item.enclosure?.link) {
-    imageUrl = item.enclosure.link;
-  }
+            if (item.enclosure?.link) {
+              imageUrl = item.enclosure.link;
+            }
 
-  // Если нет, ищем регуляркой во всех полях текста
-  if (!imageUrl) {
-    const imgRegExp = /src="([^">]+)"/; // Упростили регулярку для надежности
-    const searchString = (item.content || "") + (item.description || "");
-    const match = searchString.match(imgRegExp);
-    imageUrl = match ? match[1] : null;
-  }
+            if (!imageUrl) {
+              const imgRegExp = /src="([^">]+)"/; 
+              const searchString = (item.content || "") + (item.description || "");
+              const match = searchString.match(imgRegExp);
+              imageUrl = match ? match[1] : null;
+            }
 
-  // 2. Если фото всё ещё нет, проверим, нет ли ссылки в самом объекте (некоторые мосты так делают)
-  if (!imageUrl && item.thumbnail) {
-    imageUrl = item.thumbnail;
-  }
+            if (!imageUrl && item.thumbnail) {
+              imageUrl = item.thumbnail;
+            }
 
-  return {
-    id: index,
-    title: item.title && item.title !== CHANNEL_NAME ? item.title : 'Новость компании',
-    date: new Date(item.pubDate).toLocaleDateString('ru-RU'),
-    content: (item.description || "")
-      .replace(/<[^>]*>?/gm, '') 
-      .slice(0, 150) + '...',
-    image: imageUrl, // Если здесь null, картинка просто не отобразится (пустой блок)
-    link: item.link
-  };
-});
+            return {
+              id: index,
+              title: item.title && item.title !== CHANNEL_NAME ? item.title : 'Новость компании',
+              date: new Date(item.pubDate).toLocaleDateString('ru-RU'),
+              content: (item.description || "")
+                .replace(/<[^>]*>?/gm, '') 
+                .slice(0, 150) + '...',
+              image: imageUrl,
+              link: item.link
+            };
+          }); // <-- Здесь была ошибка (не хватало этой скобки)
           setNews(items);
         }
       } catch (error) {
@@ -61,7 +54,7 @@ function News() {
     };
 
     fetchNews();
-  }, [CHANNEL_NAME]); // Все лишние скобки и дубликаты вызовов удалены
+  }, [CHANNEL_NAME]);
 
   return (
     <section id="news" className="section news-section">
@@ -84,7 +77,11 @@ function News() {
                 whileHover={{ y: -5 }}
               >
                 <div className="news-img-container">
-                  <img src={item.image} alt={item.title} />
+                  {item.image ? (
+                    <img src={item.image} alt={item.title} />
+                  ) : (
+                    <div className="no-image-placeholder">🐝</div>
+                  )}
                 </div>
                 <div className="news-body">
                   <div className="news-date">{item.date}</div>
