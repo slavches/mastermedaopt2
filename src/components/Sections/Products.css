@@ -132,39 +132,3 @@
 
 /* Убираем все старые стили .modal-..., так как они теперь в sections.css */
 
-@media (max-width: 850px) {
-  .modal-card {
-    flex-direction: column !important; /* Фото сверху, текст снизу */
-    height: auto;
-    max-height: 90vh;
-    width: 95%;
-    margin: 20px auto;
-  }
-
-  .modal-gallery-container, 
-  .modal-text-content {
-    width: 100% !important;
-    height: auto;
-  }
-
-  .modal-gallery-container {
-    padding: 20px;
-    height: 300px; /* Фиксируем высоту фото на мобилках */
-    border-right: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .modal-text-content {
-    padding: 20px;
-    overflow-y: visible; /* Скроллить будем всю карточку, если надо */
-  }
-
-  .modal-text-content h2 {
-    font-size: 1.5rem !important;
-  }
-
-  .btn-telegram-wide {
-    padding: 14px;
-    font-size: 1rem;
-  }
-}

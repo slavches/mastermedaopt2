@@ -319,8 +319,8 @@ html {
 position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.4); /* Темный прозрачный фон */
-  backdrop-filter: blur(15px); /* Сильное размытие заднего плана */
-  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(100px); /* Сильное размытие заднего плана */
+  -webkit-backdrop-filter: blur(100px);
   z-index: 99999;
   display: flex;
   align-items: center;
@@ -439,7 +439,7 @@ width: 100%;
 }
 
 .swiper-slide-thumb-active .thumb-wrapper {
-  border-color: #FFD700; /* Золотая рамка активной превьюшки */
+  border-color: #d2691e; /* Золотая рамка активной превьюшки */
   background: rgba(255, 255, 255, 0.2);
 }
 
@@ -481,7 +481,7 @@ width: 100%;
 .modal-price-tag {
 font-size: 2rem;
   font-weight: 800;
-  color: #FFD700 !important; /* Цена золотая */
+  color: #d2691e !important; /* Цена золотая */
   margin-bottom: 20px;
 }
 
@@ -505,7 +505,7 @@ font-size: 1.05rem;
   top: 20px;
   right: 20px;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
   border: none;
   color: white;
   width: 40px;
@@ -519,44 +519,6 @@ font-size: 1.05rem;
 
 .close-modal:hover {
   background: rgba(255, 255, 255, 0.4);
-}
-
-@media (max-width: 1024px) {
-  .home-hero-centered {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  .welcome-card { max-width: 100%; }
-  .hero-form-centered-wrapper { max-width: 400px; }
-}
-
-/* АДАПТИВ */
-@media (max-width: 850px) {
-  .modal-card {
-    flex-direction: column;
-    height: 90vh;
-    max-height: none;
-  }
-  .modal-gallery-container, .modal-text-content {
-    width: 100%;
-    height: auto;
-  }
-  .modal-gallery-container {
-    height: 45%;
-    border-right: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-}
-
-@media (max-width: 768px) {
-  .hero-with-slider { height: auto; min-height: 100vh; }
-  .relative-content { padding: 100px 15px 30px; }
-  .main-title { font-size: 1.8rem; }
-}
-
-@media (max-width: 480px) {
-  .products-grid { grid-template-columns: 1fr; }
 }
 
 /* 3. ФИКС КНОПКИ TELEGRAM (Чтобы не была вертикальной) */
@@ -586,4 +548,114 @@ transform: translateY(-2px);
 body {
   margin: 0;
   padding: 0;
+}
+
+@media (max-width: 1024px) {
+  .home-hero-centered {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .welcome-card { max-width: 100%; }
+  .hero-form-centered-wrapper { max-width: 400px; }
+}
+
+/* АДАПТИВ */
+@media (max-width: 850px) {
+  .modal-overlay {
+    padding: 10px; /* Уменьшаем отступы вокруг модалки */
+    align-items: flex-start; /* Чтобы модалка начиналась сверху, а не висела в центре */
+    overflow-y: auto; /* Разрешаем скролл всей подложки */
+  }
+
+  .modal-card {
+    flex-direction: column !important;
+    height: auto !important; /* Убираем жесткую высоту 90vh */
+    max-height: none !important;
+    margin-top: 70px !important; /* ОТСТУП ОТ ШАПКИ */
+    margin-bottom: 20px;
+    width: 100%;
+    overflow: visible !important; /* Даем карточке расти вниз */
+  }
+
+  .modal-body { 
+    flex-direction: column;
+    height: auto;
+  }
+
+  .modal-gallery-container, .modal-text-content {
+    width: 100%;
+    height: auto;
+  }
+  .modal-gallery-container {
+    width: 100% !important;
+    height: 550px !important; /* Увеличиваем высоту фото */
+    padding: 15px !important;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* ТЕКСТОВАЯ ЧАСТЬ */
+  .modal-text-content {
+    width: 100% !important;
+    height: auto !important;
+    padding: 25px 20px !important;
+    overflow-y: visible !important; /* Отключаем внутренний скролл, скроллим всё окно */
+    background: transparent;
+  }
+
+  .modal-text-content h2 {
+    font-size: 1.6rem !important; /* Чуть меньше заголовок на мобилках */
+    margin-bottom: 10px !important;
+    text-align: left;
+  }
+
+  .modal-price-tag {
+    font-size: 1.5rem !important;
+    margin-bottom: 15px !important;
+  }
+
+  /* ОПИСАНИЕ (Modal Desc) - теперь оно будет видно */
+  .modal-desc {
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+    color: rgba(255, 255, 255, 0.95) !important;
+    margin-bottom: 25px !important;
+    display: block !important;
+    height: auto !important;
+  }
+
+  .btn-telegram-wide {
+    position: sticky;
+    bottom: 0;
+    margin-top: 20px;
+    padding: 20px !important;
+    border-radius: 12px;
+  }
+
+  /* Кнопка закрытия — делаем заметнее на мобилках */
+  .close-modal {
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-with-slider { height: auto; min-height: 100vh; }
+  .relative-content { padding: 100px 15px 30px; }
+  .main-title { font-size: 1.8rem; }
+}
+
+@media (max-width: 480px) {
+  .products-grid { grid-template-columns: 1fr; }
+  
+  .modal-gallery-container {
+    height: 320px !important;
+  }
+  .modal-text-content h2 {
+    font-size: 1.4rem !important;
+  }
 }
