@@ -62,21 +62,12 @@ useEffect(() => {
 }, [currentSection]); // Оставляем currentSection
 useEffect(() => {
   if (isFormOpen || isPolicyOpen) {
-    // Вычисляем ширину скроллбара, чтобы страница не "дергалась" влево-вправо
-    const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
-    
-    document.body.style.overflow = 'hidden';
-    document.body.style.paddingRight = `${scrollBarWidth}px`;
+    document.body.classList.add('modal-open');
   } else {
-    document.body.style.overflow = '';
-    document.body.style.paddingRight = '';
+    document.body.classList.remove('modal-open');
   }
 
-  // Очистка при размонтировании
-  return () => {
-    document.body.style.overflow = '';
-    document.body.style.paddingRight = '';
-  };
+  return () => document.body.classList.remove('modal-open');
 }, [isFormOpen, isPolicyOpen]);
   const handleProductSelect = (productId) => {
     setSelectedProduct(productId);

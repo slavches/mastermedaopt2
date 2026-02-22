@@ -1,17 +1,4 @@
-/* --- ГЛОБАЛЬНЫЕ НАСТРОЙКИ СКРОЛЛА --- */
-html {
-  scroll-behavior: smooth;
-}
 
-/* Блокировка скролла при открытой модалке (дублируем для надежности) */
-html.modal-open, 
-body.modal-open {
-  scroll-behavior: auto !important;
-  overflow: hidden !important;
-  height: 100vh;
-  position: fixed;
-  width: 100%;
-}
 
 /* --- СЕКЦИЯ ТОВАРОВ --- */
 .products-section {
@@ -121,13 +108,19 @@ body.modal-open {
   position: absolute;
   top: 15px;
   right: 15px;
+  /* Ключевые изменения здесь: */
+  width: fit-content;    /* Ширина точно по тексту */
+  display: inline-block; /* Чтобы не растягивался как блок */
+  white-space: nowrap;   /* Чтобы текст не переносился */
   background: #D2691E;
   color: white;
-  padding: 5px 12px;
+  padding: 4px 12px;     /* Внутренние отступы вокруг текста */
   border-radius: 20px;
   font-size: 0.75rem;
   font-weight: 700;
   z-index: 10;
+  /* Опционально: легкая тень, чтобы лучше читалось на фото */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
 /* --- ВСПОМОГАТЕЛЬНЫЕ СТИЛИ --- */

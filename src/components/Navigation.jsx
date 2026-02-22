@@ -21,21 +21,22 @@
     ];
 
     useEffect(() => {
-      if (isOpen) {
-    document.documentElement.style.overflow = 'hidden';
-    document.body.style.overflow = 'hidden';
+  // Блокируем скролл ТОЛЬКО если открыто мобильное меню
+  // Для модалки заявки блокировка обычно идет в самом компоненте модалки
+  if (isOpen) {
+   // document.body.style.overflow = 'hidden';//
   } else {
-    document.documentElement.style.overflow = '';
     document.body.style.overflow = '';
-    }
-      const handleScroll = () => setIsScrolled(window.scrollY > 20);
-      window.addEventListener('scroll', handleScroll, { passive: true });
-      return () => {
-        window.removeEventListener('scroll', handleScroll);
-        document.documentElement.style.overflow = '';
-        document.body.style.overflow = '';
-      };
-    }, [isOpen]);
+  }
+
+  const handleScroll = () => setIsScrolled(window.scrollY > 20);
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  
+  return () => {
+    window.removeEventListener('scroll', handleScroll);
+    document.body.style.overflow = ''; // Сброс при размонтировании
+  };
+}, [isOpen]);
 
     const renderLink = (section) => (
       <motion.button
