@@ -53,12 +53,12 @@ function About() {
         <div className="features-grid">
           {features.map((feature, index) => (
             <motion.div
-              initial={{ opacity: 0 }} // Убрали y: 20
-  whileInView={{ opacity: 1 }}
-  viewport={{ once: true, amount: 0.2 }}
-  transition={{ duration: 0.5 }}
-  style={{ willChange: "opacity" }} // Подсказка для браузера
-  className="feature-card glass-card"
+            key={index}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }} 
+            transition={{ duration: 0.4, delay: index * 0.1 }}
+            className="feature-card glass-card"
             >
               <div className="feature-icon">{feature.icon}</div>
               <h3>{feature.title}</h3>
