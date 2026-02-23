@@ -28,12 +28,11 @@ function Partners() {
 
   return (
     <section id="partners" className="section partners-section">
-      {/* ЕДИНЫЙ СТИЛЬ ЗАГОЛОВКА */}
       <div className="section-header">
         <motion.h2
           className="section-title"
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
@@ -56,10 +55,11 @@ function Partners() {
           <motion.div
             key={index}
             className="partner-card"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }} // Убрали y: 30
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: index * 0.1, duration: 0.5 }}
+            transition={{ delay: index * 0.1, duration: 0.4 }}
+            style={{ willChange: "opacity" }} // Ускоряем рендер
             whileHover={{ y: -8 }}
           >
             <div className="partner-logo-box">

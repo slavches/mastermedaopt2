@@ -6,7 +6,6 @@
 
 .partners-grid {
   display: grid;
-  /* Для партнёров сделаем 2 в ряд на десктопе, так как есть длинные описания */
   grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
   gap: 30px;
   max-width: 1200px;
@@ -16,14 +15,20 @@
 .partner-card {
   background: #fdfdfd;
   border: 1px solid rgba(0,0,0,0.05);
-  border-radius: var(--radius-lg); /* 24px */
+  border-radius: var(--radius-lg); 
   padding: 40px 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  transition: all 0.4s ease;
   box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+  
+  /* ФИКС МИГАНИЯ И ПЛАВНОСТЬ */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  /* transition только для hover эффектов */
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease, background 0.4s ease;
 }
 
 .partner-card:hover {
@@ -32,7 +37,6 @@
   box-shadow: 0 15px 40px rgba(210, 105, 30, 0.1);
 }
 
-/* Контейнер для логотипа */
 .partner-logo-box {
   width: 80px;
   height: 80px;
@@ -47,7 +51,7 @@
 }
 
 .partner-img {
-  width: 65%; /* Логотипы внутри бокса лучше смотрятся с отступами */
+  width: 65%;
   height: 65%;
   object-fit: contain;
 }
@@ -66,3 +70,9 @@
   margin: 0;
 }
 
+/* На мобильных убираем ховер-эффект подъема, так как он мешает скроллу пальцем */
+@media (max-width: 768px) {
+  .partner-card:hover {
+    transform: none;
+  }
+}
