@@ -241,6 +241,14 @@ html {
   transition: var(--transition);
 }
 
+/* Глобальная защита для всех стеклянных элементов */
+.glass-morphism, .product-card, .about-glass-panel, .feature-card {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0); /* Принудительное 3D-ускорение */
+}
+
 .product-card {
   padding: 0;
   border: none;

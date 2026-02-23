@@ -16,8 +16,7 @@ function About() {
       <div className="section-header">
         <motion.h2 
           className="section-title"
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+
           viewport={{ once: true }}
         >
           О нас
@@ -29,8 +28,7 @@ function About() {
       <div className="about-container">
         {/* Основной текстовый блок */}
         <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
+
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
           className="about-glass-panel"
@@ -57,7 +55,7 @@ function About() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }} 
-            transition={{ duration: 0.4, delay: index * 0.1 }}
+            transition={{ duration: 0.3, delay: index * 0.1 }}
             className="feature-card glass-card"
             >
               <div className="feature-icon">{feature.icon}</div>
