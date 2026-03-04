@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay, Thumbs, FreeMode } from 'swiper/modules';
 import './Products.css';
@@ -11,253 +11,364 @@ import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import 'swiper/css/free-mode';
 
+// 1. Дополненный массив (твои 9 + мои 11)
 const productsData = [
-
   {
-
     id: 1,
-
-    category: "Новинка",
-
+    filterCategory: "cream",
+    category: "Крем-мёд",
     title: "Мёд с имбирём",
-
     price: "380 ₽",
-
     weight: "240 гр",
-
     images: [
-
       "/images/imbir240/imbir2401.webp",
-
       "/images/imbir240/imbir2402.webp",
-
       "/images/imbir240/imbir2403.webp",
-
       "/images/imbir240/imbir2404.webp",
-
       "/images/imbir240/imbir2405.webp"
-
     ],
-
-    description: "Натуральный цветочный мёд с добавлением тертого корня имбиря. Идеальное сочетание пользы и пряного вкуса для вашего иммунитета."
-
+    description: "Натуральный цветочный мёд с имбирем."
   },
-
   {
-
     id: 2,
-
-    category: "Новинка",
-
-    title: "Подарочный набор мёда 3 баночки по 240 грамм",
-
+    filterCategory: "gift",
+    category: "Набор",
+    title: "Подарочный набор 3 баночки",
     price: "720 ₽",
-
     weight: "1 коробка",
-
     images: [
-
       "/images/3x240happy/3х240happy1.webp",
-
       "/images/3x240happy/3х240happy2.webp",
-
       "/images/3x240happy/3х240happy3.webp",
-
       "/images/3x240happy/3х240happy4.webp",
-
       "/images/3x240happy/3х240happy5.webp"
-
     ],
-
-    description: "Вкусный набор с тремя вкусами."
-
+    description: "Вкусный набор."
   },
-
   {
-
     id: 3,
-
-    category: "Новинка",
-
-    title: "Подарочный набор мёда 2 баночки по 330 грамм",
-
+    filterCategory: "gift",
+    category: "Набор",
+    title: "Подарочный набор 2 баночки",
     price: "720 ₽",
-
     weight: "1 коробка",
-
     images: [
-
       "/images/2х330nabor/2х330nabor1.webp",
-
       "/images/2х330nabor/2х330nabor2.webp",
-
       "/images/2х330nabor/2х330nabor3.webp"
-
     ],
-
-    description: "Вкусный набор с двумя вкусами."
-
+    description: "Вкусный набор."
   },
-
   {
-
     id: 4,
-
-    category: "Новинка",
-
-    title: "Разнотравие 500 грамм",
-
+    filterCategory: "classic",
+    category: "Мёд",
+    title: "Разнотравие",
     price: "600 ₽",
-
-    weight: "1 баночка",
-
+    weight: "500 грамм",
     images: [
-
       "/images/raznotravie500/raznotravie5001.webp",
-
       "/images/raznotravie500/raznotravie5002.webp",
-
       "/images/raznotravie500/raznotravie5003.webp",
-
       "/images/raznotravie500/raznotravie5004.webp",
-
       "/images/raznotravie500/raznotravie5005.webp"
-
     ],
-
-    description: "Вкусный набор с двумя вкусами."
-
+    description: "Натуральное разнотравье."
   },
-
   {
-
     id: 5,
-
-    category: "Новинка",
-
-    title: "Липовый 330 грамм",
-
+    filterCategory: "classic",
+    category: "Мёд",
+    title: "Липовый",
     price: "700 ₽",
-
-    weight: "1 баночка",
-
+    weight: "330 грамм",
     images: [
-
       "/images/lipovii330/lipovii3301.webp",
-
       "/images/lipovii330/lipovii3302.webp"
-
     ],
-
     description: "Вкусный липовый мёд."
-
   },
-
   {
-
     id: 6,
-
-    category: "Новинка",
-
-    title: "Разноцветье 330 грамм",
-
+    filterCategory: "classic",
+    category: "Мёд",
+    title: "Разноцветье",
     price: "700 ₽",
-
-    weight: "1 баночка",
-
+    weight: "330 грамм",
     images: [
-
       "/images/raznocvetie330/raznocvetie3301.webp",
-
       "/images/raznocvetie330/raznocvetie3302.webp",
-
       "/images/raznocvetie330/raznocvetie3303.webp",
-
-      "/images/raznocvetie330/raznocvetie3304.webp"      
-
+      "/images/raznocvetie330/raznocvetie3304.webp"
     ],
-
-    description: "Вкусный мёд в маленькой баночке."
-
+    description: "Мёд в маленькой баночке."
   },
-
   {
-
     id: 7,
-
-    category: "Новинка",
-
-    title: "7.5 кг",
-
+    filterCategory: "bulk",
+    category: "Опт",
+    title: "Цветочный (ведро)",
     price: "5000 ₽",
-
-    weight: "1 баночка",
-
+    weight: "7.5 кг",
     images: [
-
-      "/images/75kg/cvetochnii75.webp"    
-
+      "/images/75kg/cvetochnii75.webp"
     ],
-
-    description: "Удобная баночка для кондитерских."
-
+    description: "Для кондитеров."
   },
-
   {
-
     id: 8,
-
-    category: "Новинка",
-
-    title: "33.5 кг",
-
+    filterCategory: "bulk",
+    category: "Опт",
+    title: "Цветочный (куб)",
     price: "9000 ₽",
-
-    weight: "1 кубик",
-
+    weight: "33.5 кг",
     images: [
-
-      "/images/335kg/cvetochnii335.webp"    
-
+      "/images/cvetochnii335/cvetochnii335.webp"
     ],
-
-    description: "Большой куботейнер для кондитерских."
-
+    description: "Для производств."
   },
-
   {
-
     id: 9,
-
-    category: "Новинка",
-
-    title: "Башкирский мёд 400 г",
-
+    filterCategory: "premium",
+    category: "Башкирский мёд",
+    title: "Башкирский мёд",
     price: "700 ₽",
-
-    weight: "1 баночка",
-
+    weight: "400 г",
     images: [
-
-      "/images/bashmed400/bashmed4001.webp",   
-
-      "/images/bashmed400/bashmed4002.webp",  
-
-      "/images/bashmed400/bashmed4003.webp",  
-
-      "/images/bashmed400/bashmed4004.webp",  
-
-      "/images/bashmed400/bashmed4005.webp" 
-
+      "/images/bashmed400/bashmed4001.webp",
+      "/images/bashmed400/bashmed4002.webp",
+      "/images/bashmed400/bashmed4003.webp",
+      "/images/bashmed400/bashmed4004.webp",
+      "/images/bashmed400/bashmed4005.webp"
     ],
-
-    description: "Слава о нем ходит по всему миру. Он является излюбленным лакомством ценителей мёда. Целительные свойства мёда много веков используются людьми для сохранения и поддержания здоровья. Ценность и неповторимость башкирского мёда обусловлены уникальностью природы Башкортостана.Такое многообразие цветущих медоносных растений (около 400 видов), которые являются ценнейшими лекарственными растениями, вряд ли встретишь ещё в каком-нибудь уголке России. Более трети территории Башкортостана покрыто лесами, сосредотачивающими самые обширные в стране площади медоносной растительности. Башкирский мёд своей славой обязан липе, она является основным медоносом республики. Липовый башкирский мёд прозрачен, светло-янтарного цвета с легким зеленоватым оттенком.Он обладает антибактериальными свойствами, содержит противомикробные вещества. Прекрасное профилактическое и лечебное средство против простудных и легочных заболеваний. Рекомендуется при воспалении желудочно-кишечного тракта, сердечных, почечных болезнях. Оказывает хорошее местное действие при лечении ран и ожогов. Не менее ценен и хорош башкирский сборно-цветочный мёд (лесной, луговой, горный), собранный не с одного, а с многих медоносов. Его используют как диетический продукт при желудочно-кишечных заболеваниях, для улучшения кровообращения и укрепления капиллярных сосудов. Он вобрал в себя силу десятков лекарственных растений, их нектар, пыльцу.Башкирский мёд в разные годы получал высокие награды выставок, ярмарок, конкурсов, как российских, так и международных, в том числе медали выставок конгрессов Апимондии.Условия хранения При температуре от 5 ºC до 20 ºC, в защищенном от прямых солнечных лучей местеСостав. Мёд натуральный 100%"  }
-
+    description: "Знаменитый башкирский мёд."
+  },
+  {
+    id: 10,
+    filterCategory: "classic",
+    category: "Мёд",
+    title: "Гречишный мёд",
+    price: "650 ₽",
+    weight: "500 гр",
+    images: [
+      "/images/placeholder.webp"
+    ],
+    description: "Насыщенный вкус."
+  },
+  {
+    id: 11,
+    filterCategory: "cream",
+    category: "Крем-мёд",
+    title: "Мёд с малиной",
+    price: "450 ₽",
+    weight: "240 гр",
+    images: [
+      "/images/malina240/malina240.webp"
+    ],
+    description: "Нежный десерт."
+  },
+  {
+    id: 12,
+    filterCategory: "bulk",
+    category: "Опт",
+    title: "Гречишный (куб)",
+    price: "10000 ₽",
+    weight: "33.5 кг",
+    images: [
+      "/images/grechishnii335/grechishnii335.webp"
+    ],
+    description: "Насыщенный вкус."
+  },
+  {
+    id: 13,
+    filterCategory: "bulk",
+    category: "Опт",
+    title: "Подсолнечниковый (куб)",
+    price: "8000 ₽",
+    weight: "33.5 кг",
+    images: [
+      "/images/podsolnyh335/podsolnyh335.webp"
+    ],
+    description: "Тонкий аромат."
+  },
+  {
+    id: 14,
+    filterCategory: "gift",
+    category: "Набор",
+    title: "Деревянный бокс Max",
+    price: "2500 ₽",
+    weight: "1.5 кг",
+    images: [
+      "/images/placeholder.webp"
+    ],
+    description: "VIP подарок."
+  },
+  {
+    id: 15,
+    filterCategory: "classic",
+    category: "Мёд",
+    title: "Донниковый мёд",
+    price: "550 ₽",
+    weight: "500 гр",
+    images: [
+      "/images/placeholder.webp"
+    ],
+    description: "Мягкий ванильный вкус."
+  },
+  {
+    id: 16,
+    filterCategory: "premium",
+    category: "Горный",
+    title: "Алтайское высокогорье",
+    price: "950 ₽",
+    weight: "500 гр",
+    images: [
+      "/images/placeholder.webp"
+    ],
+    description: "С чистых гор."
+  },
+  {
+    id: 17,
+    filterCategory: "cream",
+    category: "Крем-мёд",
+    title: "Мёд с кедровым орехом",
+    price: "580 ₽",
+    weight: "250 гр",
+    images: [
+      "/images/placeholder.webp"
+    ],
+    description: "Сибирское здоровье."
+  },
+  {
+    id: 18,
+    filterCategory: "gift",
+    category: "Набор",
+    title: "Медовое ассорти Mini",
+    price: "550 ₽",
+    weight: "3 баночки",
+    images: [
+      "/images/placeholder.webp"
+    ],
+    description: "Пробный набор."
+  },
+  {
+    id: 19,
+    filterCategory: "bulk",
+    category: "Опт",
+    title: "Липовый мёд (куб)",
+    price: "15000 ₽",
+    weight: "33.5 кг",
+    images: [
+      "/images/lipovii335/lipovii335.webp"
+    ],
+    description: "Оптовая поставка."
+  },
+  {
+    id: 20,
+    filterCategory: "classic",
+    category: "Мёд",
+    title: "Подсолнечный мёд",
+    price: "400 ₽",
+    weight: "1 кг",
+    images: [
+      "/images/placeholder.webp"
+    ],
+    description: "Яркое послевкусие."
+  },
+  {
+    id: 21,
+    filterCategory: "Magicbee",
+    category: "Мёд",
+    title: "Донские степи",
+    price: "500 ₽",
+    weight: "240г.-1кг.",
+    images: [
+      "/images/donskie/donskie1.webp",
+      "/images/donskie/donskie2.webp",
+      "/images/donskie/donskie3.webp"
+    ],
+    description: "Яркое послевкусие."
+  },
+  {
+    id: 22,
+    filterCategory: "Magicbee",
+    category: "Мёд",
+    title: "Подсолнечный мёд",
+    price: "400 ₽",
+    weight: "1 кг",
+    images: [
+      "/images/placeholder.webp"
+    ],
+    description: "Яркое послевкусие."
+  },
+  {
+    id: 23,
+    filterCategory: "Magicbee",
+    category: "Мёд",
+    title: "Подсолнечный мёд",
+    price: "400 ₽",
+    weight: "1 кг",
+    images: [
+      "/images/placeholder.webp"
+    ],
+    description: "Яркое послевкусие."
+  },
+  {
+    id: 24,
+    filterCategory: "Magicbee",
+    category: "Мёд",
+    title: "Подсолнечный мёд",
+    price: "400 ₽",
+    weight: "1 кг",
+    images: [
+      "/images/placeholder.webp"
+    ],
+    description: "Яркое послевкусие."
+  },
+  {
+    id: 25,
+    filterCategory: "Magicbee",
+    category: "Мёд",
+    title: "Подсолнечный мёд",
+    price: "400 ₽",
+    weight: "1 кг",
+    images: [
+      "/images/placeholder.webp"
+    ],
+    description: "Яркое послевкусие."
+  },
+  {
+    id: 26,
+    filterCategory: "Magicbee",
+    category: "Мёд",
+    title: "Подсолнечный мёд",
+    price: "400 ₽",
+    weight: "1 кг",
+    images: [
+      "/images/placeholder.webp"
+    ],
+    description: "Яркое послевкусие."
+  }
 ];
 
 const Products = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const [activeFilter, setActiveFilter] = useState('all');
+
+  const filterButtons = [
+    { id: 'all', label: 'Все' },
+    { id: 'classic', label: 'Классика' },
+    { id: 'cream', label: 'С добавками' },
+    { id: 'gift', label: 'Наборы' },
+    { id: 'bulk', label: 'Опт (тара)' },
+    { id: 'premium', label: 'Башкирский мёд' },
+    { id: 'Magicbee', label: 'Magic Bee Регионы России' }
+  ];
+
+  const filteredProducts = activeFilter === 'all' 
+    ? productsData 
+    : productsData.filter(p => p.filterCategory === activeFilter);
 
   const openModal = (product) => {
     const scrollY = window.scrollY;
@@ -303,48 +414,81 @@ const Products = () => {
         <p className="section-subtitle">Попробуйте натуральный мёд, собранный с любовью</p>
       </div>
       
-      <div className="products-grid">
-        {productsData.map((product) => (
-          <div 
-            key={product.id} 
-            className="product-card"
-            onClick={() => openModal(product)}
+      <div className="filter-container">
+        {filterButtons.map(btn => (
+          <button
+            key={btn.id}
+            onClick={() => setActiveFilter(btn.id)}
+            className={`filter-btn ${activeFilter === btn.id ? 'active' : ''}`}
           >
-            <div className="card-image-wrapper">
-              <div className="card-badge">{product.category}</div>
-              <Swiper
-                modules={[Pagination, Autoplay]}
-                speed={400}
-                pagination={{ clickable: true }}
-                autoplay={{ delay: 1200, disableOnInteraction: false }}
-                onSwiper={(swiper) => swiper.autoplay.stop()}
-                onMouseEnter={(e) => {
-                  const sw = e.currentTarget.querySelector('.swiper')?.swiper;
-                  if (sw) sw.autoplay.start();
-                }}
-                onMouseLeave={(e) => {
-                  const sw = e.currentTarget.querySelector('.swiper')?.swiper;
-                  if (sw) { sw.autoplay.stop(); sw.slideTo(0); }
-                }}
-                className="card-slider"
-              >
-                {product.images.map((img, index) => (
-                  <SwiperSlide key={index}>
-                    <img src={img} alt={product.title} loading="lazy" />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
-
-            <div className="product-card-body">
-              <div className="product-card-meta">
-                <span className="product-card-price">{product.price}</span>
-                <span className="product-card-weight">{product.weight}</span>
-              </div>
-              <h3 className="product-card-title">{product.title}</h3>
-            </div>
-          </div>
+            {btn.label}
+          </button>
         ))}
+      </div>
+
+{/* СЕТКА ТОВАРОВ */}
+      <div className="products-grid-container"> {/* Обертка для стабильности */}
+        <AnimatePresence mode='wait'>
+          <motion.div
+            key={activeFilter} // Ключ на контейнере, чтобы анимировать всю сетку целиком
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+            className="products-grid"
+          >
+            {filteredProducts.map((product) => (
+              <div 
+  key={product.id}
+  className="product-card"
+  onClick={() => openModal(product)}
+>
+  {/* Перенесли события сюда для лучшего отклика */}
+  <div 
+    className="card-image-wrapper"
+    onMouseEnter={(e) => {
+      const swiperEl = e.currentTarget.querySelector('.swiper');
+      if (swiperEl && swiperEl.swiper) swiperEl.swiper.autoplay.start();
+    }}
+    onMouseLeave={(e) => {
+      const swiperEl = e.currentTarget.querySelector('.swiper');
+      if (swiperEl && swiperEl.swiper) { 
+        swiperEl.swiper.autoplay.stop(); 
+        swiperEl.swiper.slideTo(0); 
+      }
+    }}
+  >
+    <div className="card-badge">{product.category}</div>
+    <Swiper
+      modules={[Pagination, Autoplay]}
+      speed={400}
+      pagination={{ clickable: true }}
+      autoplay={{ 
+        delay: 1000, 
+        disableOnInteraction: false 
+      }}
+      onSwiper={(swiper) => swiper.autoplay.stop()}
+      className="card-slider"
+    >
+      {product.images.map((img, index) => (
+        <SwiperSlide key={index}>
+          <img src={img} alt={product.title} loading="lazy" />
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  </div>
+
+  <div className="product-card-body">
+    <div className="product-card-meta">
+      <span className="product-card-price">{product.price}</span>
+      <span className="product-card-weight">{product.weight}</span>
+    </div>
+    <h3 className="product-card-title">{product.title}</h3>
+  </div>
+</div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       {selectedProduct && (
@@ -396,7 +540,7 @@ const Products = () => {
                 <p className="modal-desc">{selectedProduct.description}</p>
                 
                 <a 
-                  href="https://t.me/your_bot" 
+                  href={`https://t.me/your_bot?text=Здравствуйте! Хочу заказать: ${selectedProduct.title}`} 
                   target="_blank" 
                   rel="noreferrer" 
                   className="btn-telegram-wide"

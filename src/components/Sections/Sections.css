@@ -260,9 +260,18 @@ html {
 
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px;
-  margin-top: 30px;
+  /* Четко 4 колонки */
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 40px auto;
+}
+
+.products-grid-container {
+  width: 100%;
+  min-height: 600px; /* Чтобы подвал не прыгал вверх при смене категории */
+  position: relative;
 }
 
 .card-image-wrapper {
