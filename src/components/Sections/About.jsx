@@ -64,6 +64,48 @@ function About() {
             </motion.div>
           ))}
         </div>
+        
+        {/* НОВЫЙ БЛОК: Контакты и Карта */}
+        <div className="about-footer">
+          <motion.div 
+            className="about-location-info glass-card"
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+          >
+            <h3>Где мы находимся?</h3>
+            <div className="location-item">
+              <span className="location-icon">📍</span>
+              <p>Россия, Ленинградская область, Ломоносовский район, Виллозское городское поселение, Заречная улица, 2</p>
+            </div>
+            <div className="location-item">
+              <span className="location-icon">⏰</span>
+              <p>Пн-Пт: 09:00–17:00</p>
+            </div>
+            <div className="location-item">
+              <span className="location-icon">📞</span>
+              <p>+7 (906) 267-27-83</p>
+            </div>
+          </motion.div>
+
+          <motion.div 
+            className="about-map-wrapper glass-card"
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+          >
+            {/* Вставьте сюда ссылку из Яндекс.Карт (Поделиться -> Забрать код) */}
+            <iframe 
+              src="https://yandex.ru/maps/-/CPurML3w" 
+              width="100%" 
+              height="300" 
+              frameBorder="0" 
+              allowFullScreen={true}
+              style={{ borderRadius: '15px' }}
+              title="location-map"
+            ></iframe>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
