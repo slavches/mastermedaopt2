@@ -96,13 +96,18 @@ function About() {
           >
             {/* Вставьте сюда ссылку из Яндекс.Карт (Поделиться -> Забрать код) */}
             <iframe 
-              src="https://yandex.ru/maps/-/CPurML3w" 
+              src="https://yandex.ru/map-widget/v1/?um=constructor%3Ae0fa24b73deb8c8a39355075e56ddd07191f492cd9d22f01cd9cfc293ef2ad36&amp;source=constructor"
               width="100%" 
-              height="300" 
-              frameBorder="0" 
+              height="100%" 
+              frameBorder="0"
               allowFullScreen={true}
-              style={{ borderRadius: '15px' }}
-              title="location-map"
+              loading="lazy"
+              title="yandex-map"
+              style={{ 
+                borderRadius: '15px',
+                minHeight: '500px',
+                border: 'none'
+              }}
             ></iframe>
           </motion.div>
         </div>

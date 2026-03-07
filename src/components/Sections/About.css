@@ -16,14 +16,23 @@
 }
 
 .about-location-info h3 {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   color: var(--color-honey);
+  font-size: 1.5rem;
+  font-weight: 800;
 }
 
 .location-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* Выравнивание по верху, если текст в две строки */
   gap: 12px;
+}
+
+.location-item p {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.4;
+  color: #4E342E;
 }
 
 .location-icon {
@@ -32,13 +41,18 @@
 
 /* Обертка для карты */
 .about-map-wrapper {
-  flex: 1.5; /* Карта чуть шире текста */
-  padding: 10px !important; /* Уменьшаем внутренний отступ для карты */
+  flex: 1.5;
+  padding: 1px !important; /* Минимальный отступ для эффекта рамки */
   overflow: hidden;
+  height: 500px; /* Фиксированная высота для стабильности */
+  display: flex;
 }
 
 .about-map-wrapper iframe {
-  display: block;
+width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 18px; /* Чуть меньше чем у родителя для красоты */
 }
 
 .about-section {
@@ -137,6 +151,7 @@
   
   .about-map-wrapper {
     height: 300px;
+    width: 100%;
   }
 }
 
