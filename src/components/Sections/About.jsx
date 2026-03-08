@@ -1,14 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import './About.css';
+import { Leaf, ShieldCheck, Award, Truck, MapPin, Clock, Phone } from 'lucide-react';
 
 function About() {
   const features = [
-    { icon: '🌿', title: 'Экологичность', description: 'Мёд собирается с экологически чистых пасек' },
-    { icon: '✅', title: 'Качество', description: 'Строгий контроль качества на всех этапах' },
-    { icon: '🏆', title: 'Опыт', description: 'Более 10 лет на рынке оптовой продажи мёда' },
-    { icon: '🚚', title: 'Доставка', description: 'Быстрая доставка по всей России' },
-  ];
+  { icon: <Leaf size={32} strokeWidth={1.5} />, title: 'Экологичность', description: 'Мёд собирается с экологически чистых пасек' },
+  { icon: <ShieldCheck size={32} strokeWidth={1.5} />, title: 'Качество', description: 'Строгий контроль качества на всех этапах' },
+  { icon: <Award size={32} strokeWidth={1.5} />, title: 'Опыт', description: 'Более 10 лет на рынке оптовой продажи мёда' },
+  { icon: <Truck size={32} strokeWidth={1.5} />, title: 'Доставка', description: 'Быстрая доставка по всей России' },
+];
 
   return (
     <section id="about" className="section about-section">
@@ -75,16 +76,22 @@ function About() {
           >
             <h3>Где мы находимся?</h3>
             <div className="location-item">
-              <span className="location-icon">📍</span>
-              <p>Россия, Ленинградская область, Ломоносовский район, Виллозское городское поселение, Заречная улица, 2</p>
+              <div className="location-icon-wrapper">
+                <MapPin size={22} strokeWidth={1.5} color="var(--color-honey)" />
+              </div>
+              <a href="https://yandex.ru/maps/?text=Виллозское+Заречная+2" target="_blank">Россия, Ленинградская область, Ломоносовский район, Виллозское городское поселение, Заречная улица, 2</a>
             </div>
             <div className="location-item">
-              <span className="location-icon">⏰</span>
+              <div className="location-icon-wrapper">
+                <Clock size={22} strokeWidth={1.5} color="var(--color-honey)" />
+              </div>
               <p>Пн-Пт: 09:00–17:00</p>
             </div>
             <div className="location-item">
-              <span className="location-icon">📞</span>
-              <p>+7 (906) 267-27-83</p>
+              <div className="location-icon-wrapper">
+                <Phone size={22} strokeWidth={1.5} color="var(--color-honey)" />
+              </div>
+              <a href="tel:+79062672783">+7 (906) 267-27-83</a>
             </div>
           </motion.div>
 

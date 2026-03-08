@@ -5,14 +5,16 @@
   margin-top: 20px;
 }
 
-/* Карточка с инфой о локации */
 .about-location-info {
   flex: 1;
   text-align: left !important;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 15px;
+  
+  /* ДОБАВЛЕНО: Внутренние отступы */
+  padding: 40px !important; 
+  gap: 20px; /* Увеличили расстояние между строками для воздуха */
 }
 
 .about-location-info h3 {
@@ -23,9 +25,19 @@
 }
 
 .location-item {
+display: flex;
+  align-items: flex-start;
+  gap: 18px; /* Чуть увеличили расстояние */
+  margin-bottom: 5px;
+}
+
+.location-icon-wrapper {
   display: flex;
-  align-items: flex-start; /* Выравнивание по верху, если текст в две строки */
-  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  margin-top: 2px; /* Выравнивание иконки по первой строке текста */
 }
 
 .location-item p {
@@ -37,14 +49,16 @@
 
 .location-icon {
   font-size: 1.4rem;
+  min-width: 24px; /* Чтобы иконки стояли ровно друг под другом */
+  text-align: center;
 }
 
-/* Обертка для карты */
+/* Обертка для карты — делаем ее более гибкой */
 .about-map-wrapper {
   flex: 1.5;
-  padding: 1px !important; /* Минимальный отступ для эффекта рамки */
+  padding: 8px !important; /* Небольшой зазор, чтобы была видна стеклянная рамка */
   overflow: hidden;
-  height: 500px; /* Фиксированная высота для стабильности */
+  min-height: 500px; /* Минимальная высота как у текстовой карточки */
   display: flex;
 }
 
@@ -124,10 +138,12 @@ width: 100%;
   box-shadow: 0 15px 35px rgba(210, 105, 30, 0.15);
 }
 
+/* Убираем старый font-size, так как теперь иконки — это SVG объекты */
 .feature-icon {
-  font-size: 2.5rem;
   margin-bottom: 15px;
-  display: block;
+  display: flex;
+  justify-content: center;
+  color: var(--color-honey); /* Цвет иконок преимуществ */
 }
 
 .feature-card h3 {
@@ -137,21 +153,37 @@ width: 100%;
   font-weight: 800;
 }
 
+
 .feature-card p {
   font-size: 0.95rem;
   color: #5D4037;
   line-height: 1.5;
 }
 
-/* Адаптивность для карты */
+/* Общий стиль для всех новых иконок в блоке "О нас" */
+.feature-icon, .location-icon-wrapper {
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover .feature-icon {
+  transform: translateY(-5px); /* Легкая анимация при наведении */
+}
+
+
+/* Исправляем отступ в мобильной версии, чтобы карта не была слишком огромной */
 @media (max-width: 900px) {
   .about-footer {
     flex-direction: column;
   }
   
   .about-map-wrapper {
-    height: 300px;
+    min-height: 350px; /* На мобильных карту можно сделать пониже */
+    height: 350px;
     width: 100%;
+  }
+
+  .about-location-info {
+    flex: none; /* Чтобы текстовый блок не растягивался на весь экран */
   }
 }
 
@@ -167,6 +199,10 @@ width: 100%;
 
   .features-grid {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .about-location-info {
+    padding: 25px !important; /* На телефонах отступ чуть меньше */
   }
 }
 

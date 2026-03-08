@@ -1,3 +1,10 @@
+.feature-icon {
+  color: var(--color-honey); /* Или темно-коричневый */
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
 /* Стили конкретно для блока Клиенты */
 
 .clients-section {
