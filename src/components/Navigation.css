@@ -251,7 +251,7 @@ top: 0px; /* Оставляем под топ-баром */
     position: fixed !important;
     /* Вместо center используем расчет от левого края */
     left: 50vw !important; 
-    top: 55px !important; /* Было 35, добавили 20px запаса из-за топ-бара */    /* Используем translate, чтобы учесть собственную ширину логотипа */
+    top: 75px !important; /* 40px (топ-бар) + 35px (половина высоты навигации) = 75px */
     transform: translate(-50%, -50%) !important;
     transition: top 0.4s ease;
     margin: 0 !important;
@@ -320,7 +320,7 @@ top: 0px; /* Оставляем под топ-баром */
     left: 0 !important;
     width: 100% !important;
   }
-  
+
   .navigation.scrolled .logo-wrapper {
     top: 35px !important; /* Возвращаем стандартное положение по центру шапки (70px / 2) */
   }
@@ -335,6 +335,9 @@ top: 0px; /* Оставляем под топ-баром */
 @media (min-width: 1025px) {
   .mobile-menu-toggle {
     display: none !important;
+    transition: top 0.3s ease-in-out;
+    position: relative;
+    top: 0;
   }
   .nav-links {
     /* Уменьшаем отступ сверху, чтобы ссылки поднялись выше */

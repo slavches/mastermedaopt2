@@ -94,10 +94,10 @@ useEffect(() => {
           <span className="top-bar-text">Свяжитесь с нами для поставок и покупок:</span>
           <div className="top-bar-contacts">
             <a href="tel:+7XXXXXXXXXX" className="top-bar-link">
-              📞 +7 (XXX) XXX-XX-XX
+              Телефон: +7 (906) 267-27-83
             </a>
             <a href="mailto:info@mastermeda.ru" className="top-bar-link">
-              ✉️ info@mastermeda.ru
+              почта: med.spb@list.ru
             </a>
           </div>
         </div>
