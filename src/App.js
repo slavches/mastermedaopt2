@@ -88,6 +88,21 @@ useEffect(() => {
         style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: -1 }}
       />
 
+      {/* НОВАЯ СТРОЧКА ТУТ */}
+      <div className="top-bar">
+        <div className="top-bar-content">
+          <span className="top-bar-text">Свяжитесь с нами для поставок и покупок:</span>
+          <div className="top-bar-contacts">
+            <a href="tel:+7XXXXXXXXXX" className="top-bar-link">
+              📞 +7 (XXX) XXX-XX-XX
+            </a>
+            <a href="mailto:info@mastermeda.ru" className="top-bar-link">
+              ✉️ info@mastermeda.ru
+            </a>
+          </div>
+        </div>
+      </div>
+
       {/* Навигация */}
       <Navigation 
         currentSection={currentSection} 

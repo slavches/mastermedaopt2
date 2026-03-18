@@ -62,6 +62,46 @@ html {
   min-height: 80vh;
 }
 
+.top-bar {
+  background: var(--color-honey, #D2691E);
+  color: white;
+  padding: 6px 20px;
+  font-size: 14px;
+  position: relative; /* Изменили с relative на fixed */
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px; /* Фиксируем высоту для расчетов */
+  z-index: 1100; /* Выше чем навигация (у нее 1000) */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+}
+
+.top-bar-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top-bar-contacts {
+  display: flex;
+  gap: 20px;
+}
+
+.top-bar-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.2s ease;
+}
+
+.top-bar-link:hover {
+  opacity: 0.8;
+}
+
 .hero-with-slider {
   position: relative;
   width: 100%;
@@ -110,7 +150,7 @@ html {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 140px 20px 40px;
+  padding: 150px 20px 40px;
 }
 
 .welcome-card {
@@ -677,6 +717,20 @@ body {
   .relative-content { padding: 100px 15px 30px; }
   .main-title { font-size: 1.8rem; }
 }
+
+.top-bar-content {
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+  }
+  .top-bar-text {
+    font-size: 12px;
+    opacity: 0.9;
+  }
+  .top-bar-contacts {
+    gap: 10px;
+    font-size: 13px;
+  }
 
 @media (max-width: 480px) {
   .products-grid { grid-template-columns: 1fr; }

@@ -6,12 +6,17 @@
 /* Шапка — прозрачная и компактная */
 .navigation {
   position: fixed;
-  top: 0;
+  top: 40px; /* Сдвигаем вниз на высоту top-bar */
   left: 0;
   right: 0;
   z-index: 1000;
   background: transparent;
-  transition: background 0.4s ease;
+  transition: all 0.4s ease; /* Добавь all вместо background для плавности top */
+}
+
+/* Добавляем фикс для состояния скролла */
+.navigation.scrolled {
+top: 0px; /* Оставляем под топ-баром */
 }
 
 /* ОБЩИЙ СЛОЙ БЛЮРА — Магия здесь */
@@ -246,10 +251,9 @@
     position: fixed !important;
     /* Вместо center используем расчет от левого края */
     left: 50vw !important; 
-    top: 35px !important; 
-    /* Используем translate, чтобы учесть собственную ширину логотипа */
+    top: 55px !important; /* Было 35, добавили 20px запаса из-за топ-бара */    /* Используем translate, чтобы учесть собственную ширину логотипа */
     transform: translate(-50%, -50%) !important;
-    
+    transition: top 0.4s ease;
     margin: 0 !important;
     width: auto !important;
     z-index: 1010;
@@ -315,6 +319,10 @@
     /* Если при открытии меню вся навигация дергается вправо */
     left: 0 !important;
     width: 100% !important;
+  }
+  
+  .navigation.scrolled .logo-wrapper {
+    top: 35px !important; /* Возвращаем стандартное положение по центру шапки (70px / 2) */
   }
 
   

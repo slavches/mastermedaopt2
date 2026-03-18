@@ -37,6 +37,13 @@ body, html {
 .app-content {
   position: relative;
   z-index: 1;
+  /* Сумма высот: top-bar(40px) + navigation(70px) = 110px */
+  padding-top: 0px;
+}
+
+.relative-content {
+  /* Оставляем padding только для компенсации навигации (70px) */
+  padding: 110px 20px 40px !important; 
 }
 
 /* Универсальный класс стекла */
