@@ -67,15 +67,38 @@ html {
   color: white;
   padding: 6px 20px;
   font-size: 14px;
-  position: relative; /* Изменили с relative на fixed */
+  position: fixed; /* Используй absolute вместо relative */
   top: 0;
   left: 0;
   right: 0;
   height: 40px; /* Фиксируем высоту для расчетов */
-  z-index: 1100; /* Выше чем навигация (у нее 1000) */
+  z-index: 1001; /* Выше навигации */
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
+transition: transform 0.3s ease;
+}
+
+/* Если в JS при скролле топ-бару добавляется класс (например, .hidden), 
+то добавь это, чтобы он физически улетал вверх: */
+.top-bar.scrolled {
+  transform: translateY(-100%);
+}
+
+/* Навигация в это время должна прижаться к самому верху */
+.navigation.scrolled {
+  margin-top: 0 !important;
+  background: rgba(210, 105, 30, 0.95);
+}
+
+.top-bar-item {
+  display: inline-flex;
+  gap: 5px; /* Расстояние между словом "Телефон" и самим номером */
+}
+
+.top-bar-label {
+  opacity: 0.8; /* Делаем подпись чуть бледнее, чтобы номер выделялся */
+  font-weight: 400;
 }
 
 .top-bar-content {
@@ -94,12 +117,13 @@ html {
 .top-bar-link {
   color: white;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 700; /* Номер телефона делаем жирным */
   transition: opacity 0.2s ease;
 }
 
 .top-bar-link:hover {
-  opacity: 0.8;
+  text-decoration: underline; /* Подчеркивание при наведении подскажет, что это ссылка */
+  opacity: 1;
 }
 
 .hero-with-slider {
@@ -366,12 +390,12 @@ html {
 }
 
 .modal-overlay {
-position: fixed;
+  position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.6); /* Темный прозрачный фон */
   backdrop-filter: blur(100px); /* Сильное размытие заднего плана */
-  -webkit-backdrop-filter: blur(100px);
-  z-index: 99999;
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 999999 !important; /* Еще больше девяток! */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -382,7 +406,7 @@ position: fixed;
 .modal-card {
   background: rgba(66, 66, 66, 0.8) !important;
   backdrop-filter: blur(100px);
-  -webkit-backdrop-filter: blur(100px);
+  -webkit-backdrop-filter: blur(30px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   width: 100%;
   max-width: 1100px;
@@ -599,6 +623,23 @@ body {
   margin: 0;
   padding: 0;
 }
+/* 1. Полностью выключаем топ-бар, чтобы он не наслаивался */
+body.modal-open .top-bar {
+  display: none !important;
+}
+
+/* 2. Навигацию прижимаем к верху, убирая margin-top */
+body.modal-open .navigation {
+  margin-top: 0 !important;
+  background: var(--color-honey) !important;
+  z-index: 1000001 !important; /* Делаем выше оверлея модалки */
+}
+
+/* 3. Чтобы модалка не "залезала" под шапку на мобилках */
+body.modal-open .modal-card {
+  margin-top: 80px !important;
+}
+
 
 @media (max-width: 1024px) {
   .home-hero-centered {
@@ -609,6 +650,8 @@ body {
   .welcome-card { max-width: 100%; }
   .hero-form-centered-wrapper { max-width: 400px; }
 }
+
+
 
 /* АДАПТИВ */
 @media (max-width: 850px) {
@@ -718,18 +761,38 @@ body {
   .main-title { font-size: 1.8rem; }
 }
 
+/* Скрываем вводную фразу */
+  .hide-mobile {
+    display: none !important;
+  }
+
 .top-bar-content {
+    justify-content: center;
     flex-direction: column;
     gap: 4px;
     text-align: center;
   }
+
   .top-bar-text {
     font-size: 12px;
     opacity: 0.9;
   }
+
   .top-bar-contacts {
-    gap: 10px;
+    justify-content: center;
+    width: 100%;
+    gap: 4px;
     font-size: 13px;
+  }
+
+  .top-bar-item {
+    font-size: 13px; /* Оптимальный размер для мобильных */
+  }
+
+  /* Убираем слово "Телефон:" и "почта:", оставляя только иконки или сами данные, 
+     если места совсем мало (на iPhone SE, например) */
+  .top-bar-label {
+    display: none; 
   }
 
 @media (max-width: 480px) {
@@ -740,5 +803,14 @@ body {
   }
   .modal-text-content h2 {
     font-size: 1.4rem;
+  }
+}
+
+/* Дополнительный фикс для совсем маленьких экранов (до 400px) */
+@media (max-width: 400px) {
+  .top-bar-contacts {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px 15px;
   }
 }

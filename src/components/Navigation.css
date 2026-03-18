@@ -6,17 +6,22 @@
 /* Шапка — прозрачная и компактная */
 .navigation {
   position: fixed;
-  top: 40px; /* Сдвигаем вниз на высоту top-bar */
+  top: 0; 
   left: 0;
   right: 0;
   z-index: 1000;
+  /* В обычном состоянии сдвигаем саму панель вниз на 40px */
+  margin-top: 40px;
+transform: translateY(0);
   background: transparent;
-  transition: all 0.4s ease; /* Добавь all вместо background для плавности top */
+  /* Анимируем только трансформацию, чтобы не было лагов при загрузке */
+  transition: transform 0.3s ease, background 0.3s ease;
 }
 
 /* Добавляем фикс для состояния скролла */
 .navigation.scrolled {
-top: 0px; /* Оставляем под топ-баром */
+  margin-top: 0;
+  background: rgba(210, 105, 30, 0.95); /* Твой медовый или другой фон */
 }
 
 /* ОБЩИЙ СЛОЙ БЛЮРА — Магия здесь */
@@ -314,11 +319,36 @@ top: 0px; /* Оставляем под топ-баром */
     width: 100% !important;
   }
 
+
   
 /* ГЛАВНЫЙ ФИКС: отключаем прыжок при исчезновении скролла */
   html, body {
     overflow-x: hidden;
   }
+
+  /* --- ЕДИНЫЙ КОНТРОЛЬ ШАПКИ ПРИ ОТКРЫТОЙ МОДАЛКЕ --- */
+
+/* Скрываем топ-бар полностью */
+body.modal-open .top-bar {
+  display: none !important;
+}
+
+/* Прижимаем навигацию к самому верху */
+body.modal-open .navigation {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  transform: translateY(0) !important; /* Убираем отступ 40px */
+  z-index: 1000000 !important; /* Поверх всего */
+  background: var(--color-honey) !important; /* Плотный фон */
+  transition: none !important; /* Мгновенное переключение без рывков */
+}
+
+/* Корректируем отступ модалки, чтобы она не «билась» об шапку */
+body.modal-open .modal-overlay {
+  padding-top: 70px !important;
+}
   
 }
 @media (min-width: 1025px) {
