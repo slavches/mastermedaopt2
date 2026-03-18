@@ -19,7 +19,7 @@ const productsData = [
     category: "Крем-мёд",
     title: "Мёд с имбирём",
     price: "380 ₽",
-    weight: "240 гр",
+    weight: "240 гр.",
     images: [
       "/images/imbir240/imbir2401.webp",
       "/images/imbir240/imbir2402.webp",
@@ -35,7 +35,7 @@ const productsData = [
     category: "Набор",
     title: "Подарочный набор 3 баночки",
     price: "720 ₽",
-    weight: "1 коробка",
+    weight: "3 баночки по 240 гр.",
     images: [
       "/images/3x240happy/3х240happy1.webp",
       "/images/3x240happy/3х240happy2.webp",
@@ -51,7 +51,7 @@ const productsData = [
     category: "Набор",
     title: "Подарочный набор 2 баночки",
     price: "720 ₽",
-    weight: "1 коробка",
+    weight: "2 баночки по 330 гр.",
     images: [
       "/images/2х330nabor/2х330nabor1.webp",
       "/images/2х330nabor/2х330nabor2.webp",
@@ -111,9 +111,10 @@ const productsData = [
     price: "5000 ₽",
     weight: "7.5 кг",
     images: [
-      "/images/75kg/cvetochnii75.webp"
+      "/images/cvetochnii75/cvetochnii751.webp",
+      "/images/cvetochnii75/cvetochnii752.webp"
     ],
-    description: "Для кондитеров."
+    description: "Для кондитеров"
   },
   {
     id: 8,
@@ -125,7 +126,7 @@ const productsData = [
     images: [
       "/images/cvetochnii335/cvetochnii335.webp"
     ],
-    description: "Для производств."
+    description: "Для производств"
   },
   {
     id: 9,
@@ -141,7 +142,7 @@ const productsData = [
       "/images/bashmed400/bashmed4004.webp",
       "/images/bashmed400/bashmed4005.webp"
     ],
-    description: "Знаменитый башкирский мёд."
+    description: "Знаменитый башкирский мёд"
   },
   {
     id: 10,
@@ -149,11 +150,16 @@ const productsData = [
     category: "Мёд",
     title: "Гречишный мёд",
     price: "650 ₽",
-    weight: "500 гр",
+    weight: "240г.-1кг.",
     images: [
-      "/images/placeholder.webp"
+      "/images/grechishnii/grechishnii1.webp",
+      "/images/grechishnii/grechishnii2.webp",
+      "/images/grechishnii/grechishnii3.webp",
+      "/images/grechishnii/grechishnii4.webp",
+      "/images/grechishnii/grechishnii5.webp",
+      "/images/grechishnii/grechishnii6.webp"
     ],
-    description: "Насыщенный вкус."
+    description: "Насыщенный вкус"
   },
   {
     id: 11,
@@ -165,7 +171,7 @@ const productsData = [
     images: [
       "/images/malina240/malina240.webp"
     ],
-    description: "Нежный десерт."
+    description: "Нежный десерт"
   },
   {
     id: 12,
@@ -177,7 +183,7 @@ const productsData = [
     images: [
       "/images/grechishnii335/grechishnii335.webp"
     ],
-    description: "Насыщенный вкус."
+    description: "Насыщенный вкус"
   },
   {
     id: 13,
@@ -189,31 +195,35 @@ const productsData = [
     images: [
       "/images/podsolnyh335/podsolnyh335.webp"
     ],
-    description: "Тонкий аромат."
+    description: "Тонкий аромат"
   },
   {
     id: 14,
-    filterCategory: "gift",
-    category: "Набор",
-    title: "Деревянный бокс Max",
-    price: "2500 ₽",
-    weight: "1.5 кг",
+    filterCategory: "Докторъ Мёд",
+    category: "Премиум",
+    title: "Гречишный мёд",
+    price: "550 ₽",
+    weight: "330 гр.",
     images: [
-      "/images/placeholder.webp"
+      "/images/grechishnii330/grechishnii3301.webp",
+      "/images/grechishnii330/grechishnii3302.webp",
+      "/images/grechishnii330/grechishnii3303.webp"
     ],
-    description: "VIP подарок."
+    description: "VIP подарок"
   },
   {
     id: 15,
-    filterCategory: "classic",
-    category: "Мёд",
+    filterCategory: "Докторъ Мёд",
+    category: "Премиум",
     title: "Донниковый мёд",
     price: "550 ₽",
-    weight: "500 гр",
+    weight: "330 гр.",
     images: [
-      "/images/placeholder.webp"
+      "/images/donnikovii/donnikovii1.webp",
+      "/images/donnikovii/donnikovii2.webp",
+      "/images/donnikovii/donnikovii3.webp"
     ],
-    description: "Мягкий ванильный вкус."
+    description: "Мягкий ванильный вкус"
   },
   {
     id: 16,
@@ -225,7 +235,7 @@ const productsData = [
     images: [
       "/images/placeholder.webp"
     ],
-    description: "С чистых гор."
+    description: "С чистых гор"
   },
   {
     id: 17,
@@ -237,7 +247,7 @@ const productsData = [
     images: [
       "/images/placeholder.webp"
     ],
-    description: "Сибирское здоровье."
+    description: "Сибирское здоровье"
   },
   {
     id: 18,
@@ -278,74 +288,84 @@ const productsData = [
   {
     id: 21,
     filterCategory: "Magicbee",
-    category: "Мёд",
+    category: "Премиум",
     title: "Донские степи",
     price: "500 ₽",
     weight: "240г.-1кг.",
     images: [
       "/images/donskie/donskie1.webp",
       "/images/donskie/donskie2.webp",
-      "/images/donskie/donskie3.webp"
+      "/images/donskie/donskie3.webp",
+      "/images/donskie/donskie4.webp"
     ],
     description: "Яркое послевкусие."
   },
   {
     id: 22,
     filterCategory: "Magicbee",
-    category: "Мёд",
-    title: "Подсолнечный мёд",
+    category: "Премиум",
+    title: "Адыгейский майский мёд",
     price: "400 ₽",
-    weight: "1 кг",
+    weight: "240г.-1 кг.",
     images: [
-      "/images/placeholder.webp"
+      "/images/maiskii/maiskii1.webp",
+      "/images/maiskii/maiskii2.webp"
     ],
     description: "Яркое послевкусие."
   },
   {
     id: 23,
     filterCategory: "Magicbee",
-    category: "Мёд",
-    title: "Подсолнечный мёд",
+    category: "Премиум",
+    title: "Поволжские травы",
     price: "400 ₽",
-    weight: "1 кг",
+    weight: "240г.-1 кг.",
     images: [
-      "/images/placeholder.webp"
+      "/images/povolszskie/povolszskie1.webp",
+      "/images/povolszskie/povolszskie2.webp",
+      "/images/povolszskie/povolszskie3.webp",
+      "/images/povolszskie/povolszskie4.webp"
     ],
     description: "Яркое послевкусие."
   },
   {
     id: 24,
     filterCategory: "Magicbee",
-    category: "Мёд",
-    title: "Подсолнечный мёд",
+    category: "Премиум",
+    title: "Псковский лесной мёд",
     price: "400 ₽",
-    weight: "1 кг",
+    weight: "240г.-1 кг.",
     images: [
-      "/images/placeholder.webp"
+      "/images/pskovskii/pskovskii1.webp",
+      "/images/pskovskii/pskovskii2.webp",
+      "/images/pskovskii/pskovskii3.webp",
+      "/images/pskovskii/pskovskii4.webp"
     ],
     description: "Яркое послевкусие."
   },
   {
     id: 25,
     filterCategory: "Magicbee",
-    category: "Мёд",
-    title: "Подсолнечный мёд",
+    category: "Премиум",
+    title: "Амурский таёжный мёд",
     price: "400 ₽",
-    weight: "1 кг",
+    weight: "240г.-1 кг.",
     images: [
-      "/images/placeholder.webp"
+      "/images/taezhnii/taezhnii1.webp",
+      "/images/taezhnii/taezhnii2.webp"
     ],
     description: "Яркое послевкусие."
   },
   {
     id: 26,
     filterCategory: "Magicbee",
-    category: "Мёд",
-    title: "Подсолнечный мёд",
+    category: "Премиум",
+    title: "Южный цветочный мёд",
     price: "400 ₽",
     weight: "1 кг",
     images: [
-      "/images/placeholder.webp"
+      "/images/yuzhnii/yuzhnii1.webp",
+      "/images/yuzhnii/yuzhnii2.webp"
     ],
     description: "Яркое послевкусие."
   }
@@ -363,7 +383,8 @@ const Products = () => {
     { id: 'gift', label: 'Наборы' },
     { id: 'bulk', label: 'Опт (тара)' },
     { id: 'premium', label: 'Башкирский мёд' },
-    { id: 'Magicbee', label: 'Magic Bee Регионы России' }
+    { id: 'Magicbee', label: 'Magic Bee Регионы России' },
+    { id: 'Докторъ Мёд', label: 'Докторъ Мёд' }
   ];
 
   const filteredProducts = activeFilter === 'all' 
@@ -467,6 +488,10 @@ const Products = () => {
         delay: 1000, 
         disableOnInteraction: false 
       }}
+      slidesPerView={1}
+      spaceBetween={0}
+      watchSlidesProgress={true}
+      style={{ width: '100%', height: '100%' }}
       onSwiper={(swiper) => swiper.autoplay.stop()}
       className="card-slider"
     >

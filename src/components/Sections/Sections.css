@@ -328,7 +328,7 @@ html {
 .modal-overlay {
 position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4); /* Темный прозрачный фон */
+  background: rgba(0, 0, 0, 0.6); /* Темный прозрачный фон */
   backdrop-filter: blur(100px); /* Сильное размытие заднего плана */
   -webkit-backdrop-filter: blur(100px);
   z-index: 99999;
@@ -340,7 +340,7 @@ position: fixed;
 
 /* 1. ИСПРАВЛЯЕМ КОРПУС КАРТОЧКИ (Добавляем ряд) */
 .modal-card {
-  background: rgba(66, 66, 66, 0.2) !important;
+  background: rgba(66, 66, 66, 0.8) !important;
   backdrop-filter: blur(100px);
   -webkit-backdrop-filter: blur(100px);
   border: 1px solid rgba(255, 255, 255, 0.2);
