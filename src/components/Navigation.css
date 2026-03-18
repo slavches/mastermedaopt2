@@ -54,6 +54,7 @@ top: 0px; /* Оставляем под топ-баром */
   align-items: center;
   justify-content: center; /* Изменили с space-between на center */
   min-height: 70px;
+  height: 70px; /* Фиксируем, чтобы не было микро-движений */
   position: relative; /* Обязательно для работы absolute у лого */
 }
 
@@ -245,21 +246,13 @@ top: 0px; /* Оставляем под топ-баром */
     width: 100%; 
     box-sizing: border-box;
   }
-
-/* ЛОГОТИП: Привязываем к ЛЕВОМУ краю на 50% ширины */
-  .logo-wrapper {
-    position: fixed !important;
-    /* Вместо center используем расчет от левого края */
-    left: 50vw !important; 
-    top: 75px !important; /* 40px (топ-бар) + 35px (половина высоты навигации) = 75px */
-    transform: translate(-50%, -50%) !important;
-    transition: top 0.4s ease;
-    margin: 0 !important;
-    width: auto !important;
-    z-index: 1010;
-    display: flex !important;
-    justify-content: center !important;
+  
+  /* Если меню открыто, сдвигаем его контент чуть ниже */
+  .navigation.menu-is-open .nav-links {
+    padding-top: 6rem !important; 
   }
+
+
 
 .logo-image {
     height: 42px;
@@ -321,10 +314,6 @@ top: 0px; /* Оставляем под топ-баром */
     width: 100% !important;
   }
 
-  .navigation.scrolled .logo-wrapper {
-    top: 35px !important; /* Возвращаем стандартное положение по центру шапки (70px / 2) */
-  }
-
   
 /* ГЛАВНЫЙ ФИКС: отключаем прыжок при исчезновении скролла */
   html, body {
@@ -334,7 +323,6 @@ top: 0px; /* Оставляем под топ-баром */
 }
 @media (min-width: 1025px) {
   .mobile-menu-toggle {
-    display: none !important;
     transition: top 0.3s ease-in-out;
     position: relative;
     top: 0;
