@@ -71,8 +71,6 @@ const OrderForm = ({ onSuccess }) => {
         <motion.button 
           type="submit" 
           className="submit-btn-vertical"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
         >
           Отправить заявку
         </motion.button>

@@ -60,7 +60,6 @@ function Partners() {
             viewport={{ once: true }}
             transition={{ delay: index * 0.1, duration: 0.4 }}
             style={{ willChange: "opacity" }} // Ускоряем рендер
-            whileHover={{ y: -8 }}
           >
             <div className="partner-logo-box">
               <img src={partner.logo} alt={partner.name} className="partner-img" />

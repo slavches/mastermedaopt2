@@ -27,8 +27,7 @@
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   transform: translateZ(0);
-  /* transition только для hover эффектов */
-  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease, background 0.4s ease;
+  transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .partner-card:hover {
@@ -68,11 +67,4 @@
   font-size: 0.95rem;
   line-height: 1.6;
   margin: 0;
-}
-
-/* На мобильных убираем ховер-эффект подъема, так как он мешает скроллу пальцем */
-@media (max-width: 768px) {
-  .partner-card:hover {
-    transform: none;
-  }
 }

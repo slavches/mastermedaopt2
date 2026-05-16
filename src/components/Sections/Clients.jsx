@@ -46,7 +46,6 @@ function Clients() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.1, duration: 0.5 }}
-            whileHover={{ y: -10 }}
           >
             <div className="client-image-wrapper">
               <img src={client.img} alt={client.name} className="client-photo" />

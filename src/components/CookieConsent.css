@@ -10,6 +10,8 @@
   border-radius: 20px;
   box-shadow: 0 10px 40px rgba(0,0,0,0.15);
   z-index: 99999;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
 }
 
 .cookie-banner-content p {
@@ -33,7 +35,7 @@
   font-weight: 700;
   font-size: 0.9rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 /* Кнопка ПРИНЯТЬ */
@@ -50,10 +52,18 @@
 }
 
 .btn-cookie:hover {
-  transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
+.btn-cookie.primary:hover {
+  background: var(--color-honey-dark, #A0522D);
+}
+
+.btn-cookie.secondary:hover {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(210, 105, 30, 0.45);
+}
+
 .btn-cookie:active {
-  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }

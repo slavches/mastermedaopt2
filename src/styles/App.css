@@ -49,24 +49,29 @@ body, html {
 /* Универсальный класс стекла */
 .glass-morphism {
   background: rgba(255, 255, 255, 0.6) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
   border: 1px solid rgba(255, 255, 255, 0.45) !important;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1) !important;
 }
 
 /* Вариант для модалок (чуть плотнее, чтобы текст читался лучше) */
 .glass-morphism-heavy {
-  background: rgba(255, 255, 255, 0.1) !important;
-  backdrop-filter: blur(25px) !important;
-  -webkit-backdrop-filter: blur(25px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.5) !important;
-  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.15) !important;
+  background: rgba(255, 248, 220, 0.96) !important;
+  border: 1px solid rgba(210, 105, 30, 0.25) !important;
+  box-shadow: 0 12px 32px rgba(93, 64, 55, 0.18) !important;
 }
 
 /* Плавная прокрутка */
 html:not(.modal-open) {
   scroll-behavior: smooth;
+}
+
+/* Блокировка фона при любой модалке — без position:fixed на body */
+html.modal-open,
+body.modal-open {
+  overflow: hidden;
+  overscroll-behavior: none;
 }
 
 /* Стили для скроллбара */
@@ -92,12 +97,12 @@ html:not(.modal-open) {
 .form-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4); /* Чуть темнее для контраста со стеклом */
+  background: rgba(0, 0, 0, 0.45);
   z-index: 2000;
   display: flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(4px); /* Добавь легкий блюр всему сайту при модалке */
+  will-change: opacity;
 }
 
 /* Убираем фон у внутренней карточки, чтобы видеть стекло внешней */
@@ -108,12 +113,16 @@ html:not(.modal-open) {
 }
 
 .form-modal-content {
+  background: rgba(255, 248, 220, 0.96) !important;
+  border: 1px solid rgba(210, 105, 30, 0.25) !important;
   border-radius: 30px;
   padding: 40px; /* Для десктопа оставляем как было */
   max-width: 500px;
   width: 90%;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 12px 32px rgba(93, 64, 55, 0.18);
+  color: #3E2723;
   position: relative;
+  will-change: opacity;
   
   /* --- ГЛАВНЫЕ ИСПРАВЛЕНИЯ ДЛЯ МОБИЛОК --- */
   max-height: 95vh; /* Форма не будет больше экрана */
@@ -121,12 +130,17 @@ html:not(.modal-open) {
   -webkit-overflow-scrolling: touch; /* Плавный скролл для iOS */
 }
 
-/* Заголовок внутри стекла */
-.form-modal-content h3 {
-  color: #5d4037;
+/* Заголовки и текст внутри модалки формы */
+.form-modal-content h3,
+.form-modal-content label {
+  color: #3E2723;
   text-align: center;
   font-weight: 800;
   margin-top: 0;
+}
+
+.form-modal-content .order-form-vertical {
+  color: #5D4037;
 }
 
 /* Адаптивность */

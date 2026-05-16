@@ -1,28 +1,37 @@
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade } from 'swiper/modules';
 import './Sections.css';
 import 'swiper/css/autoplay';
 
 function Home() {
-  const backgroundImages = [
-    "/images/bg-honey-1.webp",
-    "/images/bg-honey-2.webp",
-    "/images/bg-honey-3.webp",
-    "/images/bg-honey-9.webp"
+  const heroSlides = [
+    {
+      src: '/images/bg-honey-1.webp',
+      alt: 'Натуральный мёд оптом — золотистые соты с мёдом',
+    },
+    {
+      src: '/images/bg-honey-2.webp',
+      alt: 'Оптовые поставки мёда — банки и соты на пасеке',
+    },
+    {
+      src: '/images/bg-honey-3.webp',
+      alt: 'Мёд от производителя — свежий урожай в стеклянной банке',
+    },
+    {
+      src: '/images/bg-honey-9.webp',
+      alt: 'Пасека и натуральный мёд для оптовых покупателей',
+    },
   ];
 
+  const scrollToProducts = () => {
+    document.getElementById('products')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   return (
-    <motion.section 
-      id="home"
-      className="hero-with-slider"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-    >
+    <section id="home" className="hero-with-slider">
       <div className="hero-slider-background">
         <Swiper
           modules={[Autoplay, EffectFade]}
@@ -32,12 +41,21 @@ function Home() {
           loop={true}
           className="hero-bg-swiper"
         >
-          {backgroundImages.map((img, index) => (
-            <SwiperSlide key={index}>
-              <div 
-                className="hero-slide-item" 
-                style={{ backgroundImage: `url(${img})` }}
+          {heroSlides.map((slide, index) => (
+            <SwiperSlide key={slide.src}>
+              <div
+                className="hero-slide-item"
+                role="img"
+                aria-label={slide.alt}
+                style={{ backgroundImage: `url(${slide.src})` }}
               >
+                <img
+                  src={slide.src}
+                  alt={slide.alt}
+                  className="hero-slide-img-sr"
+                  loading={index === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
+                />
                 <div className="hero-overlay"></div>
               </div>
             </SwiperSlide>
@@ -45,43 +63,46 @@ function Home() {
         </Swiper>
       </div>
 
-      {/* Контент поверх слайдера */}
       <div className="section-content relative-content">
         <div className="home-hero-centered">
-          <motion.div
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            className="welcome-card"
-          >
-            <div className="welcome-badge">Прямые поставки мёда урожая 2025 года</div>
-            
+          <div className="welcome-card">
+            <div className="welcome-badge">Оптовые поставки натурального мёда</div>
+
             <h1 className="main-title">
-              Натуральный мёд оптом <br /> 
-              <span>от производителя Мастер Мёда</span>
+              Натуральный мёд оптом <br />
+              <span>для магазинов, сетей и производств</span>
             </h1>
 
             <div className="welcome-message">
               <p>
-                Мы занимаемся заготовкой и оптовыми поставками <strong>натурального мёда</strong>, вкладывая душу в каждый куботейнер.
+                Мастер Мёда поставляет натуральный мёд урожая 2025 года в розничной фасовке, куботейнерах и крупных оптовых объёмах.
               </p>
               <p>
-                Ежегодно собираем лучший мёд на пасеках <strong>Липецкой, Воронежской областей и Башкирии</strong>. Продукция 2025 года полностью соответствует ГОСТу — чистый, зрелый и ароматный.
+                Работаем с магазинами, маркетплейсами, кофейнями, кондитерскими, производствами и оптовыми покупателями.
               </p>
               <p>
-                Работаем официально через систему <strong>«Меркурий»</strong>. Объёмы от 15–33 кг (куботейнер) до фуры. Честное партнёрство для вашего бизнеса.
+                Официальные поставки через систему «Меркурий», полный пакет документов и стабильные объёмы от 15 кг до фуры.
               </p>
             </div>
 
-            <div className="welcome-features">
-              <div className="w-feature">Поставки от 15 кг до 20 тонн</div>
-              <div className="w-feature">Полный пакет документов</div>
-              <div className="w-feature">Отгрузка в день заказа</div>
+            <div className="hero-actions">
+              <button type="button" className="hero-cta-btn primary" onClick={scrollToProducts}>
+                Смотреть продукцию
+              </button>
+              <a href="tel:+79062672783" className="hero-cta-btn secondary">
+                Позвонить поставщику
+              </a>
             </div>
-          </motion.div>
+
+            <div className="welcome-features">
+              <div className="w-feature">От 15 кг до 20 тонн</div>
+              <div className="w-feature">Документы и «Меркурий»</div>
+              <div className="w-feature">Фасовка и опт</div>
+            </div>
+          </div>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }
 

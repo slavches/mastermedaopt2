@@ -16,27 +16,28 @@
   border-radius: 14px;
   font-size: 1rem;
   
-  /* Легкий фон, как в меню */
-  background: rgba(255, 255, 255, 0.7); 
-  border: 1px solid rgba(241, 106, 9, 0.15);
-  
-  color: #5d4037;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(210, 105, 30, 0.2);
+  color: #5D4037;
   font-weight: 600;
   outline: none;
-  transition: all 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 /* Цвет подсказок тоже сделаем темнее */
-.order-form-vertical input::placeholder {
-  color: #5d4037;
+.order-form-vertical input::placeholder,
+.order-form-vertical textarea::placeholder {
+  color: #5D4037;
+  opacity: 0.75;
 }
 
 /* Эффект при фокусе */
 .order-form-vertical input:focus,
-.order-form-vertical select:focus {
-  background: rgba(255, 255, 255, 0.9);
-  border-color: #d2691e;
-  box-shadow: 0 0 0 4px rgba(15, 218, 123, 0.1);
+.order-form-vertical select:focus,
+.order-form-vertical textarea:focus {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: #D2691E;
+  box-shadow: 0 0 0 3px rgba(210, 105, 30, 0.15);
 }
 
 /* Специально для выпадающего списка, чтобы опции были читаемыми */
@@ -53,7 +54,7 @@
   background-repeat: no-repeat;
   background-position: right 15px center;
   background-size: 15px;
-  color: #d2691e;
+  color: #5D4037;
   font-weight: 600;
 }
 
@@ -65,8 +66,8 @@
 
 /* Кнопка отправки */
 .submit-btn-vertical {
-  background: #d2691e; /* Цвет "Мастер Мёда" */
-  color: white;
+  background: var(--color-honey, #D2691E);
+  color: #ffffff;
   border: none;
   padding: 16px 30px;
   border-radius: 14px;
@@ -75,18 +76,17 @@
   cursor: pointer;
   margin-top: 10px;
   box-shadow: 0 4px 15px rgba(210, 105, 30, 0.3);
-  transition: all 0.5s ease;
+  transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 
 .submit-btn-vertical:hover {
-  background: #b55a1a;
-  box-shadow: 0 6px 20px rgba(210, 105, 30, 0.4);
-  transform: translateY(-2px);
+  background: var(--color-honey-dark, #A0522D);
+  box-shadow: 0 6px 20px rgba(210, 105, 30, 0.35);
 }
 
 .submit-btn-vertical:active {
-  transform: translateY(0);
+  box-shadow: 0 3px 10px rgba(210, 105, 30, 0.3);
 }
 
 /* Полностью обновленный блок адаптивности для iOS и Android */

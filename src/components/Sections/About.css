@@ -129,7 +129,7 @@ width: 100%;
   text-align: center;
   border: 1px solid rgba(255, 255, 255, 0.5);
   /* Оставили только opacity в transition, чтобы не конфликтовать с Framer Motion */
-  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .feature-card.glass-card:hover {
@@ -162,11 +162,11 @@ width: 100%;
 
 /* Общий стиль для всех новых иконок в блоке "О нас" */
 .feature-icon, .location-icon-wrapper {
-  transition: transform 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 .feature-card:hover .feature-icon {
-  transform: translateY(-5px); /* Легкая анимация при наведении */
+  color: var(--color-honey-dark);
 }
 
 

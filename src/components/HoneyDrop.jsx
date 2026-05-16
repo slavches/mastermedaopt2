@@ -20,11 +20,6 @@ function HoneyDrop() {
     },
   };
 
-  // Анимация при наведении
-  const hoverVariants = {
-    hover: { scale: 1.5, x: x + 30, y: y - 30 },
-  };
-
   return (
     <motion.div
       className="honey-drop"
@@ -41,8 +36,6 @@ function HoneyDrop() {
       variants={dropVariants}
       initial="initial"
       animate="animate"
-      whileHover="hover"
-      whileTap="hover"
       transition={{ type: 'spring', stiffness: 300 }}
     />
   );

@@ -371,7 +371,13 @@ const productsData = [
   }
 ];
 
-const Products = () => {
+const getDisplayPrice = (product) =>
+  product.filterCategory === 'bulk' ? 'Цена по запросу' : product.price;
+
+const getSupplyTypeLabel = (product) =>
+  product.filterCategory === 'bulk' ? 'Для опта' : 'Фасовка';
+
+const Products = ({ onOpenForm, onProductModalChange }) => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [activeFilter, setActiveFilter] = useState('all');
@@ -391,33 +397,29 @@ const Products = () => {
     ? productsData 
     : productsData.filter(p => p.filterCategory === activeFilter);
 
+  const dismissProductModal = () => {
+    setSelectedProduct(null);
+    setThumbsSwiper(null);
+  };
+
   const openModal = (product) => {
-    const scrollY = window.scrollY;
-    document.documentElement.classList.add('modal-open');
-    document.body.classList.add('modal-open');
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollY}px`;
-    document.body.style.width = '100%';
+    onProductModalChange?.(true);
     setSelectedProduct(product);
   };
 
   const handleClose = () => {
-    const scrollY = document.body.style.top;
-    const scrollPosition = parseInt(scrollY || '0') * -1;
-    document.documentElement.style.scrollBehavior = 'auto';
-    document.body.style.scrollBehavior = 'auto';
-    document.documentElement.classList.remove('modal-open');
-    document.body.classList.remove('modal-open');
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.width = '';
-    window.scrollTo(0, scrollPosition);
-    setTimeout(() => {
-      setSelectedProduct(null);
-      setThumbsSwiper(null);
-      document.documentElement.style.scrollBehavior = '';
-      document.body.style.scrollBehavior = '';
-    }, 10);
+    dismissProductModal();
+    onProductModalChange?.(false);
+  };
+
+  const handleOpenRequestForm = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (onOpenForm) {
+      onOpenForm();
+    }
+    dismissProductModal();
+    onProductModalChange?.(false);
   };
 
   return (
@@ -432,7 +434,7 @@ const Products = () => {
           Наша продукция
         </motion.h2>
         <div className="title-divider"></div>
-        <p className="section-subtitle">Попробуйте натуральный мёд, собранный с любовью</p>
+        <p className="section-subtitle">Каталог фасовки и оптовых объёмов натурального мёда</p>
       </div>
       
       <div className="filter-container">
@@ -497,7 +499,11 @@ const Products = () => {
     >
       {product.images.map((img, index) => (
         <SwiperSlide key={index}>
-          <img src={img} alt={product.title} loading="lazy" />
+          <img
+            src={img}
+            alt={`${product.title} — фото ${index + 1}`}
+            loading="lazy"
+          />
         </SwiperSlide>
       ))}
     </Swiper>
@@ -505,10 +511,20 @@ const Products = () => {
 
   <div className="product-card-body">
     <div className="product-card-meta">
-      <span className="product-card-price">{product.price}</span>
+      <span className="product-card-price">{getDisplayPrice(product)}</span>
       <span className="product-card-weight">{product.weight}</span>
     </div>
     <h3 className="product-card-title">{product.title}</h3>
+    <button
+      type="button"
+      className="product-card-more"
+      onClick={(e) => {
+        e.stopPropagation();
+        openModal(product);
+      }}
+    >
+      Подробнее
+    </button>
   </div>
 </div>
             ))}
@@ -525,15 +541,22 @@ const Products = () => {
               <div className="modal-gallery-container">
                 <Swiper 
                   spaceBetween={10}
+                  speed={480}
                   navigation={true}
+                  pagination={{ clickable: true }}
                   thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
-                  modules={[FreeMode, Navigation, Thumbs]}
+                  modules={[FreeMode, Navigation, Thumbs, Pagination]}
                   className="modal-swiper-main"
                 >
                   {selectedProduct.images.map((img, i) => (
                     <SwiperSlide key={i}>
                       <div className="modal-slide-img-wrapper">
-                        <img src={img} alt={selectedProduct.title} />
+                        <img
+                          src={img}
+                          alt={`${selectedProduct.title} — изображение ${i + 1}`}
+                          loading={i === 0 ? 'eager' : 'lazy'}
+                          decoding="async"
+                        />
                       </div>
                     </SwiperSlide>
                   ))}
@@ -542,6 +565,7 @@ const Products = () => {
                 <Swiper
                   onSwiper={setThumbsSwiper}
                   spaceBetween={10}
+                  speed={480}
                   slidesPerView={4}
                   freeMode={true}
                   watchSlidesProgress={true}
@@ -551,7 +575,12 @@ const Products = () => {
                   {selectedProduct.images.map((img, i) => (
                     <SwiperSlide key={i}>
                       <div className="thumb-wrapper">
-                        <img src={img} alt="мини" />
+                        <img
+                          src={img}
+                          alt={`${selectedProduct.title} — миниатюра ${i + 1}`}
+                          loading={i === 0 ? 'eager' : 'lazy'}
+                          decoding="async"
+                        />
                       </div>
                     </SwiperSlide>
                   ))}
@@ -560,18 +589,43 @@ const Products = () => {
 
               <div className="modal-text-content">
                 <h2>{selectedProduct.title}</h2>
-                <div className="modal-price-tag">{selectedProduct.price}</div>
+                <div className="modal-price-tag">{getDisplayPrice(selectedProduct)}</div>
+
+                <div className="modal-product-meta">
+                  <div className="modal-meta-row">
+                    <span className="modal-meta-label">Вес / фасовка</span>
+                    <span className="modal-meta-value">{selectedProduct.weight}</span>
+                  </div>
+                  <div className="modal-meta-row">
+                    <span className="modal-meta-label">Категория</span>
+                    <span className="modal-meta-value">{selectedProduct.category}</span>
+                  </div>
+                  <div className="modal-meta-row">
+                    <span className="modal-meta-label">Поставка</span>
+                    <span className="modal-meta-value">{getSupplyTypeLabel(selectedProduct)}</span>
+                  </div>
+                </div>
+
                 <div className="modal-divider-line"></div>
                 <p className="modal-desc">{selectedProduct.description}</p>
-                
-                <a 
-                  href={`https://t.me/your_bot?text=Здравствуйте! Хочу заказать: ${selectedProduct.title}`} 
-                  target="_blank" 
-                  rel="noreferrer" 
-                  className="btn-telegram-wide"
-                >
-                  <span>Заказать в Telegram</span>
-                </a>
+
+                <div className="modal-cta-row">
+                  <a
+                    href={`https://t.me/mbsvyatoslav?text=${encodeURIComponent(`Здравствуйте! Интересует: ${selectedProduct.title}`)}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn-telegram-wide"
+                  >
+                    <span>Написать в Telegram</span>
+                  </a>
+                  <button
+                    type="button"
+                    className="btn-request-wide"
+                    onClick={handleOpenRequestForm}
+                  >
+                    Оставить заявку
+                  </button>
+                </div>
               </div>
             </div>
           </div>
