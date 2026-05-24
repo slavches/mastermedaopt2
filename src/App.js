@@ -10,7 +10,11 @@ import Partners from './components/Sections/Partners';
 import News from './components/Sections/News';
 import About from './components/Sections/About';
 import CookieConsent from './components/CookieConsent';
+import Footer from './components/Footer';
 import PrivacyPolicy from './components/PrivacyPolicy';
+import UserAgreement from './components/UserAgreement';
+import PersonalDataConsent from './components/PersonalDataConsent';
+import CookiePolicy from './components/CookiePolicy';
 import OrderForm from './components/Sections/OrderForm';
 import './styles/App.css';
 
@@ -39,6 +43,7 @@ const SECTION_BG_BY_SECTION = {
 function App() {
   const [currentSection, setCurrentSection] = useState('home');
   const [isPolicyOpen, setIsPolicyOpen] = useState(false); 
+  const [activeLegalDocument, setActiveLegalDocument] = useState('privacy');
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
   const savedScrollYRef = useRef(0);
@@ -102,7 +107,32 @@ return () => window.removeEventListener('scroll', handleScroll);
   }, [isFormOpen, isPolicyOpen, isProductModalOpen]);
 
   const togglePolicy = () => {
+    setActiveLegalDocument('privacy');
     setIsPolicyOpen(true);
+  };
+
+  const openLegalDocument = (documentType) => {
+    setActiveLegalDocument(documentType);
+    setIsPolicyOpen(true);
+  };
+
+  const renderLegalDocument = () => {
+    const commonProps = {
+      isOpen: isPolicyOpen,
+      onClose: () => setIsPolicyOpen(false),
+    };
+
+    switch (activeLegalDocument) {
+      case 'agreement':
+        return <UserAgreement {...commonProps} />;
+      case 'personal-data':
+        return <PersonalDataConsent {...commonProps} />;
+      case 'cookies':
+        return <CookiePolicy {...commonProps} />;
+      case 'privacy':
+      default:
+        return <PrivacyPolicy {...commonProps} />;
+    }
   };
 
   return (
@@ -155,17 +185,19 @@ return () => window.removeEventListener('scroll', handleScroll);
           <Partners id="partners" />
           <News id="news" />
           <About id="about" />
+          <Footer
+            onSectionChange={setCurrentSection}
+            onOpenLegal={openLegalDocument}
+          />
         </motion.div>
 
-        <CookieConsent onOpenPolicy={togglePolicy} />
+        <CookieConsent
+          onOpenPolicy={togglePolicy}
+          onOpenAgreement={() => openLegalDocument('agreement')}
+        />
 
         <AnimatePresence>
-          {isPolicyOpen && (
-            <PrivacyPolicy 
-              isOpen={isPolicyOpen} 
-              onClose={() => setIsPolicyOpen(false)} 
-            />
-          )}
+          {isPolicyOpen && renderLegalDocument()}
         </AnimatePresence>
       </div>
 

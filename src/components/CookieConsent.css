@@ -5,21 +5,43 @@
   right: 10px;
   max-width: 480px;
   margin: 0 auto;
-  /* background удалили отсюда, он теперь в JSX */
+  background: rgba(255, 248, 220, 0.96);
+  border: 1px solid rgba(210, 105, 30, 0.22);
   padding: 20px;
   border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 30px rgba(93, 64, 55, 0.16);
   z-index: 99999;
-  backdrop-filter: blur(6px) !important;
-  -webkit-backdrop-filter: blur(6px) !important;
 }
 
 .cookie-banner-content p {
   font-size: 0.95rem;
-  color: #fffcfb; /* Сделал чуть темнее для контраста на стекле */
+  color: #3E2723;
   margin-bottom: 15px;
   line-height: 1.5;
   font-weight: 500;
+}
+
+.cookie-legal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin-bottom: 14px;
+}
+
+.cookie-legal-links button {
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--color-honey-dark, #A0522D);
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cookie-legal-links button:hover {
+  color: var(--color-honey, #D2691E);
 }
 
 .cookie-banner-buttons {
@@ -46,7 +68,7 @@
 
 /* Кнопка ПОДРОБНЕЕ */
 .btn-cookie.secondary {
-  background: rgba(255, 255, 255, 0.5); /* Полупрозрачная кнопка */
+  background: rgba(255, 255, 255, 0.62);
   color: #5D4037;
   border: 1px solid rgba(210, 105, 30, 0.2);
 }
@@ -66,4 +88,10 @@
 
 .btn-cookie:active {
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+@media (max-width: 520px) {
+  .cookie-banner-buttons {
+    flex-direction: column;
+  }
 }

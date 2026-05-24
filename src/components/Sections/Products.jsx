@@ -611,7 +611,7 @@ const Products = ({ onOpenForm, onProductModalChange }) => {
 
                 <div className="modal-cta-row">
                   <a
-                    href={`https://t.me/mbsvyatoslav?text=${encodeURIComponent(`Здравствуйте! Интересует: ${selectedProduct.title}`)}`}
+                    href={`https://t.me/master_meda_bot?text=${encodeURIComponent(`Здравствуйте! Интересует: ${selectedProduct.title}`)}`}
                     target="_blank"
                     rel="noreferrer"
                     className="btn-telegram-wide"
