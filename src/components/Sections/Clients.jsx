@@ -4,12 +4,30 @@ import './Clients.css';
 
 function Clients() {
   const clients = [
-    { name: 'Сеть магазинов "Лента"', img: '/images/clients/shop.jpg' },
-    { name: 'Ресторан "Медовый Дом"', img: '/images/clients/restaurant.png' },
-    { name: 'Интернет-магазин "Натуральные продукты"', img: '/images/clients/online-shop.png' },
-    { name: 'Фармацевтическая компания "БиоМед"', img: '/images/clients/pharma.jpg' },
-    { name: 'Кафе "Пчелиный улей"', img: '/images/clients/cafe.jpg' },
-    { name: 'Супермаркет "Эко-Маркет"', img: '/images/clients/eco.png' },
+    {
+      name: 'Розничные магазины',
+      description: 'Поставки фасованного натурального мёда для розничных точек и локальных сетей.',
+    },
+    {
+      name: 'Оптовые базы',
+      description: 'Стабильные партии мёда в оптовой таре для складов и торговых компаний.',
+    },
+    {
+      name: 'Маркетплейсы',
+      description: 'Фасовка и ассортимент для онлайн-продаж с понятными документами и поставками.',
+    },
+    {
+      name: 'Кофейни и HoReCa',
+      description: 'Натуральный мёд для напитков, десертов, завтраков и фирменных меню.',
+    },
+    {
+      name: 'Кондитерские производства',
+      description: 'Мёд для рецептур, начинок, выпечки и регулярного производственного потребления.',
+    },
+    {
+      name: 'Фасовочные компании',
+      description: 'Оптовые объёмы и тара для дальнейшей фасовки под задачу клиента.',
+    },
   ];
 
   return (
@@ -23,7 +41,7 @@ function Clients() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          Наши Клиенты
+          Кому поставляем
         </motion.h2>
         <div className="title-divider"></div>
         <motion.p 
@@ -33,7 +51,7 @@ function Clients() {
           viewport={{ once: true }}
           transition={{ delay: 0.2, duration: 0.6 }}
         >
-          Мы гордимся сотрудничеством с лидерами рынка и гарантируем качество каждой партии
+          Работаем с B2B-клиентами, которым важны стабильные поставки, документы и натуральное качество
         </motion.p>
       </div>
 
@@ -47,11 +65,10 @@ function Clients() {
             viewport={{ once: true }}
             transition={{ delay: index * 0.1, duration: 0.5 }}
           >
-            <div className="client-image-wrapper">
-              <img src={client.img} alt={client.name} className="client-photo" />
-              <div className="client-overlay">
-                <h3>{client.name}</h3>
-              </div>
+            <div className="client-card-content">
+              <span className="client-card-number">{String(index + 1).padStart(2, '0')}</span>
+              <h3>{client.name}</h3>
+              <p>{client.description}</p>
             </div>
           </motion.div>
         ))}

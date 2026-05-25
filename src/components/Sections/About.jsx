@@ -79,7 +79,7 @@ function About() {
               <div className="location-icon-wrapper">
                 <MapPin size={22} strokeWidth={1.5} color="var(--color-honey)" />
               </div>
-              <a href="https://yandex.ru/maps/?text=Виллозское+Заречная+2" target="_blank">Россия, Ленинградская область, Ломоносовский район, Виллозское городское поселение, Заречная улица, 2</a>
+              <a href="https://yandex.ru/maps/?text=Виллозское+Заречная+2" target="_blank" rel="noopener noreferrer">Россия, Ленинградская область, Ломоносовский район, Виллозское городское поселение, Заречная улица, 2</a>
             </div>
             <div className="location-item">
               <div className="location-icon-wrapper">

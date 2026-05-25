@@ -1,5 +1,3 @@
-/* Стили для блока Партнёры */
-
 .partners-section {
   padding: 100px 20px;
 }
@@ -13,46 +11,36 @@
 }
 
 .partner-card {
-  background: #fdfdfd;
-  border: 1px solid rgba(0,0,0,0.05);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(210, 105, 30, 0.22);
   border-radius: var(--radius-lg); 
-  padding: 40px 30px;
+  padding: 32px 28px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-  
-  /* ФИКС МИГАНИЯ И ПЛАВНОСТЬ */
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  transform: translateZ(0);
+  align-items: flex-start;
+  text-align: left;
+  box-shadow: 0 10px 28px rgba(93, 64, 55, 0.08);
   transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .partner-card:hover {
-  background: #fff;
-  border-color: var(--color-honey);
-  box-shadow: 0 15px 40px rgba(210, 105, 30, 0.1);
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(210, 105, 30, 0.38);
+  box-shadow: 0 14px 32px rgba(93, 64, 55, 0.12);
 }
 
-.partner-logo-box {
-  width: 80px;
-  height: 80px;
-  background: white;
-  border-radius: 20px;
-  display: flex;
+.partner-card-index {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 25px;
-  box-shadow: 0 8px 15px rgba(0,0,0,0.05);
-  overflow: hidden;
-}
-
-.partner-img {
-  width: 65%;
-  height: 65%;
-  object-fit: contain;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 22px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, var(--color-honey, #D2691E), var(--color-honey-dark, #A0522D));
+  color: #ffffff;
+  font-weight: 800;
+  box-shadow: 0 4px 12px rgba(210, 105, 30, 0.25);
 }
 
 .partner-card h3 {
@@ -67,4 +55,11 @@
   font-size: 0.95rem;
   line-height: 1.6;
   margin: 0;
+}
+
+@media (max-width: 768px) {
+  .partners-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
 }

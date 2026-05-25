@@ -106,7 +106,7 @@ function News() {
                   <span className="news-date">{item.date}</span>
                   <h3>{item.title}</h3>
                   <p>{item.content}</p>
-                  <a href={item.link} target="_blank" rel="noreferrer" className="read-more-btn">
+                  <a href={item.link} target="_blank" rel="noopener noreferrer" className="read-more-btn">
                     Читать в Telegram →
                   </a>
                 </div>
@@ -127,7 +127,7 @@ function News() {
             </div>
             <div className="tg-footer-content">
               <p>Все самые свежие новости — в нашем канале</p>
-              <a href={`https://t.me/${CHANNEL_NAME}`} target="_blank" rel="noreferrer" className="tg-main-link">
+              <a href={`https://t.me/${CHANNEL_NAME}`} target="_blank" rel="noopener noreferrer" className="tg-main-link">
                 Подписаться на Мастер Мёда
               </a>
             </div>

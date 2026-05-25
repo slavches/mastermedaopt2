@@ -64,6 +64,39 @@
   resize: none;
 }
 
+.form-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: #5D4037;
+  text-align: left;
+}
+
+.form-consent input {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  accent-color: var(--color-honey, #D2691E);
+}
+
+.form-consent-link {
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--color-honey-dark, #A0522D);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.form-consent-link:hover {
+  color: var(--color-honey, #D2691E);
+}
+
 /* Кнопка отправки */
 .submit-btn-vertical {
   background: var(--color-honey, #D2691E);
@@ -83,6 +116,18 @@
 .submit-btn-vertical:hover {
   background: var(--color-honey-dark, #A0522D);
   box-shadow: 0 6px 20px rgba(210, 105, 30, 0.35);
+}
+
+.submit-btn-vertical:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  background: rgba(210, 105, 30, 0.55);
+  box-shadow: none;
+}
+
+.submit-btn-vertical:disabled:hover {
+  background: rgba(210, 105, 30, 0.55);
+  box-shadow: none;
 }
 
 .submit-btn-vertical:active {

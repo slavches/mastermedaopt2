@@ -613,7 +613,7 @@ const Products = ({ onOpenForm, onProductModalChange }) => {
                   <a
                     href={`https://t.me/master_meda_bot?text=${encodeURIComponent(`Здравствуйте! Интересует: ${selectedProduct.title}`)}`}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="btn-telegram-wide"
                   >
                     <span>Написать в Telegram</span>

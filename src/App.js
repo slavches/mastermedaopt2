@@ -194,6 +194,7 @@ return () => window.removeEventListener('scroll', handleScroll);
         <CookieConsent
           onOpenPolicy={togglePolicy}
           onOpenAgreement={() => openLegalDocument('agreement')}
+          onOpenCookiePolicy={() => openLegalDocument('cookies')}
         />
 
         <AnimatePresence>
@@ -221,7 +222,10 @@ return () => window.removeEventListener('scroll', handleScroll);
             >
               <button className="modal-close" onClick={() => setIsFormOpen(false)}>×</button>
               <div className="hero-form-card" style={{ background: 'transparent', boxShadow: 'none', padding: 0 }}>
-                <OrderForm onSuccess={() => setIsFormOpen(false)} />
+                <OrderForm
+                  onSuccess={() => setIsFormOpen(false)}
+                  onOpenLegal={openLegalDocument}
+                />
               </div>
             </motion.div>
           </motion.div>

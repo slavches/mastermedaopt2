@@ -18,8 +18,8 @@ const burgerMenuLinks = [
   { id: 'products', label: 'Продукция' },
   { id: 'work-process', label: 'Как работаем' },
   { id: 'why-us', label: 'Почему мы' },
-  { id: 'clients', label: 'Клиенты' },
-  { id: 'partners', label: 'Партнёры' },
+  { id: 'clients', label: 'Кому поставляем' },
+  { id: 'partners', label: 'Сотрудничество' },
   { id: 'news', label: 'Новости' },
   { id: 'about', label: 'О нас' },
 ];

@@ -55,7 +55,7 @@ function Footer({ onSectionChange, onOpenLegal }) {
               <a
                 href="https://t.me/master_meda_bot"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="footer-link"
               >
                 @master_meda_bot
@@ -97,7 +97,7 @@ function Footer({ onSectionChange, onOpenLegal }) {
       </div>
 
       <div className="footer-bottom">
-        <p>© 2026 Мастер Мёда.</p>
+        <p>© 2026 ООО ТК «Мастер Мёда». Все права защищены.</p>
         <p>Использование материалов сайта возможно только с письменного разрешения правообладателя.</p>
       </div>
     </footer>

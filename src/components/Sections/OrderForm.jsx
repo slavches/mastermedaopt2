@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
 
-const OrderForm = ({ onSuccess }) => {
+const OrderForm = ({ onSuccess, onOpenLegal }) => {
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -11,6 +11,7 @@ const OrderForm = ({ onSuccess }) => {
     volume: '',
     message: ''
   });
+  const [isConsentAccepted, setIsConsentAccepted] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -29,6 +30,7 @@ const OrderForm = ({ onSuccess }) => {
       if (response.ok) {
         alert('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
         setFormData({ name: '', company: '', phone: '', volume: '', message: '' });
+        setIsConsentAccepted(false);
         if (onSuccess) onSuccess();
       } else {
         const errorData = await response.json();
@@ -68,9 +70,37 @@ const OrderForm = ({ onSuccess }) => {
           onChange={handleChange}
           className="comment-input"
         />
+        <label className="form-consent">
+          <input
+            type="checkbox"
+            checked={isConsentAccepted}
+            onChange={(e) => setIsConsentAccepted(e.target.checked)}
+            required
+          />
+          <span>
+            Я соглашаюсь с{' '}
+            <button
+              type="button"
+              className="form-consent-link"
+              onClick={() => onOpenLegal?.('privacy')}
+            >
+              Политикой конфиденциальности
+            </button>{' '}
+            и даю согласие на{' '}
+            <button
+              type="button"
+              className="form-consent-link"
+              onClick={() => onOpenLegal?.('personal-data')}
+            >
+              обработку персональных данных
+            </button>
+            .
+          </span>
+        </label>
         <motion.button 
           type="submit" 
           className="submit-btn-vertical"
+          disabled={!isConsentAccepted}
         >
           Отправить заявку
         </motion.button>

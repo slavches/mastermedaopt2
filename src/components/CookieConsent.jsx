@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import './CookieConsent.css';
 
-const CookieConsent = ({ onOpenPolicy, onOpenAgreement }) => {
+const CookieConsent = ({ onOpenPolicy, onOpenAgreement, onOpenCookiePolicy }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -14,7 +14,6 @@ const CookieConsent = ({ onOpenPolicy, onOpenAgreement }) => {
   }, []);
 
   const handleAccept = () => {
-    console.log("Согласие принято"); // Для проверки в консоли
     localStorage.setItem('cookie-consent', 'true');
     setIsVisible(false);
   };
@@ -34,11 +33,14 @@ const CookieConsent = ({ onOpenPolicy, onOpenAgreement }) => {
         >
           <div className="cookie-banner-content">
             <p>
-              Мы используем файлы cookie. Продолжая пользоваться сайтом, вы соглашаетесь с документами сайта.
+              Продолжая использовать сайт, вы соглашаетесь с использованием cookie и обработкой персональных данных.
             </p>
             <div className="cookie-legal-links">
               <button type="button" onClick={() => openLegal(onOpenPolicy)}>
                 Политика конфиденциальности
+              </button>
+              <button type="button" onClick={() => openLegal(onOpenCookiePolicy)}>
+                Cookie Policy
               </button>
               <button type="button" onClick={() => openLegal(onOpenAgreement)}>
                 Пользовательское соглашение

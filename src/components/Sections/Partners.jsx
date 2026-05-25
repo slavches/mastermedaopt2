@@ -5,24 +5,28 @@ import './Partners.css';
 function Partners() {
   const partners = [
     { 
-      name: 'Союз Пчеловодов России', 
-      description: 'Официальный партнёр по сертификации и контролю стандартов продукции.', 
-      logo: '/partners/soyuz.png' 
+      name: 'Оптовые поставки',
+      description: 'Поставляем натуральный мёд партиями под потребности розницы, складов и производств.',
     },
     { 
-      name: 'Эко-Ферма "Поля России"', 
-      description: 'Наш ключевой поставщик экологически чистого сырья из заповедных зон.', 
-      logo: '/partners/farm.png' 
+      name: 'Фасовка под задачу клиента',
+      description: 'Подбираем формат фасовки, объём и ассортимент под канал продаж и специфику бизнеса.',
     },
     { 
-      name: 'Лаборатория качества', 
-      description: 'Ежемесячный анализ каждой партии мёда на соответствие ГОСТ.', 
-      logo: '/partners/lab.png' 
+      name: 'Поставки для производств',
+      description: 'Работаем с кондитерскими, пищевыми и HoReCa-проектами, где важна стабильность сырья.',
     },
     { 
-      name: 'Быстрая доставка', 
-      description: 'Надёжная логистика по всей России с соблюдением температурного режима.', 
-      logo: '/partners/delivery.png' 
+      name: 'Сотрудничество с дистрибьюторами',
+      description: 'Предлагаем понятные условия для компаний, развивающих продажи натурального мёда.',
+    },
+    {
+      name: 'Региональные поставки',
+      description: 'Организуем отгрузки в разные регионы России с учётом объёма и логистики.',
+    },
+    {
+      name: 'Индивидуальные условия',
+      description: 'Обсуждаем график поставок, документы, ассортимент и формат работы под клиента.',
     },
   ];
 
@@ -36,7 +40,7 @@ function Partners() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          Наши Партнёры
+          Форматы сотрудничества
         </motion.h2>
         <div className="title-divider"></div>
         <motion.p
@@ -46,7 +50,7 @@ function Partners() {
           viewport={{ once: true }}
           transition={{ delay: 0.2, duration: 0.6 }}
         >
-          Мы работаем только с проверенными компаниями, гарантирующими качество
+          Выбирайте удобный формат B2B-взаимодействия: от разовой партии до регулярных поставок
         </motion.p>
       </div>
 
@@ -61,9 +65,7 @@ function Partners() {
             transition={{ delay: index * 0.1, duration: 0.4 }}
             style={{ willChange: "opacity" }} // Ускоряем рендер
           >
-            <div className="partner-logo-box">
-              <img src={partner.logo} alt={partner.name} className="partner-img" />
-            </div>
+            <span className="partner-card-index">{String(index + 1).padStart(2, '0')}</span>
             <h3>{partner.name}</h3>
             <p>{partner.description}</p>
           </motion.div>
