@@ -16,6 +16,7 @@ import UserAgreement from './components/UserAgreement';
 import PersonalDataConsent from './components/PersonalDataConsent';
 import CookiePolicy from './components/CookiePolicy';
 import OrderForm from './components/Sections/OrderForm';
+import ArticlesPage, { ArticlesPreview } from './pages/ArticlesPage';
 import './styles/App.css';
 
 const SECTION_BACKGROUNDS = {
@@ -42,6 +43,9 @@ const SECTION_BG_BY_SECTION = {
 
 function App() {
   const [currentSection, setCurrentSection] = useState('home');
+  const [activePage, setActivePage] = useState(() => (
+    window.location.pathname === '/articles' ? 'articles' : 'home'
+  ));
   const [isPolicyOpen, setIsPolicyOpen] = useState(false); 
   const [activeLegalDocument, setActiveLegalDocument] = useState('privacy');
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -52,6 +56,11 @@ function App() {
 
   // 1. Эффект для прокрутки к секциям и смены фона
   useEffect(() => {
+    if (activePage !== 'home') {
+      setCurrentBg(SECTION_BACKGROUNDS.default);
+      return;
+    }
+
     const element = document.getElementById(currentSection);
     const isLocked = document.body.classList.contains('modal-open');
 
@@ -64,7 +73,16 @@ function App() {
     }
 
     setCurrentBg(SECTION_BG_BY_SECTION[currentSection] || SECTION_BACKGROUNDS.default);
-  }, [currentSection]);
+  }, [currentSection, activePage]);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setActivePage(window.location.pathname === '/articles' ? 'articles' : 'home');
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   // 2. ВОТ ЭТОТ НОВЫЙ ЭФФЕКТ ДЛЯ СКРЫТИЯ ТОП-БАРА (Вставил сюда)
   useEffect(() => {
@@ -116,6 +134,27 @@ return () => window.removeEventListener('scroll', handleScroll);
     setIsPolicyOpen(true);
   };
 
+  const handleSectionChange = (sectionId) => {
+    if (activePage !== 'home') {
+      setActivePage('home');
+      window.history.pushState(null, '', '/');
+    }
+    setCurrentSection(sectionId);
+  };
+
+  const openArticlesPage = () => {
+    setActivePage('articles');
+    window.history.pushState(null, '', '/articles');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const closeArticlesPage = () => {
+    setActivePage('home');
+    window.history.pushState(null, '', '/');
+    setCurrentSection('home');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const renderLegalDocument = () => {
     const commonProps = {
       isOpen: isPolicyOpen,
@@ -163,7 +202,9 @@ return () => window.removeEventListener('scroll', handleScroll);
 
       <Navigation 
         currentSection={currentSection} 
-        onSectionChange={setCurrentSection} 
+        onSectionChange={handleSectionChange}
+        activePage={activePage}
+        onPageChange={openArticlesPage}
         setIsFormOpen={setIsFormOpen} 
       />
 
@@ -173,22 +214,29 @@ return () => window.removeEventListener('scroll', handleScroll);
           transition={{ duration: 0.5 }}
           style={{ willChange: 'opacity' }}
         >
-          <Home id="home" />
-          <Products
-            id="products"
-            onOpenForm={() => setIsFormOpen(true)}
-            onProductModalChange={setIsProductModalOpen}
-          />
-          <WorkProcess onOpenForm={() => setIsFormOpen(true)} />
-          <WhyUs onOpenForm={() => setIsFormOpen(true)} />
-          <Clients id="clients" />
-          <Partners id="partners" />
-          <News id="news" />
-          <About id="about" />
-          <Footer
-            onSectionChange={setCurrentSection}
-            onOpenLegal={openLegalDocument}
-          />
+          {activePage === 'articles' ? (
+            <ArticlesPage onBack={closeArticlesPage} />
+          ) : (
+            <>
+              <Home id="home" />
+              <Products
+                id="products"
+                onOpenForm={() => setIsFormOpen(true)}
+                onProductModalChange={setIsProductModalOpen}
+              />
+              <WorkProcess onOpenForm={() => setIsFormOpen(true)} />
+              <WhyUs onOpenForm={() => setIsFormOpen(true)} />
+              <ArticlesPreview onOpenArticles={openArticlesPage} />
+              <Clients id="clients" />
+              <Partners id="partners" />
+              <News id="news" />
+              <About id="about" />
+              <Footer
+                onSectionChange={handleSectionChange}
+                onOpenLegal={openLegalDocument}
+              />
+            </>
+          )}
         </motion.div>
 
         <CookieConsent

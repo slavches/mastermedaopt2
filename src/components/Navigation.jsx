@@ -18,13 +18,14 @@ const burgerMenuLinks = [
   { id: 'products', label: 'Продукция' },
   { id: 'work-process', label: 'Как работаем' },
   { id: 'why-us', label: 'Почему мы' },
+  { page: 'articles', label: 'Статьи' },
   { id: 'clients', label: 'Кому поставляем' },
   { id: 'partners', label: 'Сотрудничество' },
   { id: 'news', label: 'Новости' },
   { id: 'about', label: 'О нас' },
 ];
 
-function Navigation({ currentSection, onSectionChange, setIsFormOpen }) {
+function Navigation({ currentSection, onSectionChange, activePage, onPageChange, setIsFormOpen }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -55,12 +56,29 @@ function Navigation({ currentSection, onSectionChange, setIsFormOpen }) {
     }
   };
 
+  const handlePageClick = (pageId) => {
+    if (pageId === 'articles') {
+      onPageChange?.();
+    }
+    setIsOpen(false);
+  };
+
   const renderLink = (section) => (
     <button
-      key={`${section.id}-${section.label}`}
+      key={`${section.id || section.page}-${section.label}`}
       type="button"
-      className={`nav-link ${currentSection === section.id ? 'active' : ''}`}
-      onClick={() => handleNavClick(section.id)}
+      className={`nav-link ${
+        section.page
+          ? activePage === section.page ? 'active' : ''
+          : activePage === 'home' && currentSection === section.id ? 'active' : ''
+      }`}
+      onClick={() => {
+        if (section.page) {
+          handlePageClick(section.page);
+          return;
+        }
+        handleNavClick(section.id);
+      }}
     >
       {section.label}
     </button>
