@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import articlesData from '../data/articlesData';
 import './ArticlesPage.css';
 
@@ -15,7 +15,7 @@ function ArticleCard({ article, onRead }) {
         <p>{article.description}</p>
         <div className="article-card-footer">
           <time>{article.date}</time>
-          <button type="button" className="article-read-btn" onClick={() => onRead(article)}>
+          <button type="button" className="article-read-btn" onClick={() => onRead(article.slug)}>
             Читать
           </button>
         </div>
@@ -24,7 +24,7 @@ function ArticleCard({ article, onRead }) {
   );
 }
 
-export function ArticlesPreview({ onOpenArticles }) {
+export function ArticlesPreview({ onOpenArticles, onOpenArticle }) {
   const previewArticles = articlesData.slice(0, 3);
 
   return (
@@ -47,7 +47,7 @@ export function ArticlesPreview({ onOpenArticles }) {
 
       <div className="articles-grid articles-grid-preview">
         {previewArticles.map((article) => (
-          <ArticleCard key={article.title} article={article} onRead={onOpenArticles} />
+          <ArticleCard key={article.title} article={article} onRead={onOpenArticle} />
         ))}
       </div>
 
@@ -60,9 +60,7 @@ export function ArticlesPreview({ onOpenArticles }) {
   );
 }
 
-function ArticlesPage({ onBack }) {
-  const [selectedArticle, setSelectedArticle] = useState(null);
-
+function ArticlesPage({ onBack, onOpenArticle }) {
   return (
     <main className="articles-page">
       <div className="articles-page-inner">
@@ -79,47 +77,10 @@ function ArticlesPage({ onBack }) {
 
         <div className="articles-grid">
           {articlesData.map((article) => (
-            <ArticleCard key={article.title} article={article} onRead={setSelectedArticle} />
+            <ArticleCard key={article.title} article={article} onRead={onOpenArticle} />
           ))}
         </div>
       </div>
-
-      <AnimatePresence>
-        {selectedArticle && (
-          <motion.div
-            className="article-modal-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.12 }}
-            onClick={() => setSelectedArticle(null)}
-          >
-            <motion.article
-              className="article-modal"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.12 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                type="button"
-                className="article-modal-close"
-                onClick={() => setSelectedArticle(null)}
-                aria-label="Закрыть статью"
-              >
-                ×
-              </button>
-              <span className="article-category">{selectedArticle.category}</span>
-              <h2>{selectedArticle.title}</h2>
-              <time>{selectedArticle.date}</time>
-              {selectedArticle.content.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-            </motion.article>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </main>
   );
 }

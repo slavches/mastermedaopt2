@@ -17,6 +17,7 @@ import PersonalDataConsent from './components/PersonalDataConsent';
 import CookiePolicy from './components/CookiePolicy';
 import OrderForm from './components/Sections/OrderForm';
 import ArticlesPage, { ArticlesPreview } from './pages/ArticlesPage';
+import ArticlePage from './pages/ArticlePage';
 import './styles/App.css';
 
 const SECTION_BACKGROUNDS = {
@@ -41,11 +42,23 @@ const SECTION_BG_BY_SECTION = {
   about: SECTION_BACKGROUNDS.linden,
 };
 
+const getPageFromPath = (pathname) => {
+  if (pathname === '/articles') {
+    return { page: 'articles', slug: null };
+  }
+
+  if (pathname.startsWith('/articles/')) {
+    return { page: 'article', slug: pathname.split('/articles/')[1]?.replace(/\/$/, '') || null };
+  }
+
+  return { page: 'home', slug: null };
+};
+
 function App() {
   const [currentSection, setCurrentSection] = useState('home');
-  const [activePage, setActivePage] = useState(() => (
-    window.location.pathname === '/articles' ? 'articles' : 'home'
-  ));
+  const initialRoute = getPageFromPath(window.location.pathname);
+  const [activePage, setActivePage] = useState(initialRoute.page);
+  const [activeArticleSlug, setActiveArticleSlug] = useState(initialRoute.slug);
   const [isPolicyOpen, setIsPolicyOpen] = useState(false); 
   const [activeLegalDocument, setActiveLegalDocument] = useState('privacy');
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -77,7 +90,9 @@ function App() {
 
   useEffect(() => {
     const handlePopState = () => {
-      setActivePage(window.location.pathname === '/articles' ? 'articles' : 'home');
+      const nextRoute = getPageFromPath(window.location.pathname);
+      setActivePage(nextRoute.page);
+      setActiveArticleSlug(nextRoute.slug);
     };
 
     window.addEventListener('popstate', handlePopState);
@@ -144,12 +159,21 @@ return () => window.removeEventListener('scroll', handleScroll);
 
   const openArticlesPage = () => {
     setActivePage('articles');
+    setActiveArticleSlug(null);
     window.history.pushState(null, '', '/articles');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const openArticlePage = (slug) => {
+    setActivePage('article');
+    setActiveArticleSlug(slug);
+    window.history.pushState(null, '', `/articles/${slug}`);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const closeArticlesPage = () => {
     setActivePage('home');
+    setActiveArticleSlug(null);
     window.history.pushState(null, '', '/');
     setCurrentSection('home');
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -215,7 +239,13 @@ return () => window.removeEventListener('scroll', handleScroll);
           style={{ willChange: 'opacity' }}
         >
           {activePage === 'articles' ? (
-            <ArticlesPage onBack={closeArticlesPage} />
+            <ArticlesPage onBack={closeArticlesPage} onOpenArticle={openArticlePage} />
+          ) : activePage === 'article' ? (
+            <ArticlePage
+              slug={activeArticleSlug}
+              onBackToArticles={openArticlesPage}
+              onOpenForm={() => setIsFormOpen(true)}
+            />
           ) : (
             <>
               <Home id="home" />
@@ -226,7 +256,7 @@ return () => window.removeEventListener('scroll', handleScroll);
               />
               <WorkProcess onOpenForm={() => setIsFormOpen(true)} />
               <WhyUs onOpenForm={() => setIsFormOpen(true)} />
-              <ArticlesPreview onOpenArticles={openArticlesPage} />
+              <ArticlesPreview onOpenArticles={openArticlesPage} onOpenArticle={openArticlePage} />
               <Clients id="clients" />
               <Partners id="partners" />
               <News id="news" />
