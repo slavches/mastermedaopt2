@@ -9,12 +9,12 @@ function News() {
 
   useEffect(() => {
     const manualImages = {
-      0: '/images/news-main.webp',
+      0: '/images/news-main.jpg',
       1: '/images/news-main1.jpg',
-      2: '/images/news-main3.jpg',
-      3: '/images/news-main1.jpg',
+      2: '/images/news-main2.jpg',
+      3: '/images/news-main3.jpg',
       4: '/images/news-main4.jpg',
-      5: '/images/news-main2.jpg',
+      5: '/images/news-main5.jpg',
     };
 
     const fetchNews = async () => {
