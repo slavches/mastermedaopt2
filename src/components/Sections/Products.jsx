@@ -371,9 +371,6 @@ const productsData = [
   }
 ];
 
-const getDisplayPrice = (product) =>
-  product.filterCategory === 'bulk' ? 'Цена по запросу' : product.price;
-
 const getSupplyTypeLabel = (product) =>
   product.filterCategory === 'bulk' ? 'Для опта' : 'Фасовка';
 
@@ -511,7 +508,7 @@ const Products = ({ onOpenForm, onProductModalChange }) => {
 
   <div className="product-card-body">
     <div className="product-card-meta">
-      <span className="product-card-price">{getDisplayPrice(product)}</span>
+      <span className="product-card-price">Цена по запросу</span>
       <span className="product-card-weight">{product.weight}</span>
     </div>
     <h3 className="product-card-title">{product.title}</h3>
@@ -589,7 +586,7 @@ const Products = ({ onOpenForm, onProductModalChange }) => {
 
               <div className="modal-text-content">
                 <h2>{selectedProduct.title}</h2>
-                <div className="modal-price-tag">{getDisplayPrice(selectedProduct)}</div>
+                <div className="modal-price-tag">Цена зависит от объёма поставки. Запросите актуальный прайс-лист.</div>
 
                 <div className="modal-product-meta">
                   <div className="modal-meta-row">

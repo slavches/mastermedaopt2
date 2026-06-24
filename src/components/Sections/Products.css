@@ -188,9 +188,10 @@
 }
 
 .product-card-price {
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: #D2691E;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: #8D6E63;
 }
 
 .product-card-weight {

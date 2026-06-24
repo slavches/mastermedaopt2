@@ -44,7 +44,7 @@ function Footer({ onSectionChange, onOpenLegal }) {
           <div className="footer-contact-list">
             <div>
               <span className="footer-label">Телефон:</span>
-              <a href="tel:+78122672783" className="footer-link">(812) 267-27-83</a>
+              <a href="tel:+79062672783" className="footer-link">+7 (906) 267-27-83</a>
             </div>
             <div>
               <span className="footer-label">Email:</span>
@@ -86,7 +86,7 @@ function Footer({ onSectionChange, onOpenLegal }) {
 
         <div className="footer-column footer-details">
           <h2 className="footer-heading">Реквизиты</h2>
-          <p>ООО ТК «Мастер Мёда»</p>
+          <p>ТК «Мастер Мёда»</p>
           <p>ИНН 7807381332</p>
           <p>ОГРН 1137847231961</p>
           <p>
@@ -97,7 +97,7 @@ function Footer({ onSectionChange, onOpenLegal }) {
       </div>
 
       <div className="footer-bottom">
-        <p>© 2026 ООО ТК «Мастер Мёда». Все права защищены.</p>
+        <p>© 2026 ТК «Мастер Мёда». Все права защищены.</p>
         <p>Использование материалов сайта возможно только с письменного разрешения правообладателя.</p>
       </div>
     </footer>
